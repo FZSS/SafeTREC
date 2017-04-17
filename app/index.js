@@ -10,12 +10,13 @@ import {
   TextInput
 } from 'react-native';
 
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 class App extends Component {
   render() {
     return (
     <MapView
+      provider={PROVIDER_GOOGLE}
       style={styles.container}
       initialRegion={{
         latitude: 37.78825,
@@ -25,7 +26,6 @@ class App extends Component {
       }}
       mapType={"standard"}
       showsUserLocation={true}
-      showsMyLocationButton={true}
     >
       <TextInput
         style={styles.searchBox}
