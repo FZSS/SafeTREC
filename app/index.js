@@ -6,7 +6,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TextInput
 } from 'react-native';
 
 import MapView, { Marker } from 'react-native-maps';
@@ -14,35 +15,32 @@ import MapView, { Marker } from 'react-native-maps';
 class App extends Component {
   render() {
     return (
-      <MapView
-        style={styles.container}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+    <MapView
+      style={styles.container}
+      initialRegion={{
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}
+      mapType={"standard"}
+      showsUserLocation={true}
+      showsMyLocationButton={true}
+    >
+      <TextInput
+        style={styles.searchBox}
+        placeholder="Where?"
       />
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>
-      //     Welcome to SafeTREC!
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     This is a community platform for traffic Safety Concern.
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     You can publish any traffic safety concerns around you.
-      //   </Text>
-      // </View>
-    );
+    </MapView>
+   );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -55,6 +53,29 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  searchBox:{
+
+    backgroundColor: '#ffffff',
+    height: 35,
+    width: 220,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 90,
+    shadowOffset:{
+      width: 5,
+      height: 5,
+    },
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 1,
+    paddingBottom: 1,
+    fontSize: 18,
+
+    shadowColor: 'black',
+    shadowOpacity: 0.4,
+    shadowRadius: 3
+
+  }
 });
 
 export default App;
