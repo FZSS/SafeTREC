@@ -7,6 +7,8 @@ import {
   TextInput
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import ActionButton from 'react-native-action-button';
+
 import styles from './styles';
 
 class Map extends Component {
