@@ -31,7 +31,6 @@ export default StyleSheet.create({
     shadowRadius: 3
   },
 
-
   newReportButtonIcon: {
     fontSize: 20,
     height: 22,

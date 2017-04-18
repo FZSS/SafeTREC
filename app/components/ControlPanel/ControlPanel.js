@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
 } from 'react-native'
+import styles from './styles'
 
 export default class ControlPanel extends Component {
 
@@ -21,19 +21,3 @@ export default class ControlPanel extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'black',
-  },
-  controlText: {
-    color: 'white',
-  },
-  button: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-  }
-})
