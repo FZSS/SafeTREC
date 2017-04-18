@@ -4,20 +4,11 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  searchBox:{
+  searchBox: {
 
     backgroundColor: '#ffffff',
     height: 35,
@@ -38,6 +29,13 @@ export default StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.4,
     shadowRadius: 3
+  },
 
-  }
+
+  newReportButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white'
+  },
+
 });
