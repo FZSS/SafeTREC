@@ -4,6 +4,11 @@ PODS:
   - GoogleMaps/Base (2.2.0)
   - GoogleMaps/Maps (2.2.0):
     - GoogleMaps/Base
+  - GooglePlacePicker (2.2.0):
+    - GoogleMaps (= 2.2.0)
+    - GooglePlaces (= 2.2.0)
+  - GooglePlaces (2.2.0):
+    - GoogleMaps/Base (= 2.2.0)
   - React/Core (0.43.3):
     - React/cxxreact
     - Yoga (= 0.43.3.React)
@@ -38,6 +43,8 @@ PODS:
 
 DEPENDENCIES:
   - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
@@ -60,9 +67,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
+  GooglePlacePicker: 345b1aabd42c9d6d9bf2369c1bae1234d903e764
+  GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
   React: f92caf8f7c132a7c311302b51f9576c4b38acfce
   Yoga: 67a0193245365089c48526201499f7df334e05f7
 
-PODFILE CHECKSUM: 87c4600765ff2b9e653c0c8b449fc437ca1b2f67
+PODFILE CHECKSUM: d527aa82442ebd6774a9b50c5d318c90b2e1926d
 
 COCOAPODS: 1.2.1
