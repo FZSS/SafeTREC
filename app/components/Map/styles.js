@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   searchBox: {
-
+    color: 'grey',
     backgroundColor: '#ffffff',
     height: 35,
     width: 220,
@@ -18,7 +18,7 @@ export default StyleSheet.create({
     marginTop: 90,
     shadowOffset:{
       width: 5,
-      height: 5,
+      height: 4,
     },
     paddingLeft: 10,
     paddingRight: 10,
