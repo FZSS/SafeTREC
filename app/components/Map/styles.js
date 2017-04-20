@@ -8,22 +8,28 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
+
   searchBox: {
+
+    zIndex: 1,
     color: 'grey',
     backgroundColor: '#ffffff',
     height: 35,
     width: 220,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 90,
+    marginTop: 60,
+
     shadowOffset:{
       width: 5,
       height: 4,
     },
+
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 1,
     paddingBottom: 1,
+
     fontSize: 18,
 
     shadowColor: 'black',
@@ -37,17 +43,23 @@ export default StyleSheet.create({
     color: 'white'
   },
 
-  sideMenu: {
-    height: 35,
-    width: 35,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 160,
+  sideMenuContainer: {
+
+    position:'absolute',
+
+    left: 20,
+    top: 30,
+
+    width:20,
+    height:20,
+
+    backgroundColor:'transparent',
+    zIndex: 5
   },
 
   sideMenuIcon: {
-    fontSize: 20,
-    height: 22,
+    fontSize: 30,
+    height: 30,
     color: 'black'
   }
 

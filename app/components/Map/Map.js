@@ -3,6 +3,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   Text,
   Button
 } from 'react-native';
@@ -38,8 +39,6 @@ export default class Map extends Component {
         newMapRegion.latitude = position.coords.latitude;
         newMapRegion.longitude = position.coords.longitude;
         this.setState({mapRegion:newMapRegion});
-        console.log(newMapRegion);
-        console.log(this.state.mapRegion)
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -53,7 +52,6 @@ export default class Map extends Component {
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        console.log(place);
         let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
         newMapRegion.latitude = place.latitude;
         newMapRegion.longitude = place.longitude;
@@ -68,9 +66,10 @@ export default class Map extends Component {
 
   render() {
     return (
-      <View style={{flex:1, backgroundColor: '#ffffff'}}>
+      <View style={{flex:1}}>
+
         <MapView
-          style={styles.container}
+          style={{flex:1}}
           provider={PROVIDER_GOOGLE}
           // initialRegion={this.state.mapRegion}
           region={this.state.mapRegion}
@@ -80,17 +79,22 @@ export default class Map extends Component {
           showsCompass={true}
           showsMyLocationButton={true}
         >
-          <TouchableOpacity
-          >
-            <Icon name="ios-menu" style={styles.sideMenuIcon} />
-          </TouchableOpacity>
+
+
           <TextInput
             style={styles.searchBox}
             placeholder="Where?"
             onFocus={() => this.openSearchModal()}
           >
           </TextInput>
+
         </MapView>
+
+        <TouchableOpacity
+          style={styles.sideMenuContainer}>
+          <Icon name="ios-menu" style={styles.sideMenuIcon} />
+        </TouchableOpacity>
+
 
         <ActionButton
           buttonColor="rgba(231,76,60,1)"
@@ -106,6 +110,7 @@ export default class Map extends Component {
             <Icon name="ios-car" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
+
       </View>
     );
   }
