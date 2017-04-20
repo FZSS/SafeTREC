@@ -62,6 +62,9 @@ export default class Map extends Component {
       .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
+  openReportCard(category) {
+
+  }
 
   render() {
     return (
@@ -69,7 +72,7 @@ export default class Map extends Component {
         <MapView
           style={styles.container}
           provider={PROVIDER_GOOGLE}
-          initialRegion={this.state.mapRegion}
+          // initialRegion={this.state.mapRegion}
           region={this.state.mapRegion}
           onRegionChange={(r) => this.setState({mapRegion:r})}
           mapType={"standard"}
