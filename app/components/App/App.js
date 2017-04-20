@@ -6,9 +6,10 @@ import {
   View,
 } from 'react-native'
 
+import {Navigation} from 'react-native-navigation';
 
 import Drawer from 'react-native-drawer';
-import ControlPanel from '../ControlPanel/ControlPanel'
+import SideMenu from '../SideMenu/SideMenu'
 import Map from '../Map/Map'
 
 export default class App extends Component {
@@ -22,7 +23,7 @@ export default class App extends Component {
     return (
       <Drawer
         type="overlay"
-        content={<ControlPanel />}
+        content={<SideMenu />}
         tapToClose={true}
         openDrawerOffset={0.2} // 20% gap on the right side of drawer
         panCloseMask={0.2}

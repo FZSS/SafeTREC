@@ -80,6 +80,10 @@ export default class Map extends Component {
           showsCompass={true}
           showsMyLocationButton={true}
         >
+          <TouchableOpacity
+          >
+            <Icon name="ios-menu" style={styles.sideMenuIcon} />
+          </TouchableOpacity>
           <TextInput
             style={styles.searchBox}
             placeholder="Where?"

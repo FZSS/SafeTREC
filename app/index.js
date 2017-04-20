@@ -1,6 +1,21 @@
-// import map from './components/Map/Map'
-//
-// export default map;
+import { registerScreens } from './screens';
+import { Navigation } from 'react-native-navigation';
 
-import app from './components/App/App'
-export default app;
+registerScreens();
+
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: 'app.Map',
+    title: 'Map',
+    navigatorStyle:{
+      navBarHidden: true,
+    },
+  },
+  drawer: {
+    left: {
+      screen: 'app.SideMenu'
+    }
+  }
+});
+
+

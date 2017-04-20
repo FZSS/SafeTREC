@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import "RCCManager.h"
 #import <React/RCTRootView.h>
 
 @import GoogleMaps;
@@ -19,23 +20,38 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSURL *jsCodeLocation;
+  
+  // **********************************************
+  // ***  Google Maps and Places API setup *****
+  // **********************************************
+
   [GMSServices provideAPIKey:@"AIzaSyDEIGLunOoC8C-L65MTCrXqLtHti99eBik"];
   [GMSPlacesClient provideAPIKey:@"AIzaSyDEIGLunOoC8C-L65MTCrXqLtHti99eBik"];
 
+  NSURL *jsCodeLocation;
+
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"SafeTREC"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+  // **********************************************
+  // ***  Native Navigation from wix BOOTSTRAP *****
+  // **********************************************
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
-  [self.window makeKeyAndVisible];
+  self.window.backgroundColor = [UIColor whiteColor];
+  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
+
+  
+  //old React Native bootstrap, using React Native Navigation from wix
+  //  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+  //                                                      moduleName:@"SafeTREC"
+  //                                               initialProperties:nil
+  //                                                   launchOptions:launchOptions];
+  //  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  //
+  //  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  //  UIViewController *rootViewController = [UIViewController new];
+  //  rootViewController.view = rootView;
+  //  self.window.rootViewController = rootViewController;
+  //  [self.window makeKeyAndVisible];
   return YES;
 }
 

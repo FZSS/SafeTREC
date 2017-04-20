@@ -37,4 +37,18 @@ export default StyleSheet.create({
     color: 'white'
   },
 
+  sideMenu: {
+    height: 35,
+    width: 35,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 160,
+  },
+
+  sideMenuIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'black'
+  }
+
 });
