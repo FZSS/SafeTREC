@@ -50,9 +50,8 @@ export default StyleSheet.create({
     left: 20,
     top: 30,
 
-    width:20,
-    height:20,
-
+    width: 30,
+    height: 20,
     backgroundColor:'transparent',
     zIndex: 5
   },

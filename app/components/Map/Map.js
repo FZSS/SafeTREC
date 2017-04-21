@@ -32,13 +32,16 @@ export default class Map extends Component {
   watchID: ?number = null;
 
   componentWillMount() {
+    console.log(this.state.mapRegion.latitudeDelta);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({userPosition:position.coords});
+        console.log(this.state.mapRegion.latitudeDelta);
         let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
         newMapRegion.latitude = position.coords.latitude;
         newMapRegion.longitude = position.coords.longitude;
         this.setState({mapRegion:newMapRegion});
+        console.log(this.state.mapRegion.latitudeDelta);
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -61,8 +64,18 @@ export default class Map extends Component {
   }
 
   openReportCard(category) {
-
+    this.props.navigator.push({
+      screen: 'app.ReportCard',
+      passProps: {reportCategory: category}
+    })
   }
+
+  openSideMenu() {
+    this.props.navigator.toggleDrawer({
+      side: 'left',
+      animated: true,
+      to: 'open'
+    }); }
 
   render() {
     return (
@@ -80,7 +93,6 @@ export default class Map extends Component {
           showsMyLocationButton={true}
         >
 
-
           <TextInput
             style={styles.searchBox}
             placeholder="Where?"
@@ -91,22 +103,23 @@ export default class Map extends Component {
         </MapView>
 
         <TouchableOpacity
-          style={styles.sideMenuContainer}>
+          style={styles.sideMenuContainer}
+          onPress={()=> this.openSideMenu()}
+        >
           <Icon name="ios-menu" style={styles.sideMenuIcon} />
         </TouchableOpacity>
-
 
         <ActionButton
           buttonColor="rgba(231,76,60,1)"
           position='center'
         >
-          <ActionButton.Item buttonColor='#9b59b6' title="Pedestrian" onPress={() => console.log("notes tapped!")}>
+          <ActionButton.Item buttonColor='#9b59b6' title="Pedestrian" onPress={() => this.openReportCard('Pedestrian')}>
             <Icon name="ios-walk" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => {}}>
+          <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => this.openReportCard('Bicycle')}>
             <Icon name="ios-bicycle" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => {}}>
+          <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => this.openReportCard('Automobile')}>
             <Icon name="ios-car" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
