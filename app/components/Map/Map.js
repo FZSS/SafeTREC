@@ -65,6 +65,7 @@ export default class Map extends Component {
   openReportCard(category) {
     this.props.navigator.push({
       screen: 'app.ReportCard',
+      title:'New Safety Concern',
       passProps: {reportCategory: category}
     })
   }
@@ -74,7 +75,8 @@ export default class Map extends Component {
       side: 'left',
       animated: true,
       to: 'open'
-    }); }
+    });
+  }
 
   render() {
     return (

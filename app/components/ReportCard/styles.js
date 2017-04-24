@@ -24,7 +24,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     flex: 5,
-    backgroundColor: 'yellow',
+    backgroundColor: 'black',
     paddingLeft: 5,
     paddingRight: 5
   },
