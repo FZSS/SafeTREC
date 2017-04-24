@@ -55,7 +55,7 @@ export default class ReportCard extends Component {
   }
 
 
-  //TODO: this is not scrolling to the end for some reason right now
+  //TODO: this scroll only sometimes
   componentDidUpdate() {
     console.log('should scroll');
     this._scrollView.scrollToEnd({animated:true});
