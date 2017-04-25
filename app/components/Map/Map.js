@@ -21,6 +21,7 @@ export default class Map extends Component {
     navBarBackgroundColor: 'darkorange',
     navBarTranslucent: true,
     statusBarTextColorScheme: 'light',
+    navBarNoBorder: true,
 
     navBarLeftButtonColor: 'white',
     navBarButtonColor: 'white',
@@ -68,9 +69,7 @@ export default class Map extends Component {
         let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
         newMapRegion.latitude = place.latitude;
         newMapRegion.longitude = place.longitude;
-        console.log(this.state.mapRegion.latitudeDelta);
         this.setState({mapRegion:newMapRegion});
-        console.log(this.state.mapRegion.latitudeDelta);
       })
       .catch(error => console.log(error.message));  // error is a Javascript Error object
   }

@@ -5,41 +5,88 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: 'white'
+    backgroundColor: 'orange',
+  },
+
+  locationContainer: {
+    flex: 1.2,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    backgroundColor: 'red',
+
+    paddingLeft: 10,
+    paddingTop: 15,
+
+    marginLeft: 10,
+    marginRight: 10,
+
+  },
+
+  addressTextContainer: {
+    flex: 8,
+  },
+
+  addressText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight:'600'
+  },
+
+  locationIconContainer: {
+    flex: 1
+  },
+
+  locationArrowContainer: {
+    flex: 1
+  },
+
+  locationIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white'
   },
 
   picturesContainer: {
     flex: 3,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: 'navy',
+    backgroundColor: '#ffcc00',
 
     paddingLeft: 5,
     paddingRight: 5,
-    paddingTop: 5,
-    paddingBottom: 5,
   },
 
-  pictures: {
-    flex: 5,
-    backgroundColor: 'black',
+  picturesScrollView: {
+    flex: 1,
+
+    paddingTop: 5,
     paddingLeft: 5,
     paddingRight: 5
   },
 
-  addPictureContainer: {
-    flex: 1,
-    flexDirection: 'column',
-
-    paddingLeft: 5,
-    paddingRight: 5,
-    backgroundColor: 'orange',
+  onePicture: {
+    width: 100,
+    marginRight: 5,
   },
 
-  addNewPicture: {
+  addPictureContainer: {
+    flex: 1.5,
+    flexDirection: 'row',
+    // alignItems: 'center',
+    // justifyContent: 'space-around',
+
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    backgroundColor: '#ffcc00',
+  },
+
+  takeNewPicture: {
     flex: 1,
     backgroundColor: 'red',
     marginBottom: 5,
+    marginRight: 20,
     marginTop: 5,
   },
 
@@ -51,23 +98,24 @@ export default StyleSheet.create({
   },
 
   categorySelection: {
-    flex: 1,
-    // backgroundColor: 'cornflowerblue'
+    marginTop: 20,
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    height: 40,
   },
 
   comment: {
+    paddingTop: 40,
+    paddingLeft: 50,
+    paddingRight: 50,
     flex: 8,
-    backgroundColor: 'cyan'
+    fontSize: 20,
+    color: 'darkorange',
+    backgroundColor: 'yellow'
   },
 
-  onePicture: {
-    width: 50,
 
-    marginTop: 5,
-    marginBottom: 5,
-    marginRight: 5,
-    backgroundColor: 'red'
-  }
 
 });
 

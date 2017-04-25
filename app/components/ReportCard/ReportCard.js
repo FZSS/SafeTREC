@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
 import {
-  Picker,
+  Text,
   Image,
   View,
   ImagePickerIOS,
   TouchableOpacity,
+  TouchableHighlight,
+  TextInput,
   ScrollView,
   SegmentedControlIOS
 } from 'react-native'
 import styles from './styles'
 import NewPicture from '../NewPicture/NewPicture';
+import Icon from 'react-native-vector-icons/Ionicons';
+import RNGooglePlaces from 'react-native-google-places';
 
-var imageKey = 3;
+var imageKey = 5;
 
 export default class ReportCard extends Component {
 
@@ -28,8 +32,8 @@ export default class ReportCard extends Component {
   static navigatorStyle = {
     navBarTextColor: 'white',
     navBarBackgroundColor: 'darkorange',
-    navBarTranslucent: true,
     statusBarTextColorScheme: 'light',
+    navBarNoBorder:true,
 
     navBarLeftButtonColor: 'white',
     navBarButtonColor: 'white',
@@ -41,25 +45,27 @@ export default class ReportCard extends Component {
   state = {
     category: this.props.reportCategory,
     images: [
-      {key:1, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
-      {key:2, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
-   ]
+        {key:1, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
+        {key:2, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
+        {key:3, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
+        {key:4, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
+    ],
+    location: 'Choose Location'
   };
 
 
   getImages() {
     return this.state.images.map((image) => {
       //TODO: replace image here with picture component to add the delete functionality
-      return  <Image key={image.key} style={{width: 100}} source={{uri: image.uri}}/>
+      return  <Image key={image.key} style={styles.onePicture} source={{uri: image.uri}}/>
       // return  <View key={image.key} style={{width: 100, backgroundColor: 'green'}} />
     });
   }
 
-  getCategoryIndex(category) {
+  static getCategoryIndex(category) {
     let indices = ['Automobile', 'Bicycle', 'Pedestrian'];
     return indices.indexOf(category);
   }
-
 
   //TODO: this scroll only sometimes
   componentDidUpdate() {
@@ -99,55 +105,92 @@ export default class ReportCard extends Component {
     )
   }
 
+  openSearchModal() {
+    RNGooglePlaces.openAutocompleteModal()
+      .then((place) => {
+        console.log(place);
+        this.setState({location: place.address});
+      })
+      .catch(error => console.log(error.message));  // error is a Javascript Error object
+  }
+
   render() {
 
     return (
        <View style={styles.container}>
+
+         <SegmentedControlIOS
+           style={styles.categorySelection}
+           tintColor="white"
+           values={['Automobile', 'Bicycle', 'Pedestrian']}
+           selectedIndex={ReportCard.getCategoryIndex(this.state.category)}
+           onValueChange={(value) => {
+             this.setState({category: value});
+           }}
+         />
+
+         <TouchableOpacity
+           style={styles.locationContainer}
+           onPress={()=> this.openSearchModal()}
+         >
+
+           <View style={styles.locationIconContainer}>
+             <Icon name="ios-pin" style={styles.locationIcon} />
+           </View>
+
+           <View style={styles.addressTextContainer}>
+             <Text style={styles.addressText}>
+               {this.state.location}
+             </Text>
+
+           </View>
+
+           <View style={styles.locationArrowContainer}>
+             <Icon name="ios-arrow-forward" style={styles.locationIcon} />
+           </View>
+
+         </TouchableOpacity>
+
          <View style={styles.picturesContainer}>
-           <View style={styles.pictures}>
              <ScrollView
-               style={{flex:1}}
+               style={styles.picturesScrollView}
                horizontal={true}
                ref={(scrollView) => { this._scrollView = scrollView; }}
              >
                { this.getImages() }
              </ScrollView>
-           </View>
-
-           <View style={styles.addPictureContainer}>
-
-             <TouchableOpacity
-               style={styles.addNewPicture}
-               onPress={() => {
-                 this.takeNewPicture();
-               }}
-             >
-             </TouchableOpacity>
-
-             <TouchableOpacity
-               style={styles.addPictureFromLibrary}
-               onPress={() => {
-                 this.chooseFromLibrary();
-               }}
-             >
-
-             </TouchableOpacity>
-           </View>
-
          </View>
 
-         <View style={styles.categorySelection}>
-           <SegmentedControlIOS
-             values={['Automobile', 'Bicycle', 'Pedestrian']}
-             selectedIndex={this.getCategoryIndex(this.state.category)}
-             onValueChange={(value) => {
-               this.setState({category: value});
+         <View style={styles.addPictureContainer}>
+
+           <TouchableOpacity
+             style={styles.takeNewPicture}
+             onPress={() => {
+               this.takeNewPicture();
              }}
-           />
-         </View>
-         <View style={styles.comment}>
+           >
+             <Icon name="ios-camera" style={styles.locationIcon} />
+           </TouchableOpacity>
 
+           <TouchableOpacity
+             style={styles.addPictureFromLibrary}
+             onPress={() => {
+               this.chooseFromLibrary();
+             }}
+           >
+             <Icon name="ios-photos" style={styles.locationIcon} />
+           </TouchableOpacity>
          </View>
+
+          <TextInput
+            placeholder={'What are you concerned about at this location?'}
+            multiline = {true}
+            editable = {true}
+            style={styles.comment}
+            placeholderTextColor={'orange'}
+          >
+
+          </TextInput>
 
        </View>
     )
