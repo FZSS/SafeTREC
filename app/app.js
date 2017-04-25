@@ -14,7 +14,8 @@ Navigation.startSingleScreenApp({
   drawer: {
     left: {
       screen: 'app.SideMenu'
-    }
+    },
+    disableOpenGesture: true
   }
 });
 

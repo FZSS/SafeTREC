@@ -62,7 +62,19 @@ export default class ReportCard extends Component {
   }
 
   takeNewPicture() {
-
+    ImagePickerIOS.openCameraDialog({},
+      imageUri => {
+        let newKey = imageKey ++;
+        this.state.images.push({
+          key: newKey,
+          uri: imageUri
+        });
+        this.setState({
+          images: this.state.images
+        })
+      },
+      error => console.log(error)
+    )
   }
 
   chooseFromLibrary() {
@@ -77,7 +89,8 @@ export default class ReportCard extends Component {
           images: this.state.images
         })
       },
-      error => console.log(error))
+      error => console.log(error)
+    )
   }
 
   render() {
@@ -87,6 +100,7 @@ export default class ReportCard extends Component {
          <View style={styles.picturesContainer}>
            <View style={styles.pictures}>
              <ScrollView
+               style={{flex:1}}
                horizontal={true}
                ref={(scrollView) => { this._scrollView = scrollView; }}
              >
@@ -95,9 +109,15 @@ export default class ReportCard extends Component {
            </View>
 
            <View style={styles.addPictureContainer}>
-             <View style={styles.addNewPictureContainer}>
 
-             </View>
+             <TouchableOpacity
+               style={styles.addNewPicture}
+               onPress={() => {
+                 this.takeNewPicture();
+               }}
+             >
+             </TouchableOpacity>
+
              <TouchableOpacity
                style={styles.addPictureFromLibrary}
                onPress={() => {
@@ -111,13 +131,13 @@ export default class ReportCard extends Component {
          </View>
 
          <View style={styles.categorySelection}>
-           <Picker
-             selectedValue={this.state.category}
-             onValueChange={(type) => this.setState({category: type})}>
-             <Picker.Item label="Automobile" value="Automobile" />
-             <Picker.Item label="Pedestrian" value="Pedestrian" />
-             <Picker.Item label="Bicycle" value="Bicycle" />
-           </Picker>
+           {/*<Picker*/}
+             {/*selectedValue={this.state.category}*/}
+             {/*onValueChange={(type) => this.setState({category: type})}>*/}
+             {/*<Picker.Item label="Automobile" value="Automobile" />*/}
+             {/*<Picker.Item label="Pedestrian" value="Pedestrian" />*/}
+             {/*<Picker.Item label="Bicycle" value="Bicycle" />*/}
+           {/*</Picker>*/}
          </View>
          <View style={styles.comment}>
 

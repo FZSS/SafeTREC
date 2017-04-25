@@ -16,6 +16,19 @@ import styles from './styles';
 
 export default class Map extends Component {
 
+  static navigatorStyle = {
+    navBarTextColor: 'white',
+    navBarBackgroundColor: 'darkorange',
+    navBarTranslucent: true,
+    statusBarTextColorScheme: 'light',
+
+    navBarLeftButtonColor: 'white',
+    navBarButtonColor: 'white',
+    navBarRightButtonFontSize: 17,
+    navBarRightButtonColor: 'white',
+    navBarRightButtonFontWeight: '800',
+  };
+
   state = {
     userPosition: {
       latitude: 37.78825,

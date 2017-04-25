@@ -21,8 +21,6 @@ export default StyleSheet.create({
   },
 
   pictures: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
     flex: 5,
     backgroundColor: 'black',
     paddingLeft: 5,
@@ -38,7 +36,7 @@ export default StyleSheet.create({
     backgroundColor: 'orange',
   },
 
-  addNewPictureContainer: {
+  addNewPicture: {
     flex: 1,
     backgroundColor: 'red',
     marginBottom: 5,
