@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Text,
-  Button
+  Button,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import ActionButton from 'react-native-action-button';
@@ -82,6 +82,13 @@ export default class Map extends Component {
     })
   }
 
+  openNewPicture() {
+    this.props.navigator.push({
+      screen: 'app.NewPicture',
+      title:'New Picture',
+    })
+  }
+
   openSideMenu() {
     this.props.navigator.toggleDrawer({
       side: 'left',
@@ -132,7 +139,7 @@ export default class Map extends Component {
           <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => this.openReportCard('Bicycle')}>
             <Icon name="ios-bicycle" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => this.openReportCard('Automobile')}>
+          <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => this.openNewPicture()}>
             <Icon name="ios-car" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
