@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: 'black'
+    backgroundColor: 'white'
   },
 
   picturesContainer: {
@@ -52,7 +52,7 @@ export default StyleSheet.create({
 
   categorySelection: {
     flex: 1,
-    backgroundColor: 'cornflowerblue'
+    // backgroundColor: 'cornflowerblue'
   },
 
   comment: {

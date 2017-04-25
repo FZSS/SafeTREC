@@ -5,7 +5,8 @@ import {
   View,
   ImagePickerIOS,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  SegmentedControlIOS
 } from 'react-native'
 import styles from './styles'
 import NewPicture from '../NewPicture/NewPicture';
@@ -52,6 +53,11 @@ export default class ReportCard extends Component {
       return  <Image key={image.key} style={{width: 100}} source={{uri: image.uri}}/>
       // return  <View key={image.key} style={{width: 100, backgroundColor: 'green'}} />
     });
+  }
+
+  getCategoryIndex(category) {
+    let indices = ['Automobile', 'Bicycle', 'Pedestrian'];
+    return indices.indexOf(category);
   }
 
 
@@ -131,13 +137,13 @@ export default class ReportCard extends Component {
          </View>
 
          <View style={styles.categorySelection}>
-           {/*<Picker*/}
-             {/*selectedValue={this.state.category}*/}
-             {/*onValueChange={(type) => this.setState({category: type})}>*/}
-             {/*<Picker.Item label="Automobile" value="Automobile" />*/}
-             {/*<Picker.Item label="Pedestrian" value="Pedestrian" />*/}
-             {/*<Picker.Item label="Bicycle" value="Bicycle" />*/}
-           {/*</Picker>*/}
+           <SegmentedControlIOS
+             values={['Automobile', 'Bicycle', 'Pedestrian']}
+             selectedIndex={this.getCategoryIndex(this.state.category)}
+             onValueChange={(value) => {
+               this.setState({category: value});
+             }}
+           />
          </View>
          <View style={styles.comment}>
 
