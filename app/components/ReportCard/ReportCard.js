@@ -20,13 +20,16 @@ var imageKey = 5;
 export default class ReportCard extends Component {
 
   static navigatorButtons = {
-    rightButtons: [
-      {
+    leftButtons: [{
+      title: 'Cancel',
+      id: 'cancel'
+    }],
+
+    rightButtons: [{
         title: 'Submit',
         id: 'submit',
         buttonFontWeight: '900',
-      },
-    ]
+      }],
   };
 
   static navigatorStyle = {

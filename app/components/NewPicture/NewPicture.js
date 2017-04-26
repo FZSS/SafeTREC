@@ -6,6 +6,7 @@ import {
   Image
 } from 'react-native'
 import styles from './styles'
+import Exif from 'react-native-exif'
 
 export default class NewPicture extends Component {
 
@@ -28,14 +29,32 @@ export default class NewPicture extends Component {
     imageURI: 'null'
   };
 
+  goToReportCardWithGeoTag(imageUri) {
+
+    function processGeoTagAndPush(data) {
+      console.log(data);
+      // console.log(data.exif);
+
+      this.props.navigator.resetTo({
+        screen: 'app.ReportCard',
+        title:'New Safety Concern',
+        animated: false,
+        // passProps: {gps:data.GPS}
+      })
+    }
+
+    Exif.getExif(imageUri)
+      .then(processGeoTagAndPush.bind(this))
+  }
 
   takeNewPicture() {
     ImagePickerIOS.openCameraDialog({},
       imageUri => {
         this.setState({
           imageURI: imageUri
-        })
-      },
+        });
+        this.goToReportCardWithGeoTag(imageUri);
+     },
       error => console.log(error)
     )
   }
@@ -45,7 +64,8 @@ export default class NewPicture extends Component {
       imageUri => {
         this.setState({
           imageURI: imageUri
-        })
+        });
+        this.goToReportCardWithGeoTag(imageUri);
       },
       error => console.log(error)
     )
@@ -62,8 +82,7 @@ export default class NewPicture extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={{uri:this.state.imageURI}} style={{flex:1}}/>
-        {/*<Image source={{uri:'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'}} style={{flex:1}}/>*/}
+        {/*<Image source={{uri:this.state.imageURI}} style={{flex:1}}/>*/}
       </View>
     )
   }
