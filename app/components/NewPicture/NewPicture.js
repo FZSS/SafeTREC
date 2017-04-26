@@ -6,7 +6,7 @@ import {
   Image
 } from 'react-native'
 import styles from './styles'
-import Exif from 'react-native-exif'
+var ImagePicker = require('react-native-image-picker');
 
 export default class NewPicture extends Component {
 
@@ -42,30 +42,27 @@ export default class NewPicture extends Component {
         // passProps: {gps:data.GPS}
       })
     }
-
-    Exif.getExif(imageUri)
-      .then(processGeoTagAndPush.bind(this))
   }
 
   takeNewPicture() {
-    ImagePickerIOS.openCameraDialog({},
-      imageUri => {
+    ImagePicker.openCameraDialog({},
+      res => {
         this.setState({
-          imageURI: imageUri
+          imageURI: res.uri
         });
-        this.goToReportCardWithGeoTag(imageUri);
+        // this.goToReportCardWithGeoTag(res.uri);
      },
       error => console.log(error)
     )
   }
 
   choosePictureFromLibrary() {
-    ImagePickerIOS.openSelectDialog({},
-      imageUri => {
+    ImagePicker.openSelectDialog({},
+      res => {
         this.setState({
-          imageURI: imageUri
+          imageURI: res.uri
         });
-        this.goToReportCardWithGeoTag(imageUri);
+        // this.goToReportCardWithGeoTag(res.uri);
       },
       error => console.log(error)
     )
