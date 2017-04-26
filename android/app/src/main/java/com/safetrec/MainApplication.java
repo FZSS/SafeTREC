@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.devialab.exif.RCTExifPackage;
-import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -29,7 +28,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RCTExifPackage(),
-            new RCTCameraPackage(),
             new RNGooglePlacesPackage(),
             new VectorIconsPackage(),
             new MapsPackage()
