@@ -22,6 +22,7 @@ export default class Map extends Component {
     navBarBackgroundColor: 'darkorange',
     navBarTranslucent: true,
     navBarNoBorder: true,
+    navBarHidden: true,
 
     navBarLeftButtonColor: 'white',
     navBarButtonColor: 'white',

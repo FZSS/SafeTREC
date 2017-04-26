@@ -11,13 +11,18 @@ import {
   SegmentedControlIOS
 } from 'react-native'
 import styles from './styles'
-import NewPicture from '../NewPicture/NewPicture';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 var imageKey = 5;
 
 export default class ReportCard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
 
   static navigatorButtons = {
     leftButtons: [{
@@ -44,6 +49,20 @@ export default class ReportCard extends Component {
     navBarRightButtonColor: 'white',
     navBarRightButtonFontWeight: '800',
   };
+
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'cancel') {
+        this.props.navigator.resetTo({
+          screen: 'app.Map',
+          animated: false,
+        })
+      }
+      if (event.id ==='submit') {
+      }
+    }
+  }
+
 
   state = {
     category: this.props.reportCategory,
@@ -124,13 +143,44 @@ export default class ReportCard extends Component {
 
          <SegmentedControlIOS
            style={styles.categorySelection}
-           tintColor="white"
+           tintColor="darkorange"
            values={['Automobile', 'Bicycle', 'Pedestrian']}
            selectedIndex={ReportCard.getCategoryIndex(this.state.category)}
            onValueChange={(value) => {
              this.setState({category: value});
            }}
          />
+
+         <View style={styles.picturesContainer}>
+           <ScrollView
+             style={styles.picturesScrollView}
+             horizontal={true}
+             ref={(scrollView) => { this._scrollView = scrollView; }}
+           >
+             { this.getImages() }
+           </ScrollView>
+         </View>
+
+         <View style={styles.addPictureContainer}>
+
+           <TouchableOpacity
+             style={styles.takeNewPicture}
+             onPress={() => {
+               this.takeNewPicture();
+             }}
+           >
+             <Icon name="ios-camera" style={styles.locationIcon} />
+           </TouchableOpacity>
+
+           <TouchableOpacity
+             style={styles.addPictureFromLibrary}
+             onPress={() => {
+               this.chooseFromLibrary();
+             }}
+           >
+             <Icon name="ios-photos" style={styles.locationIcon} />
+           </TouchableOpacity>
+         </View>
 
          <TouchableOpacity
            style={styles.locationContainer}
@@ -154,36 +204,6 @@ export default class ReportCard extends Component {
 
          </TouchableOpacity>
 
-         <View style={styles.picturesContainer}>
-             <ScrollView
-               style={styles.picturesScrollView}
-               horizontal={true}
-               ref={(scrollView) => { this._scrollView = scrollView; }}
-             >
-               { this.getImages() }
-             </ScrollView>
-         </View>
-
-         <View style={styles.addPictureContainer}>
-
-           <TouchableOpacity
-             style={styles.takeNewPicture}
-             onPress={() => {
-               this.takeNewPicture();
-             }}
-           >
-             <Icon name="ios-camera" style={styles.locationIcon} />
-           </TouchableOpacity>
-
-           <TouchableOpacity
-             style={styles.addPictureFromLibrary}
-             onPress={() => {
-               this.chooseFromLibrary();
-             }}
-           >
-             <Icon name="ios-photos" style={styles.locationIcon} />
-           </TouchableOpacity>
-         </View>
 
           <TextInput
             placeholder={'What are you concerned about at this location?'}

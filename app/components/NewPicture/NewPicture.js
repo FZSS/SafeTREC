@@ -24,45 +24,29 @@ export default class NewPicture extends Component {
     ]
   };
 
+  goToReportCardWithGeoTag(res) {
 
-  state = {
-    imageURI: 'null'
-  };
-
-  goToReportCardWithGeoTag(imageUri) {
-
-    function processGeoTagAndPush(data) {
-      console.log(data);
-      // console.log(data.exif);
-
-      this.props.navigator.resetTo({
-        screen: 'app.ReportCard',
-        title:'New Safety Concern',
-        animated: false,
-        // passProps: {gps:data.GPS}
-      })
-    }
+    this.props.navigator.resetTo({
+      screen: 'app.ReportCard',
+      title:'New Safety Concern',
+      animated: true,
+      passProps: {
+        longitude: res.longitude,
+        latitude: res.latitude,
+        imageURI: res.uri
+      }
+    })
   }
 
   takeNewPicture() {
     ImagePicker.launchCamera({},
-      res => {
-        this.setState({
-          imageURI: res.uri
-        });
-        // this.goToReportCardWithGeoTag(res.uri);
-     }
+      res => {this.goToReportCardWithGeoTag(res);}
     )
   }
 
   choosePictureFromLibrary() {
     ImagePicker.launchImageLibrary({},
-      res => {
-        this.setState({
-          imageURI: res.uri
-        });
-        // this.goToReportCardWithGeoTag(res.uri);
-      }
+      res => {this.goToReportCardWithGeoTag(res);}
     )
   }
 

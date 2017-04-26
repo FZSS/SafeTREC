@@ -5,20 +5,19 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: 'orange',
+    backgroundColor: 'white',
   },
 
   locationContainer: {
-    flex: 1.2,
+    flex: 5,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     backgroundColor: 'red',
 
-    paddingLeft: 10,
     paddingTop: 15,
 
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 5,
+    marginRight: 5,
 
   },
 
@@ -102,20 +101,19 @@ export default StyleSheet.create({
     marginBottom: 5,
     marginLeft: 5,
     marginRight: 5,
-    height: 40,
+    height: 30,
   },
 
   comment: {
+    flex: 0,
     paddingTop: 40,
     paddingLeft: 50,
     paddingRight: 50,
-    flex: 8,
+
     fontSize: 20,
     color: 'darkorange',
     backgroundColor: 'yellow'
   },
-
-
 
 });
 
