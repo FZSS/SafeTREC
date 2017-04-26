@@ -45,26 +45,24 @@ export default class NewPicture extends Component {
   }
 
   takeNewPicture() {
-    ImagePicker.openCameraDialog({},
+    ImagePicker.launchCamera({},
       res => {
         this.setState({
           imageURI: res.uri
         });
         // this.goToReportCardWithGeoTag(res.uri);
-     },
-      error => console.log(error)
+     }
     )
   }
 
   choosePictureFromLibrary() {
-    ImagePicker.openSelectDialog({},
+    ImagePicker.launchImageLibrary({},
       res => {
         this.setState({
           imageURI: res.uri
         });
         // this.goToReportCardWithGeoTag(res.uri);
-      },
-      error => console.log(error)
+      }
     )
   }
 
