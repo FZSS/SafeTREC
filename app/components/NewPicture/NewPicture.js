@@ -10,6 +10,7 @@ import styles from './styles'
 export default class NewPicture extends Component {
 
   static navigatorStyle = {
+    navBarHidden: true
   };
 
   static navigatorButtons = {
@@ -39,8 +40,23 @@ export default class NewPicture extends Component {
     )
   }
 
-  componentDidMount() {
-    this.takeNewPicture();
+  choosePictureFromLibrary() {
+    ImagePickerIOS.openSelectDialog({},
+      imageUri => {
+        this.setState({
+          imageURI: imageUri
+        })
+      },
+      error => console.log(error)
+    )
+  }
+
+  componentWillMount() {
+    if (this.props.camera) {
+      this.takeNewPicture();
+    } else {
+      this.choosePictureFromLibrary();
+    }
   }
 
   render() {

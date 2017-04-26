@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  ActionSheetIOS,
   Text,
   Button,
 } from 'react-native';
@@ -20,7 +21,6 @@ export default class Map extends Component {
     navBarTextColor: 'white',
     navBarBackgroundColor: 'darkorange',
     navBarTranslucent: true,
-    statusBarTextColorScheme: 'light',
     navBarNoBorder: true,
 
     navBarLeftButtonColor: 'white',
@@ -74,6 +74,30 @@ export default class Map extends Component {
       .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
+  openPictureActionSheet() {
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: [
+          'Take A New Picture',
+          'Choose From Library',
+          'Cancel',
+        ],
+        cancelButtonIndex: 2,
+        title: 'Create A New Safety Concern',
+        message: 'A picture is worth a thousand words.'
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            this.createTakingNewPicture();
+            break;
+          case 1:
+            this.createUsingLibrary();
+            break;
+        }
+      });
+
+  }
+
   openReportCard(category) {
     this.props.navigator.push({
       screen: 'app.ReportCard',
@@ -82,10 +106,19 @@ export default class Map extends Component {
     })
   }
 
-  openNewPicture() {
+  createTakingNewPicture() {
     this.props.navigator.push({
       screen: 'app.NewPicture',
       title:'New Picture',
+      passProps: {camera: true}
+    })
+  }
+
+  createUsingLibrary() {
+    this.props.navigator.push({
+      screen: 'app.NewPicture',
+      title:'New Picture',
+      passProps: {camera: false}
     })
   }
 
@@ -136,7 +169,7 @@ export default class Map extends Component {
           <ActionButton.Item buttonColor='#9b59b6' title="Pedestrian" onPress={() => this.openReportCard('Pedestrian')}>
             <Icon name="ios-walk" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => this.openReportCard('Bicycle')}>
+          <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => this.openPictureActionSheet()}>
             <Icon name="ios-bicycle" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
           <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => this.openNewPicture()}>
