@@ -41,7 +41,27 @@ export default class Map extends Component {
       longitude: -122.4324,
       latitudeDelta: 0.0222,
       longitudeDelta: 0.0121,
-    }
+    },
+    markers: [
+      {
+        key: 0,
+        title: 'concern1',
+        coordinate: {
+          latitude: 37.78821,
+          longitude: -122.4224
+        },
+        description: 'Safety Concern 1'
+      },
+      {
+        key: 1,
+        title: 'concern2',
+        coordinate: {
+          latitude: 37.78721,
+          longitude: -122.4124
+        },
+        description: 'Safety Concern 2'
+      },
+    ]
   };
 
   watchID: ?number = null;
@@ -116,6 +136,14 @@ export default class Map extends Component {
             onFocus={() => this.openSearchModal()}
           >
           </TextInput>
+          {this.state.markers.map(marker => (
+            <MapView.Marker
+              key={marker.key}
+              coordinate={marker.coordinate}
+              title={marker.title}
+              description={marker.description}
+            />
+          ))}
 
         </MapView>
 
