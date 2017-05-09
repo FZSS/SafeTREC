@@ -13,7 +13,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
-var imageKey = 5;
 
 export default class CommentCard extends Component {
 
@@ -51,7 +50,6 @@ export default class CommentCard extends Component {
     let indices = ['Automobile', 'Bicycle', 'Pedestrian'];
     return indices.indexOf(category);
   }
-
 
 
   render() {

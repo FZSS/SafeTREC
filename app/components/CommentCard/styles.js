@@ -8,94 +8,6 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
 
-  locationContainer: {
-    flex: 5,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    backgroundColor: 'red',
-
-    paddingTop: 15,
-
-    marginLeft: 5,
-    marginRight: 5,
-
-  },
-
-  addressTextContainer: {
-    flex: 8,
-  },
-
-  addressText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight:'600'
-  },
-
-  locationIconContainer: {
-    flex: 1
-  },
-
-  locationArrowContainer: {
-    flex: 1
-  },
-
-  locationIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white'
-  },
-
-  picturesContainer: {
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    backgroundColor: '#ffcc00',
-
-    paddingLeft: 5,
-    paddingRight: 5,
-  },
-
-  picturesScrollView: {
-    flex: 1,
-
-    paddingTop: 5,
-    paddingLeft: 5,
-    paddingRight: 5
-  },
-
-  onePicture: {
-    width: 100,
-    marginRight: 5,
-  },
-
-  addPictureContainer: {
-    flex: 1.5,
-    flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'space-around',
-
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingBottom: 10,
-    paddingRight: 10,
-    backgroundColor: '#ffcc00',
-  },
-
-  takeNewPicture: {
-    flex: 1,
-    backgroundColor: 'red',
-    marginBottom: 5,
-    marginRight: 20,
-    marginTop: 5,
-  },
-
-  addPictureFromLibrary: {
-    flex: 1,
-    backgroundColor: 'crimson',
-    marginBottom: 5,
-    marginTop: 5,
-  },
-
   categorySelection: {
     marginTop: 20,
     marginBottom: 5,
@@ -105,7 +17,11 @@ export default StyleSheet.create({
   },
 
   comment: {
-    flex: 0,
+    flex: 1,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 10,
+    marginTop: 5,
     paddingTop: 40,
     paddingLeft: 50,
     paddingRight: 50,
