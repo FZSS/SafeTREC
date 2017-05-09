@@ -75,18 +75,14 @@ export default class Map extends Component {
       .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
-  openReportCard(category) {
+  goToPictures(category) {
     this.props.navigator.push({
-      screen: 'app.ReportCard',
-      title:'New Safety Concern',
-      passProps: {reportCategory: category}
-    })
-  }
-
-  goToPictures() {
-    this.props.navigator.push({
-      screen: 'app.NewPicture',
-      title:'Add Pictures',
+      screen: 'app.NewPictures',
+      title:'Pictures',
+      passProps: {
+        reportCategory: category,
+        mapRegion: this.state.mapRegion
+      }
     })
   }
 
@@ -134,13 +130,13 @@ export default class Map extends Component {
           buttonColor="rgba(231,76,60,1)"
           position='center'
         >
-          <ActionButton.Item buttonColor='#9b59b6' title="Pedestrian" onPress={() => this.openReportCard('Pedestrian')}>
+          <ActionButton.Item buttonColor='#9b59b6' title="Pedestrian" onPress={() => this.goToPictures('Pedestrian')}>
             <Icon name="ios-walk" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => this.goToPictures()}>
+          <ActionButton.Item buttonColor='#3498db' title="Bicycle" onPress={() => this.goToPictures('Bicycle')}>
             <Icon name="ios-bicycle" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => this.openNewPicture()}>
+          <ActionButton.Item buttonColor='#1abc9c' title="Automobile" onPress={() => this.goToPictures('Automobile')}>
             <Icon name="ios-car" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

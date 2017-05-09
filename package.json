@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "react": "16.0.0-alpha.6",
-    "react-native": "^0.44.0",
+    "react-native": "^0.43.0",
     "react-native-action-button": "^2.6.8",
     "react-native-exif": "github:francisco-sanchez-molina/react-native-exif",
     "react-native-google-places": "^2.1.0",

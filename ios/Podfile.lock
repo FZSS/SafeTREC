@@ -9,37 +9,37 @@ PODS:
     - GooglePlaces (= 2.2.0)
   - GooglePlaces (2.2.0):
     - GoogleMaps/Base (= 2.2.0)
-  - React/Core (0.43.3):
+  - React/Core (0.43.0):
     - React/cxxreact
-    - Yoga (= 0.43.3.React)
-  - React/cxxreact (0.43.3):
+    - Yoga (= 0.43.0.React)
+  - React/cxxreact (0.43.0):
     - React/jschelpers
-  - React/DevSupport (0.43.3):
+  - React/DevSupport (0.43.0):
     - React/Core
     - React/RCTWebSocket
-  - React/jschelpers (0.43.3)
-  - React/RCTActionSheet (0.43.3):
+  - React/jschelpers (0.43.0)
+  - React/RCTActionSheet (0.43.0):
     - React/Core
-  - React/RCTAnimation (0.43.3):
+  - React/RCTAnimation (0.43.0):
     - React/Core
-  - React/RCTGeolocation (0.43.3):
+  - React/RCTGeolocation (0.43.0):
     - React/Core
-  - React/RCTImage (0.43.3):
+  - React/RCTImage (0.43.0):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.43.3):
+  - React/RCTLinkingIOS (0.43.0):
     - React/Core
-  - React/RCTNetwork (0.43.3):
+  - React/RCTNetwork (0.43.0):
     - React/Core
-  - React/RCTSettings (0.43.3):
+  - React/RCTSettings (0.43.0):
     - React/Core
-  - React/RCTText (0.43.3):
+  - React/RCTText (0.43.0):
     - React/Core
-  - React/RCTVibration (0.43.3):
+  - React/RCTVibration (0.43.0):
     - React/Core
-  - React/RCTWebSocket (0.43.3):
+  - React/RCTWebSocket (0.43.0):
     - React/Core
-  - Yoga (0.43.3.React)
+  - Yoga (0.43.0.React)
 
 DEPENDENCIES:
   - GoogleMaps
@@ -69,8 +69,8 @@ SPEC CHECKSUMS:
   GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   GooglePlacePicker: 345b1aabd42c9d6d9bf2369c1bae1234d903e764
   GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
-  React: f92caf8f7c132a7c311302b51f9576c4b38acfce
-  Yoga: 67a0193245365089c48526201499f7df334e05f7
+  React: 4ae20688fff26865bf97c92aaa54988851636478
+  Yoga: 262a900da827a1cec485dceff08ed0a5d5b6294d
 
 PODFILE CHECKSUM: d527aa82442ebd6774a9b50c5d318c90b2e1926d
 

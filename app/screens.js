@@ -2,13 +2,15 @@
 import { Navigation } from 'react-native-navigation';
 
 import Map from './components/Map/Map.js';
-import ReportCard from './components/ReportCard/ReportCard';
+import LocationCard from './components/LocationCard/LocationCard';
 import SideMenu from './components/SideMenu/SideMenu';
-import NewPicture from './components/NewPicture/NewPicture'
+import NewPictures from './components/NewPictures/NewPictures';
+import CommentCard from './components/CommentCard/CommentCard'
 
 export function registerScreens() {
   Navigation.registerComponent('app.Map', () =>  Map);
-  Navigation.registerComponent('app.ReportCard', () => ReportCard);
+  Navigation.registerComponent('app.LocationCard', () => LocationCard);
   Navigation.registerComponent('app.SideMenu', () => SideMenu);
-  Navigation.registerComponent('app.NewPicture', () => NewPicture);
+  Navigation.registerComponent('app.NewPictures', () => NewPictures);
+  Navigation.registerComponent('app.CommentCard', () => CommentCard);
 }

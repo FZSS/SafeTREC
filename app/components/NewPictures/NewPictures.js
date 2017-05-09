@@ -5,7 +5,8 @@ import {
   ActionSheetIOS,
   Image,
   ScrollView,
-  Button
+  Button,
+  AlertIOS
 } from 'react-native'
 import styles from './styles'
 
@@ -30,12 +31,25 @@ export default class NewPicture extends Component {
     ]
   };
 
+
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.type ==='NavBarButtonPress') {
+      if (event.id === 'next') {
+        this.goToLocationCard()
+      }
+    }
+  }
+
   state = {
     images: [
       {key: 0, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
     ],
   };
-
 
   //fixme: does not scroll
   componentDidMount() {
@@ -67,17 +81,17 @@ export default class NewPicture extends Component {
       });
   }
 
-  goToReportCardWithGeoTag(res) {
-
-    this.props.navigator.resetTo({
-      screen: 'app.ReportCard',
-      title:'New Safety Concern',
+  goToLocationCard() {
+    this.props.navigator.push({
+      screen: 'app.LocationCard',
+      title:'Location',
       animated: true,
       passProps: {
-        longitude: res.longitude,
-        latitude: res.latitude,
-        imageURI: res.uri
-      }
+        //pass the location of the first image
+        location: this.state.images[0].location,
+        reportCategory: this.props.reportCategory,
+        mapRegion: this.props.mapRegion
+     }
     })
   }
 
@@ -90,7 +104,11 @@ export default class NewPicture extends Component {
     // }
     this.state.images.push({
       key: newKey,
-      uri: res.uri
+      uri: res.uri,
+      location: {
+        longitude: res.longitude,
+        latitude: res.latitude
+      }
     });
     this.setState({
       images: this.state.images
