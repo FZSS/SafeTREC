@@ -12,16 +12,21 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: 'grey',
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: 'yellow',
+    paddingTop: 30,
+    paddingLeft: 5,
+    paddingRight: 5
   },
 
   addressTextContainer: {
-    flex: 8,
+    flex: 6,
   },
 
   addressText: {
-    color: 'white',
-    fontSize: 15,
+    color: 'darkorange',
+    fontSize: 18,
     fontWeight:'600'
   },
 
@@ -36,11 +41,11 @@ export default StyleSheet.create({
   locationIcon: {
     fontSize: 20,
     height: 22,
-    color: 'white'
+    color: 'darkorange'
   },
 
   mapviewContainer: {
-    flex: 4
+    flex: 5
   }
 
 

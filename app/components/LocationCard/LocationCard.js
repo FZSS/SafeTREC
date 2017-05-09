@@ -46,10 +46,10 @@ export default class LocationCard extends Component {
 
 
   state = {
-    location: this.props.location,
+    pictureCoordinate: this.props.location,
     address: 'Address',
     mapRegion: this.props.mapRegion,
-    coordinate: {
+    markerCoordinate: {
       longitude: this.props.mapRegion.longitude,
       latitude: this.props.mapRegion.latitude
     }
@@ -61,8 +61,23 @@ export default class LocationCard extends Component {
       .then((place) => {
         console.log(place);
         this.setState({address: place.address});
+
+        let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
+        newMapRegion.latitude = place.latitude;
+        newMapRegion.longitude = place.longitude;
+        this.setState({mapRegion:newMapRegion});
+
+        let newCoordinate = JSON.parse(JSON.stringify(this.state.markerCoordinate));
+        newCoordinate.latitude = place.latitude;
+        newCoordinate.longitude = place.longitude;
+        this.setState({markerCoordinate:newCoordinate});
+
       })
-      .catch(error => console.log(error.message));  // error is a Javascript Error object
+      .catch(error => console.log(error.message));
+  }
+
+  onMarkerDragEnd(e) {
+    this.setState({ markerCoordinate: e.nativeEvent.coordinate })
   }
 
   render() {
@@ -103,8 +118,8 @@ export default class LocationCard extends Component {
            showsMyLocationButton={true}
          >
            <MapView.Marker draggable
-                           coordinate={this.state.coordinate}
-                           onDragEnd={(e) => this.setState({ coordinate: e.nativeEvent.coordinate })}
+                           coordinate={this.state.markerCoordinate}
+                           onDragEnd={(e) => this.onMarkerDragEnd(e)}
            />
          </MapView>
 

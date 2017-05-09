@@ -87,8 +87,8 @@ export default class NewPicture extends Component {
       title:'Location',
       animated: true,
       passProps: {
-        //pass the location of the first image
-        location: this.state.images[0].location,
+        //pass the pictureCoordinate of the first image
+        location: this.state.images[0].pictureCoordinate,
         reportCategory: this.props.reportCategory,
         mapRegion: this.props.mapRegion
      }
