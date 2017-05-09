@@ -13,6 +13,12 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
+
+  scrollViewContainer: {
+    flex: 1,
+    backgroundColor: '#ededed',
+  },
+
   capture: {
     flex: 0,
     backgroundColor: '#fff',

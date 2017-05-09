@@ -138,7 +138,7 @@ export default class NewPicture extends Component {
     return (
       <View style={styles.container}>
         <ScrollView
-          style={{flex: 1}}
+          style={styles.scrollViewContainer}
           ref={(scrollView) => { this._scrollView = scrollView; }}
         >
           { this.getImages() }
