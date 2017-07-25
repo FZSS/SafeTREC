@@ -31,6 +31,7 @@ export default StyleSheet.create({
   },
 
   locationIconContainer: {
+    paddingLeft: 30,
     flex: 1
   },
 
