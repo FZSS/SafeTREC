@@ -1,6 +1,6 @@
 import actionTypes from '../constants/actionTypes';
 
-function concernReducer(state = {}, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case actionTypes.UploadConcern:
       return state;
