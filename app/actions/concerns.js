@@ -1,6 +1,5 @@
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
-import { dispatch } from 'redux-thunk;';
 
 export const getAllConcerns = () => {
 
