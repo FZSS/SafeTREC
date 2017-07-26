@@ -9,15 +9,28 @@ import {
   Button,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 
 import { navigatorStyle, styles } from './styles';
 
-export default class Map extends Component {
+// Redux Store
+function mapStateToProps(store) {
+  console.log(store.concerns);
+  return {
+    concerns: store.concerns
+  }
 
-  static navigatorStyle = navigatorStyle;
+}
+
+// Redux Dispatch
+function mapDispatchToProps(store) {
+  return {}
+}
+
+class Map extends Component {
 
   state = {
     userPosition: {
@@ -124,14 +137,17 @@ export default class Map extends Component {
             onFocus={() => this.openSearchModal()}
           >
           </TextInput>
-          {this.state.markers.map(marker => (
-            <MapView.Marker
-              key={marker.key}
-              coordinate={marker.coordinate}
-              title={marker.title}
-              description={marker.description}
-            />
-          ))}
+          <Text>
+            {/*{this.props.concerns[0]}*/}
+          </Text>
+          {/*{this.props.concerns.map(concern => (*/}
+            {/*<MapView.Marker*/}
+              {/*key={concern.id}*/}
+              {/*coordinate={concern.coordinate}*/}
+              {/*title={concern.title}*/}
+              {/*description={concern.description}*/}
+            {/*/>*/}
+          {/*))}*/}
 
         </MapView>
 
@@ -161,4 +177,8 @@ export default class Map extends Component {
     );
   }
 }
+
+Map.navigatorStyle = navigatorStyle;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
 
