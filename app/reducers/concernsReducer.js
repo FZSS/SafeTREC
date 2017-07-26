@@ -2,7 +2,13 @@ import actionTypes from '../constants/actionTypes';
 
 //concern schema
 const initialState = {
-  concerns: [
+  newConcern: null,
+  newConcernSubmissionStatus: {
+    pending: false,
+    success: false,
+    failed: false,
+  },
+  concernsInMapRegion: [
     {
       id: 0,
       address: null,
@@ -26,11 +32,34 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case actionTypes.SubmitConcern:
-      return state;
+    case actionTypes.SubmitConcern + '_PENDING':
+      return {
+        ...state,
+        newConcernSubmissionStatus: {
+          ...state.newConcernSubmissionStatus,
+          pending: true
+        },
+      };
 
-    case actionTypes.GetConcernsInArea:
-      return state;
+    case actionTypes.SubmitConcern + '_FULFILLED':
+      return {
+        ...state,
+        newConcernSubmissionStatus: {
+          ...state.newConcernSubmissionStatus,
+          pending: false,
+          success: true
+        },
+      };
+
+    case actionTypes.SubmitConcern + '_REJECTED':
+      return {
+        ...state,
+        newConcernSubmissionStatus: {
+          ...state.newConcernSubmissionStatus,
+          pending: false,
+          failed: true
+        },
+      };
 
     default:
       return state;

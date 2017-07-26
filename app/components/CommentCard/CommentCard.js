@@ -13,10 +13,10 @@ import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { uploadConcern } from '../../actions/concerns';
 
-const mapStateToProps = store => {
+const mapStateToProps = state => {
   return {
-    concerns: store.concerns
-  }
+    submissionStatus: state.concerns.newConcernSubmissionStatus
+ }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -52,7 +52,7 @@ class CommentCard extends Component {
           address: this.props.address,
           coordinate: this.props.coordinate,
           title: 'some title',
-          description: 'some Concern content'
+          description: this.state.concernDescription
         };
 
         this.props.submitConcern(details);
@@ -65,7 +65,8 @@ class CommentCard extends Component {
 
 
   state = {
-    reportCategory: this.props.reportCategory
+    reportCategory: this.props.reportCategory,
+    concernDescription: '',
   };
 
 
@@ -97,6 +98,8 @@ class CommentCard extends Component {
             editable = {true}
             style={styles.comment}
             placeholderTextColor={'orange'}
+            onChangeText={(concernDescription) => this.setState({concernDescription})}
+            value={this.state.concernDescription}
           >
           </TextInput>
 

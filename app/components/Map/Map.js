@@ -19,7 +19,7 @@ import { navigatorStyle, styles } from './styles';
 // Redux Store
 function mapStateToProps(store) {
   return {
-    concerns: store.concerns
+    concerns: store.concerns.concernsInMapRegion
   }
 
 }
@@ -117,7 +117,7 @@ class Map extends Component {
           >
           </TextInput>
 
-          {this.props.concerns.concerns.map(concern => (
+          {this.props.concerns.map(concern => (
             <MapView.Marker
               key={concern.id}
               coordinate={concern.coordinate}
