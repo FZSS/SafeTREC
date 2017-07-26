@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { uploadConcern } from '../../actions/concerns';
 
 const mapStateToProps = state => {
