@@ -29,6 +29,9 @@ export default function (state = initialState, action) {
     case actionTypes.UploadConcern:
       return state;
 
+    case actionTypes.GetConcernsInArea:
+      return state;
+
     default:
       return state;
   }
