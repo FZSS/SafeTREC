@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const window = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
@@ -14,6 +16,38 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     height: 30,
+  },
+
+  back: {
+    flex: 1,
+    zIndex: 1
+  },
+
+  showProgress: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: window.width,
+    height: window.height,
+    backgroundColor: 'white',
+    zIndex: 2
+  },
+
+  hideProgress: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: window.width,
+    height: window.height,
+    backgroundColor: 'transparent',
+    zIndex: 0
+  },
+
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80
   },
 
   comment: {
