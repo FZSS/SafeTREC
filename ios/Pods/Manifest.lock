@@ -1,45 +1,41 @@
 PODS:
-  - GoogleMaps (2.2.0):
-    - GoogleMaps/Maps (= 2.2.0)
-  - GoogleMaps/Base (2.2.0)
-  - GoogleMaps/Maps (2.2.0):
+  - GoogleMaps (2.3.1):
+    - GoogleMaps/Maps (= 2.3.1)
+  - GoogleMaps/Base (2.3.1)
+  - GoogleMaps/Maps (2.3.1):
     - GoogleMaps/Base
-  - GooglePlacePicker (2.2.0):
-    - GoogleMaps (= 2.2.0)
-    - GooglePlaces (= 2.2.0)
-  - GooglePlaces (2.2.0):
-    - GoogleMaps/Base (= 2.2.0)
-  - React/Core (0.43.0):
-    - React/cxxreact
-    - Yoga (= 0.43.0.React)
-  - React/cxxreact (0.43.0):
-    - React/jschelpers
-  - React/DevSupport (0.43.0):
+  - GooglePlacePicker (2.3.1):
+    - GoogleMaps (= 2.3.1)
+    - GooglePlaces (= 2.3.1)
+  - GooglePlaces (2.3.1):
+    - GoogleMaps/Base (= 2.3.1)
+  - React/Core (0.46.4):
+    - Yoga (= 0.46.4.React)
+  - React/DevSupport (0.46.4):
     - React/Core
     - React/RCTWebSocket
-  - React/jschelpers (0.43.0)
-  - React/RCTActionSheet (0.43.0):
+  - React/RCTActionSheet (0.46.4):
     - React/Core
-  - React/RCTAnimation (0.43.0):
+  - React/RCTAnimation (0.46.4):
     - React/Core
-  - React/RCTGeolocation (0.43.0):
+  - React/RCTGeolocation (0.46.4):
     - React/Core
-  - React/RCTImage (0.43.0):
+  - React/RCTImage (0.46.4):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.43.0):
+  - React/RCTLinkingIOS (0.46.4):
     - React/Core
-  - React/RCTNetwork (0.43.0):
+  - React/RCTNetwork (0.46.4):
     - React/Core
-  - React/RCTSettings (0.43.0):
+  - React/RCTSettings (0.46.4):
     - React/Core
-  - React/RCTText (0.43.0):
+  - React/RCTText (0.46.4):
     - React/Core
-  - React/RCTVibration (0.43.0):
+  - React/RCTVibration (0.46.4):
     - React/Core
-  - React/RCTWebSocket (0.43.0):
+  - React/RCTWebSocket (0.46.4):
     - React/Core
-  - Yoga (0.43.0.React)
+  - Yoga (0.46.4.React)
 
 DEPENDENCIES:
   - GoogleMaps
@@ -66,11 +62,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
-  GooglePlacePicker: 345b1aabd42c9d6d9bf2369c1bae1234d903e764
-  GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
-  React: 4ae20688fff26865bf97c92aaa54988851636478
-  Yoga: 262a900da827a1cec485dceff08ed0a5d5b6294d
+  GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
+  GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
+  GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
+  React: 596d8774642d10fea20b1f24cc591fcf633f73ad
+  Yoga: 98e24da91afe33bb43fedaf27dafede269c04fe8
 
 PODFILE CHECKSUM: d527aa82442ebd6774a9b50c5d318c90b2e1926d
 

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   Image,
@@ -14,6 +14,7 @@ import styles from './styles'
 import { connect } from 'react-redux';
 import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { uploadConcern } from '../../actions/concerns';
+import PropTypes from 'prop-types';
 
 const mapStateToProps = state => {
   return {
