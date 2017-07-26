@@ -7,10 +7,10 @@ import SideMenu from './components/SideMenu/SideMenu';
 import NewPictures from './components/NewPictures/NewPictures';
 import CommentCard from './components/CommentCard/CommentCard'
 
-export function registerScreens() {
-  Navigation.registerComponent('app.Map', () =>  Map);
-  Navigation.registerComponent('app.LocationCard', () => LocationCard);
+export function registerScreens(store, Provider) {
+  Navigation.registerComponent('app.Map', () =>  Map, store, Provider);
+  Navigation.registerComponent('app.LocationCard', () => LocationCard, store, Provider);
+  Navigation.registerComponent('app.NewPictures', () => NewPictures, store, Provider);
+  Navigation.registerComponent('app.CommentCard', () => CommentCard, store, Provider);
   Navigation.registerComponent('app.SideMenu', () => SideMenu);
-  Navigation.registerComponent('app.NewPictures', () => NewPictures);
-  Navigation.registerComponent('app.CommentCard', () => CommentCard);
 }
