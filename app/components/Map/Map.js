@@ -13,23 +13,11 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 
-import styles from './styles';
+import { navigatorStyle, styles } from './styles';
 
 export default class Map extends Component {
 
-  static navigatorStyle = {
-    navBarTextColor: 'white',
-    navBarBackgroundColor: 'darkorange',
-    navBarTranslucent: true,
-    navBarNoBorder: true,
-    navBarHidden: true,
-
-    navBarLeftButtonColor: 'white',
-    navBarButtonColor: 'white',
-    navBarRightButtonFontSize: 17,
-    navBarRightButtonColor: 'white',
-    navBarRightButtonFontWeight: '800',
-  };
+  static navigatorStyle = navigatorStyle;
 
   state = {
     userPosition: {

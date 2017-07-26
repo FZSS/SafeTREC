@@ -1,6 +1,20 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+const navigatorStyle = {
+  navBarTextColor: 'white',
+  navBarBackgroundColor: 'darkorange',
+  navBarTranslucent: true,
+  navBarNoBorder: true,
+  navBarHidden: true,
+
+  navBarLeftButtonColor: 'white',
+  navBarButtonColor: 'white',
+  navBarRightButtonFontSize: 17,
+  navBarRightButtonColor: 'white',
+  navBarRightButtonFontWeight: '800',
+};
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -61,5 +75,7 @@ export default StyleSheet.create({
     height: 30,
     color: 'black'
   }
-
 });
+
+export {navigatorStyle, styles};
+
