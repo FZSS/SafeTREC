@@ -6,7 +6,6 @@ export const getConcernsInRegion = (mapRegion) => {
   //TODO:rewrite so read actually concernsInArea but not all concerns
   const ref  = firebase.database().ref('concerns');
 
-  console.log('invoked this this this');
   // return {
   //   type: actionTypes.GetConcernsInArea,
   //   payload:  ref.orderByChild("latitude")
@@ -16,17 +15,22 @@ export const getConcernsInRegion = (mapRegion) => {
   // }
   return {
     type: actionTypes.GetConcernsInArea,
-    payload: ref.once('value')
+    payload: ref.once('value').then((snapshot) => {
+      return snapshot.val();
+    })
   }
 };
 
 
 export const updateMapRegion = (mapRegion) => {
+  return function(dispatch) {
 
-  getConcernsInRegion();
-  return {
-    type: actionTypes.UpdateMapRegion,
-    payload: mapRegion
+    //TODO: Improve so that not read the concerns immediately
+    dispatch(getConcernsInRegion());
+    dispatch ({
+      type: actionTypes.UpdateMapRegion,
+      payload: mapRegion
+    })
   }
 };
 

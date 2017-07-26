@@ -17,7 +17,8 @@ const initialState = {
         longitude: -122.4224,
       },
       title: 'concern 0',
-      description: 'a safety concern!'},
+      description: 'a safety concern!'
+    },
     {
       id: 1,
       address: null,
@@ -26,7 +27,8 @@ const initialState = {
         longitude: -122.4124,
       },
       title: 'concern 1',
-      description: 'another safety concern!'},
+      description: 'another safety concern!'
+    },
   ]
 };
 
@@ -63,7 +65,25 @@ export default function (state = initialState, action) {
 
 
     case actionTypes.GetConcernsInArea + '_FULFILLED':
-      return state;
+      const concernsInMapRegion = [];
+
+      for (const key in action.payload) {
+        if (action.payload.hasOwnProperty(key)) {
+          let newConcern = action.payload[key]; //TODO: use three dots
+          newConcern.id = key;
+
+          newConcern.coordinate = {
+            longitude: newConcern.longitude,
+            latitude: newConcern.latitude
+          };
+          concernsInMapRegion.push(newConcern);
+        }
+      }
+
+      return {
+        ...state,
+        concernsInMapRegion
+      };
 
     default:
       return state;
