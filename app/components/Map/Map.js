@@ -13,21 +13,20 @@ import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
-
 import { navigatorStyle, styles } from './styles';
+import { getConcernsInRegion } from '../../actions/map';
 
 // Redux Store
-function mapStateToProps(store) {
+function mapStateToProps(state) {
   return {
-    concerns: store.concerns.concernsInMapRegion
+    concerns: state.concerns.concernsInMapRegion
   }
 
 }
 
-// Redux Dispatch
-function mapDispatchToProps(store) {
-  return {}
-}
+const mapDispatchToProps = {
+    getConcernsInRegion
+};
 
 class Map extends Component {
 

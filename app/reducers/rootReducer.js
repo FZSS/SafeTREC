@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import concerns from './concernsReducer';
+import map from './mapReducer';
 
 const rootReducer = combineReducers({
-  concerns
+  concerns,
+  map
 });
 
 export default rootReducer;

@@ -61,6 +61,10 @@ export default function (state = initialState, action) {
         },
       };
 
+
+    case actionTypes.GetConcernsInArea + '_FULFILLED':
+      return state;
+
     default:
       return state;
   }

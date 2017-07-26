@@ -1,7 +1,7 @@
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 
-export const getAllConcerns = () => {
+export const GET_CONCERNS_IN_AREA = () => {
 
 };
 
@@ -19,7 +19,8 @@ export const uploadConcern = (details) => {
 
   let concern = {
     address: details.address,
-    coordinate: details.coordinate,
+    longitude: details.coordinate.longitude,
+    latitude: details.coordinate.latitude,
     title: details.title,
     description: details.description
   };
