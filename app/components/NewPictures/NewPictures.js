@@ -52,7 +52,7 @@ export default class NewPicture extends Component {
   };
 
   //fixme: does not scroll
-  componentDidMount() {
+  componentDidUpdate() {
     console.log('should scroll');
     this._scrollView.scrollToEnd({animated:true});
   }
