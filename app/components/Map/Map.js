@@ -43,26 +43,6 @@ class Map extends Component {
       latitudeDelta: 0.0222,
       longitudeDelta: 0.0121,
     },
-    markers: [
-      {
-        key: 0,
-        title: 'concern1',
-        coordinate: {
-          latitude: 37.78821,
-          longitude: -122.4224
-        },
-        description: 'Safety Concern 1'
-      },
-      {
-        key: 1,
-        title: 'concern2',
-        coordinate: {
-          latitude: 37.78721,
-          longitude: -122.4124
-        },
-        description: 'Safety Concern 2'
-      },
-    ]
   };
 
   watchID: ?number = null;
@@ -137,17 +117,15 @@ class Map extends Component {
             onFocus={() => this.openSearchModal()}
           >
           </TextInput>
-          <Text>
-            {/*{this.props.concerns[0]}*/}
-          </Text>
-          {/*{this.props.concerns.map(concern => (*/}
-            {/*<MapView.Marker*/}
-              {/*key={concern.id}*/}
-              {/*coordinate={concern.coordinate}*/}
-              {/*title={concern.title}*/}
-              {/*description={concern.description}*/}
-            {/*/>*/}
-          {/*))}*/}
+
+          {this.props.concerns.concerns.map(concern => (
+            <MapView.Marker
+              key={concern.id}
+              coordinate={concern.coordinate}
+              title={concern.title}
+              description={concern.description}
+            />
+          ))}
 
         </MapView>
 

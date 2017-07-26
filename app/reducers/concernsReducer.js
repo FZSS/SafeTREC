@@ -4,7 +4,7 @@ import actionTypes from '../constants/actionTypes';
 const initialState = {
   concerns: [
     {
-      key: 0,
+      id: 0,
       address: null,
       coordinate: {
         latitude: 37.78821,
@@ -13,7 +13,7 @@ const initialState = {
       title: 'concern 0',
       description: 'a safety concern!'},
     {
-      key: 1,
+      id: 1,
       address: null,
       coordinate: {
         latitude: 37.78721,
