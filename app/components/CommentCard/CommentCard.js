@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   Text,
   Image,
@@ -9,12 +9,25 @@ import {
   SegmentedControlIOS
 } from 'react-native'
 import styles from './styles'
-import Icon from 'react-native-vector-icons/Ionicons';
-import RNGooglePlaces from 'react-native-google-places';
+import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { uploadConcern } from '../../actions/concerns';
 
+const mapStateToProps = store => {
+  return {
+    concerns: store.concerns
+  }
+};
 
-export default class CommentCard extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    submitConcern: (details) => {
+       dispatch(uploadConcern(details));
+    }
+  }
+};
+
+class CommentCard extends Component {
 
   constructor(props) {
     super(props);
@@ -33,9 +46,19 @@ export default class CommentCard extends Component {
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'submit') {
-        this.props.navigator.resetTo({
-          screen: 'app.Map',
-        })
+
+        //should be a state in redux
+        let details =  {
+          address: this.props.address,
+          coordinate: this.props.coordinate,
+          title: 'some title',
+          description: 'some Concern content'
+        };
+
+        this.props.submitConcern(details);
+        // this.props.navigator.resetTo({
+        //   screen: 'app.Map',
+        // })
       }
     }
   }
@@ -80,28 +103,13 @@ export default class CommentCard extends Component {
        </View>
     )
   }
-
 }
 
+CommentCard.propTypes = {
+  coordinate: PropTypes.object.isRequired,
+  address: PropTypes.string.isRequired,
+};
 
-class Picture extends Component {
+export default connect(mapStateToProps, mapDispatchToProps)(CommentCard);
 
-  // render() {
-  //   return (
-  //     <View
-  //       style={styles.onePicture}
-  //     >
-  //     </View>
-  //   )
-  // }
-
-  render() {
-    return (
-      <Image style={{ width: 100}}
-             source={{ uri: this.state.image}}
-      />
-    )
-  }
-
-}
 

@@ -37,7 +37,12 @@ export default class LocationCard extends Component {
         this.props.navigator.push({
           screen: 'app.CommentCard',
           passProps: {
-            reportCategory: this.props.reportCategory
+            reportCategory: this.props.reportCategory,
+            coordinate: {
+              latitude: this.state.mapRegion.latitude,
+              longitude: this.state.mapRegion.longitude,
+            },
+            address: this.state.address,
           }
         })
       }
@@ -59,7 +64,6 @@ export default class LocationCard extends Component {
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        console.log(place);
         this.setState({address: place.address});
 
         let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
@@ -124,28 +128,6 @@ export default class LocationCard extends Component {
          </MapView>
 
        </View>
-    )
-  }
-
-}
-
-
-class Picture extends Component {
-
-  // render() {
-  //   return (
-  //     <View
-  //       style={styles.onePicture}
-  //     >
-  //     </View>
-  //   )
-  // }
-
-  render() {
-    return (
-      <Image style={{ width: 100}}
-             source={{ uri: this.state.image}}
-      />
     )
   }
 

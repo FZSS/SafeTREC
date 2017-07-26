@@ -1,5 +1,5 @@
 const actionTypes = {
-  UploadConcern: "UPLOAD_CONCERN",
+  SubmitConcern: "SUBMIT_CONCERN",
   GetConcernsInArea: "GET_CONCERNS_IN_AREA"
 };
 

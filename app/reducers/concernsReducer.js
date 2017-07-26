@@ -26,7 +26,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case actionTypes.UploadConcern:
+    case actionTypes.SubmitConcern:
       return state;
 
     case actionTypes.GetConcernsInArea:

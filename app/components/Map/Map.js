@@ -18,7 +18,6 @@ import { navigatorStyle, styles } from './styles';
 
 // Redux Store
 function mapStateToProps(store) {
-  console.log(store.concerns);
   return {
     concerns: store.concerns
   }
