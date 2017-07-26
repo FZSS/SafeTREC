@@ -15,7 +15,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case actionTypes.GetConcernsInArea:
-
+    case actionTypes.UpdateMapRegion:
+      return {
+        ...state,
+        mapRegion: action.payload
+      }
   }
 }

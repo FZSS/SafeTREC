@@ -14,18 +14,21 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import { navigatorStyle, styles } from './styles';
-import { getConcernsInRegion } from '../../actions/map';
+import { getConcernsInRegion, updateMapRegion } from '../../actions/map';
 
 // Redux Store
 function mapStateToProps(state) {
   return {
-    concerns: state.concerns.concernsInMapRegion
+    concerns: state.concerns.concernsInMapRegion,
+    mapRegion: state.map.mapRegion,
+    userPosition: state.map.userPosition
   }
 
 }
 
 const mapDispatchToProps = {
-    getConcernsInRegion
+    getConcernsInRegion,
+    updateMapRegion
 };
 
 class Map extends Component {
@@ -49,10 +52,10 @@ class Map extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({userPosition:position.coords});
-        let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
+        let newMapRegion = JSON.parse(JSON.stringify(this.props.mapRegion));
         newMapRegion.latitude = position.coords.latitude;
         newMapRegion.longitude = position.coords.longitude;
-        this.setState({mapRegion:newMapRegion});
+        this.props.updateMapRegion(newMapRegion);
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -66,10 +69,10 @@ class Map extends Component {
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
+        let newMapRegion = JSON.parse(JSON.stringify(this.props.mapRegion));
         newMapRegion.latitude = place.latitude;
         newMapRegion.longitude = place.longitude;
-        this.setState({mapRegion:newMapRegion});
+        this.props.updateMapRegion(newMapRegion);
       })
       .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
@@ -101,8 +104,8 @@ class Map extends Component {
           style={{flex:1}}
           provider={PROVIDER_GOOGLE}
           // initialRegion={this.state.mapRegion}
-          region={this.state.mapRegion}
-          onRegionChange={(r) => this.setState({mapRegion:r})}
+          region={this.props.mapRegion}
+          onRegionChange={(r) => this.props.updateMapRegion(r)}
           mapType={"standard"}
           showsUserLocation={true}
           showsCompass={true}
