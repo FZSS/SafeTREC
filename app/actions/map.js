@@ -3,10 +3,10 @@ import firebase from '../config/firebase';
 
 export const getConcernsInRegion = (mapRegion) => {
 
-
   //TODO:rewrite so read actually concernsInArea but not all concerns
   const ref  = firebase.database().ref('concerns');
 
+  console.log('invoked this this this');
   // return {
   //   type: actionTypes.GetConcernsInArea,
   //   payload:  ref.orderByChild("latitude")
@@ -23,6 +23,7 @@ export const getConcernsInRegion = (mapRegion) => {
 
 export const updateMapRegion = (mapRegion) => {
 
+  getConcernsInRegion();
   return {
     type: actionTypes.UpdateMapRegion,
     payload: mapRegion
