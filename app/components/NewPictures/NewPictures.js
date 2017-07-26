@@ -26,7 +26,7 @@ export default class NewPicture extends Component {
       {
         title: 'Next',
         id: 'next',
-        buttonFontWeight: '900',
+        // buttonFontWeight: '900',
       },
     ]
   };

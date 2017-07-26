@@ -14,7 +14,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import { navigatorStyle, styles } from './styles';
-import { getConcernsInRegion, updateMapRegion } from '../../actions/map';
+import { getConcernsInRegion, updateMapRegion, updateUserLocation} from '../../actions/map';
 
 // Redux Store
 function mapStateToProps(state) {
@@ -23,35 +23,22 @@ function mapStateToProps(state) {
     mapRegion: state.map.mapRegion,
     userPosition: state.map.userPosition
   }
-
 }
 
 const mapDispatchToProps = {
     getConcernsInRegion,
-    updateMapRegion
+    updateMapRegion,
+    updateUserLocation
 };
 
 class Map extends Component {
-
-  state = {
-    userPosition: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-    },
-    mapRegion: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0222,
-      longitudeDelta: 0.0121,
-    },
-  };
 
   watchID: ?number = null;
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.setState({userPosition:position.coords});
+        this.props.updateUserLocation(position.coords);
         let newMapRegion = JSON.parse(JSON.stringify(this.props.mapRegion));
         newMapRegion.latitude = position.coords.latitude;
         newMapRegion.longitude = position.coords.longitude;
@@ -62,7 +49,7 @@ class Map extends Component {
     );
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      this.setState({userPosition:position.coords});
+      this.props.updateUserLocation(position.coords);
     });
   }
 
@@ -83,7 +70,7 @@ class Map extends Component {
       title:'Pictures',
       passProps: {
         reportCategory: category,
-        mapRegion: this.state.mapRegion
+        mapRegion: this.props.mapRegion
       }
     })
   }
@@ -160,4 +147,5 @@ class Map extends Component {
 Map.navigatorStyle = navigatorStyle;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
+
 

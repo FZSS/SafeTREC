@@ -26,7 +26,7 @@ export default class LocationCard extends Component {
     rightButtons: [{
         title: 'Next',
         id: 'next',
-        buttonFontWeight: '900',
+        buttonFontWeight: '100',
       }],
   };
 

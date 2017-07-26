@@ -28,3 +28,11 @@ export const updateMapRegion = (mapRegion) => {
     payload: mapRegion
   }
 };
+
+export const updateUserLocation = (coordinates) => {
+
+  return {
+    type: actionTypes.UpdateUserLocation,
+    coordinates: coordinates
+  }
+};

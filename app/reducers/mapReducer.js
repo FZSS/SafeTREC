@@ -1,7 +1,7 @@
 import actionTypes from '../constants/actionTypes';
 
 const initialState = {
-  userPosition: {
+  userLocation: {
     latitude: 37.78825,
     longitude: -122.4324,
   },
@@ -19,6 +19,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         mapRegion: action.payload
-      }
+      };
+
+    case actionTypes.UpdateUserLocation:
+      return {
+        ...state,
+        userLocation: action.coordinates
+      };
+
+    default:
+      return state
   }
 }
