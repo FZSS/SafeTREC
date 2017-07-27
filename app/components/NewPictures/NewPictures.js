@@ -7,9 +7,8 @@ import {
   ScrollView,
   Button,
 } from 'react-native'
-import {styles} from './styles'
+import { styles, PHOTO_HEIGHT } from './styles'
 import ImagePicker from 'react-native-image-picker';
-let scrollViewHeight = 1000;
 let imageKey = 1;
 
 export default class NewPicture extends Component {
@@ -27,7 +26,6 @@ export default class NewPicture extends Component {
       },
     ]
   };
-
 
   constructor(props) {
     super(props);
@@ -108,7 +106,9 @@ export default class NewPicture extends Component {
 
   getImages() {
     return this.state.images.map((image) => {
-      return  <Image key={image.key} style={{height: 200}} source={{uri: image.uri}}/>
+      return  <Image key={image.key}
+                     style={styles.picture}
+                     source={{uri: image.uri}}/>
     });
   }
 
@@ -130,17 +130,19 @@ export default class NewPicture extends Component {
         style={styles.container}
       >
         <ScrollView
-          onLayout={(event) => {
-            scrollViewHeight = event.nativeEvent.layout.height;
-          }}
           ref={ref => this.scrollView = ref}
           style={styles.scrollViewContainer}
+
+          //scroll to end when needed
           onContentSizeChange={(contentWidth, contentHeight) => {
-            const scrollHeight = (contentHeight < scrollViewHeight) ? 0: contentHeight - scrollViewHeight;
-            this.scrollView.scrollTo({y:scrollHeight})
+            if (contentHeight > PHOTO_HEIGHT) {
+              this.scrollView.scrollToEnd()
+            }
           }}
         >
+
           { this.getImages() }
+
         </ScrollView>
         <Button
           onPress={()=>this.openPictureActionSheet()}
