@@ -1,9 +1,7 @@
-/**
- * Created by kevin on 4/23/17.
- */
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const DEVICE_HEIGHT = Dimensions.get('window').height;
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -29,3 +27,4 @@ export default StyleSheet.create({
   }
 });
 
+export {styles, DEVICE_HEIGHT};

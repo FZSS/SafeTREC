@@ -3,10 +3,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
-  ActionSheetIOS,
-  Text,
-  Button,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -16,14 +12,13 @@ import RNGooglePlaces from 'react-native-google-places';
 import { navigatorStyle, styles } from './styles';
 import { getConcernsInRegion, updateMapRegion, updateUserLocation} from '../../actions/map';
 
-// Redux Store
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     concerns: state.concerns.concernsInMapRegion,
     mapRegion: state.map.mapRegion,
     userPosition: state.map.userPosition
   }
-}
+};
 
 const mapDispatchToProps = {
     getConcernsInRegion,

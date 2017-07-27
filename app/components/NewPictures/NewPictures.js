@@ -6,14 +6,11 @@ import {
   Image,
   ScrollView,
   Button,
-  AlertIOS
 } from 'react-native'
-import styles from './styles'
-
-//TODO:fix var
+import {styles} from './styles'
 import ImagePicker from 'react-native-image-picker';
-
-var imageKey = 1;
+let scrollViewHeight = 1000;
+let imageKey = 1;
 
 export default class NewPicture extends Component {
 
@@ -50,12 +47,6 @@ export default class NewPicture extends Component {
       {key: 0, uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'},
     ],
   };
-
-  //fixme: does not scroll
-  componentDidUpdate() {
-    console.log('should scroll');
-    this._scrollView.scrollToEnd({animated:true});
-  }
 
   openPictureActionSheet() {
     ActionSheetIOS.showActionSheetWithOptions({
@@ -113,7 +104,6 @@ export default class NewPicture extends Component {
     this.setState({
       images: this.state.images
     });
-    console.log(this.state.images);
   }
 
   getImages() {
@@ -136,10 +126,19 @@ export default class NewPicture extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+      >
         <ScrollView
+          onLayout={(event) => {
+            scrollViewHeight = event.nativeEvent.layout.height;
+          }}
+          ref={ref => this.scrollView = ref}
           style={styles.scrollViewContainer}
-          ref={(scrollView) => { this._scrollView = scrollView; }}
+          onContentSizeChange={(contentWidth, contentHeight) => {
+            const scrollHeight = (contentHeight < scrollViewHeight) ? 0: contentHeight - scrollViewHeight;
+            this.scrollView.scrollTo({y:scrollHeight})
+          }}
         >
           { this.getImages() }
         </ScrollView>

@@ -11,7 +11,6 @@ const navigatorStyle = {
   navBarButtonColor: 'white',
   navBarRightButtonFontSize: 17,
   navBarRightButtonColor: 'white',
-  navBarRightButtonFontWeight: '800',
 };
 
 const styles = StyleSheet.create({
