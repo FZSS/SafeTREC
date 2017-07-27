@@ -140,7 +140,7 @@ class CommentCard extends Component {
          <View style={this.props.submissionStatus.pending ? styles.showProgress: styles.hideProgress}>
            <ActivityIndicator
              animating = {this.props.submissionStatus.pending}
-             color = '#bc2b78'
+             color = 'darkorange'
              size = "large"
              style = {styles.activityIndicator}
            />
