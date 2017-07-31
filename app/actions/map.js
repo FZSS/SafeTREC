@@ -25,7 +25,6 @@ export const getConcernsInRegion = (mapRegion) => {
 export const updateMapRegion = (mapRegion) => {
   return function(dispatch) {
 
-    //TODO: Improve so that not read the concerns immediately
     dispatch(getConcernsInRegion());
     dispatch ({
       type: actionTypes.UpdateMapRegion,

@@ -10,7 +10,7 @@ const initialState = {
   },
   concernsInMapRegion: [
     {
-      id: 0,
+      id: "XDFJKSJK129JK",
       address: null,
       coordinate: {
         latitude: 37.78821,
@@ -20,7 +20,7 @@ const initialState = {
       description: 'a safety concern!'
     },
     {
-      id: 1,
+      id: "ADFJ2SJK129JK",
       address: null,
       coordinate: {
         latitude: 37.78721,
@@ -67,6 +67,7 @@ export default function (state = initialState, action) {
     case actionTypes.GetConcernsInArea + '_FULFILLED':
       const concernsInMapRegion = [];
 
+      // conforming database entry according to store scheme
       for (const key in action.payload) {
         if (action.payload.hasOwnProperty(key)) {
           let newConcern = action.payload[key]; //TODO: use three dots

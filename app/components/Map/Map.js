@@ -81,6 +81,16 @@ class Map extends Component {
     });
   }
 
+  showConcernDetail(concernId) {
+    this.props.navigator.showModal({
+      screen: 'app.ConcernView',
+      title:'Details',
+      passProps: {
+        concernId: concernId,
+      }
+    })
+  }
+
   render() {
     return (
       <View style={{flex:1}}>
@@ -109,7 +119,7 @@ class Map extends Component {
               key={concern.id}
               coordinate={concern.coordinate}
             >
-              <MapView.Callout style={styles.callOut} onPress={() => console.log('callout was clicked')}>
+              <MapView.Callout style={styles.callOut} onPress={() => this.showConcernDetail(concern.id)}>
                 <ConcernCallOut title={concern.title} description={concern.description}/>
               </MapView.Callout>
 

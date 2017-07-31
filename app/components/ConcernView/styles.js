@@ -1,54 +1,42 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+const navigatorStyle = {
+  navBarTextColor: 'white',
+  navBarBackgroundColor: 'darkorange',
+  navBarTranslucent: true,
+  navBarNoBorder: true,
+  navBarHidden: true,
+  statusBarTextColorScheme: 'light',
+  navBarLeftButtonColor: 'white',
+  navBarButtonColor: 'white',
+  navBarRightButtonFontSize: 17,
+  navBarRightButtonColor: 'white',
+};
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: 'white',
+    backgroundColor: 'grey',
   },
 
-  locationContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    backgroundColor: 'white',
-    borderWidth: 2,
-    borderColor: 'yellow',
-    paddingTop: 30,
-    paddingLeft: 5,
-    paddingRight: 5
+  dismissButton: {
+    position:'absolute',
+    left: 20,
+    top: 30,
+    width: 30,
+    height: 20,
+    backgroundColor:'transparent',
   },
 
-  addressTextContainer: {
-    flex: 6,
-  },
-
-  addressText: {
-    color: 'darkorange',
-    fontSize: 18,
-    fontWeight:'600'
-  },
-
-  locationIconContainer: {
-    paddingLeft: 30,
-    flex: 1
-  },
-
-  locationArrowContainer: {
-    flex: 1
-  },
-
-  locationIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'darkorange'
-  },
-
-  mapviewContainer: {
-    flex: 5
+  dismissIcon: {
+    fontSize: 30,
+    height: 30,
+    color: 'white'
   }
 
-
 });
+
+export {navigatorStyle, styles};
 

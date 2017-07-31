@@ -67,7 +67,6 @@ class CommentCard extends Component {
         this.props.navigator.setStyle({
             navBarHidden: true
           })
-
       }
     }
   }
