@@ -107,6 +107,9 @@ class Map extends Component {
               coordinate={concern.coordinate}
               title={concern.title}
               description={concern.description}
+              onCalloutPress={() => {
+                console.log('pressed Callout')
+              }}
             />
           ))}
 
