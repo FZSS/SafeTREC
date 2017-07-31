@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 
   searchBox: {
 
-    zIndex: 1,
     color: 'grey',
     backgroundColor: '#ffffff',
     height: 35,
@@ -66,13 +65,17 @@ const styles = StyleSheet.create({
     width: 30,
     height: 20,
     backgroundColor:'transparent',
-    zIndex: 5
   },
 
   sideMenuIcon: {
     fontSize: 30,
     height: 30,
     color: 'black'
+  },
+
+  callOut: {
+    height: 50,
+    width: 150
   }
 });
 

@@ -30,6 +30,11 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
+const propTypes = {
+  coordinate: PropTypes.object.isRequired,
+  address: PropTypes.string.isRequired,
+};
+
 class CommentCard extends Component {
 
   constructor(props) {
@@ -54,7 +59,7 @@ class CommentCard extends Component {
         let details =  {
           address: this.props.address,
           coordinate: this.props.coordinate,
-          title: 'some title',
+          title: this.props.reportCategory + ' concern' ,
           description: this.state.concernDescription
         };
 
@@ -151,10 +156,7 @@ class CommentCard extends Component {
   }
 }
 
-CommentCard.propTypes = {
-  coordinate: PropTypes.object.isRequired,
-  address: PropTypes.string.isRequired,
-};
+CommentCard.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentCard);
 

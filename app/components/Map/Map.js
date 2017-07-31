@@ -3,6 +3,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
+  Text
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -11,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import { navigatorStyle, styles } from './styles';
 import { getConcernsInRegion, updateMapRegion, updateUserLocation} from '../../actions/map';
+import ConcernCallOut from '../ConcernView/ConcernCallOut';
 
 const mapStateToProps = (state) => {
   return {
@@ -105,12 +108,12 @@ class Map extends Component {
             <MapView.Marker
               key={concern.id}
               coordinate={concern.coordinate}
-              title={concern.title}
-              description={concern.description}
-              onCalloutPress={() => {
-                console.log('pressed Callout')
-              }}
-            />
+            >
+              <MapView.Callout style={styles.callOut} onPress={() => console.log('callout was clicked')}>
+                <ConcernCallOut title={concern.title} description={concern.description}/>
+              </MapView.Callout>
+
+            </MapView.Marker>
           ))}
 
         </MapView>

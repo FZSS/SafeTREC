@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux';
-import Carousel from 'react-native-carousel';
+import Carousel from 'react-native-snap-carousel';
 
 const mapStateToProps= (state) => {
   return {
@@ -22,7 +22,6 @@ class ConcernView extends Component {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-
 
   render() {
 
