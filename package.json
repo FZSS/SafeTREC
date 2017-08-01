@@ -13,6 +13,7 @@
     "react-native": "^0.46.4",
     "react-native-action-button": "^2.7.2",
     "react-native-exif": "github:francisco-sanchez-molina/react-native-exif",
+    "react-native-fbsdk": "^0.6.1",
     "react-native-google-places": "^2.1.0",
     "react-native-image-picker": "^0.26.3",
     "react-native-maps": "^0.15.3",
