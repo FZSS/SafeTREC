@@ -6,14 +6,22 @@ export default StyleSheet.create({
     padding: 20,
     backgroundColor: 'black',
   },
+
   controlText: {
     color: 'white',
   },
-  button: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'black',
+
+  settingsButton:{
     padding: 10,
-  }
+    width: 200,
+    backgroundColor: '#828282'
+  },
+
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+
 });
 

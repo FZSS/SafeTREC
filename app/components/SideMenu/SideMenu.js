@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import styles from './styles'
+import FBLogin from './FBLogin';
 
 export default class SideMenu extends Component {
 
@@ -15,48 +16,16 @@ export default class SideMenu extends Component {
 
         <Text style={styles.title}>Side Menu</Text>
 
-        <Login />
-        <TouchableOpacity >
-          <Text style={styles.button}>Replace Tab#2 Root</Text>
-        </TouchableOpacity>
+        <FBLogin />
 
-        <TouchableOpacity >
-          <Text style={styles.button}>Replace Tab#2 Root</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.settingsButton} >
+            <Text style={styles.buttonText}>Settings</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity >
-          <Text style={styles.button}>Replace Tab#2 Root</Text>
-        </TouchableOpacity>
       </View>
    )
   }
 }
 
 
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-} = FBSDK;
 
-class Login extends Component{
-  render () {
-    return (
-      <View>
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Login failed with error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Login was cancelled");
-              } else {
-                alert("Login was successful with permissions: " + result.grantedPermissions)
-              }
-            }
-          }
-          onLogoutFinished={() => alert("User logged out")}/>
-      </View>
-    );
-  }
-};
