@@ -34,12 +34,12 @@ export const uploadConcern = (details) => {
 
 export const getNewConcernAddressFromPictureGeocode = (latitude, longitude) => {
 
-  let latlngString = longitude.toString() + ',' + latitude.toString();
+  let latlngString = latitude.toString() + ',' + longitude.toString();
   // let correct = '40.714224,-73.961452';
   // console.log(latlngString);
 
   let params = {
-    key: 'AIzaSyApaQH7UAaP8f72yjI0xWaAnQTeq4s9JlU',
+    key: 'AIzaSyApaQH7UAaP8f72yjI0xWaAnQTeq4s9JlU', //My google maps javascript api key
     latlng: latlngString ,
   };
 
@@ -59,3 +59,13 @@ export const updateNewConcernAddress = (address) => {
   }
 };
 
+export const updateNewConcernCoordinates = (latitude, longitude) => {
+
+  return {
+    type: actionTypes.UpdateNewConcernCoordinates,
+    payload: {
+      latitude: latitude,
+      longitude: longitude
+    }
+  }
+};

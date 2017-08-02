@@ -33,30 +33,37 @@ class Map extends Component {
 
   watchID: ?number = null;
 
+  updateMapInfo(position) {
+    let newMapRegion = {...this.props.mapRegion,
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    };
+    this.props.updateUserLocation(position.coords);
+    this.props.updateMapRegion(newMapRegion);
+  }
+
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.props.updateUserLocation(position.coords);
-        let newMapRegion = JSON.parse(JSON.stringify(this.props.mapRegion));
-        newMapRegion.latitude = position.coords.latitude;
-        newMapRegion.longitude = position.coords.longitude;
-        this.props.updateMapRegion(newMapRegion);
+        this.updateMapInfo(position);
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      this.props.updateUserLocation(position.coords);
+      this.updateMapInfo(position);
     });
   }
 
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        let newMapRegion = JSON.parse(JSON.stringify(this.props.mapRegion));
-        newMapRegion.latitude = place.latitude;
-        newMapRegion.longitude = place.longitude;
+        let newMapRegion = {
+          ...this.props.mapRegion,
+          latitude: place.latitude,
+          longitude: place.longitude,
+        };
         this.props.updateMapRegion(newMapRegion);
       })
       .catch(error => console.log(error.message));
@@ -68,7 +75,6 @@ class Map extends Component {
       title:'Pictures',
       passProps: {
         reportCategory: category,
-        mapRegion: this.props.mapRegion
       }
     })
   }

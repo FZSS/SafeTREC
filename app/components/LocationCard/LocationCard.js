@@ -8,18 +8,28 @@ import styles from './styles'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
-import { getNewConcernAddressFromPictureGeocode, updateNewConcernAddress } from '../../actions/concerns';
+import {
+  getNewConcernAddressFromPictureGeocode,
+  updateNewConcernAddress,
+  updateNewConcernCoordinates
+} from '../../actions/concerns';
+import {
+  updateMapRegion
+} from '../../actions/map'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 const mapStateToProps= (state) => {
   return {
-    address: state.concerns.newConcern.address
+    newConcern: state.concerns.newConcern,
+    mapRegion: state.map.mapRegion
   }
 };
 
 const mapDispatchToProps = {
   getNewConcernAddressFromPictureGeocode,
-  updateNewConcernAddress
+  updateNewConcernAddress,
+  updateNewConcernCoordinates,
+  updateMapRegion
 };
 
 class LocationCard extends Component {
@@ -37,7 +47,6 @@ class LocationCard extends Component {
       }],
   };
 
-
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'next') {
@@ -49,26 +58,31 @@ class LocationCard extends Component {
               latitude: this.state.mapRegion.latitude,
               longitude: this.state.mapRegion.longitude,
             },
-            address: this.props.address,
+            address: this.props.newConcern.address,
           }
         })
       }
     }
   }
 
-  state = {
-    mapRegion: this.props.mapRegion,
-    markerCoordinate: {
-      longitude: this.props.mapRegion.longitude,
-      latitude: this.props.mapRegion.latitude
-    }
-  };
-
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.pictureLocation) {
-      console.log(this.props.pictureLocation.latitude);
-      this.props.getNewConcernAddressFromPictureGeocode(this.props.pictureLocation.latitude,
-                                                        this.props.pictureLocation.longitude);
+
+      let lat = this.props.pictureLocation.latitude;
+      let long = this.props.pictureLocation.longitude;
+      let newMapRegion = {
+        ...this.props.mapRegion,
+        latitude: lat,
+        longitude: long
+      };
+
+      this.props.updateMapRegion(newMapRegion);
+      this.props.updateNewConcernCoordinates(lat, long);
+      this.props.getNewConcernAddressFromPictureGeocode(lat, long);
+
+    } else {
+      // If no GPS info in picture, assume we want to have a new concern at previous mapRegion
+      this.props.updateNewConcernCoordinates(this.props.mapRegion.latitude, this.props.mapRegion.longitude);
     }
   }
 
@@ -77,10 +91,12 @@ class LocationCard extends Component {
       .then((place) => {
         this.props.updateNewConcernAddress(place.address);
 
-        let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
-        newMapRegion.latitude = place.latitude;
-        newMapRegion.longitude = place.longitude;
-        this.setState({mapRegion:newMapRegion});
+        let newMapRegion = {
+          ...this.props.mapRegion,
+          latitude: place.latitude,
+          longitude: place.longitude,
+        };
+        this.props.updateMapRegion(newMapRegion);
 
         let newCoordinate = JSON.parse(JSON.stringify(this.state.markerCoordinate));
         newCoordinate.latitude = place.latitude;
@@ -111,7 +127,7 @@ class LocationCard extends Component {
 
            <View style={styles.addressTextContainer}>
              <Text style={styles.addressText}>
-               {this.props.address}
+               {this.props.newConcern.address}
              </Text>
 
            </View>
@@ -125,15 +141,15 @@ class LocationCard extends Component {
          <MapView
            style={styles.mapviewContainer}
            provider={PROVIDER_GOOGLE}
-           region={this.state.mapRegion}
-           onRegionChange={(r) => this.setState({mapRegion:r})}
+           region={this.props.mapRegion}
+           onRegionChange={(r) => this.props.updateMapRegion(r)}
            mapType={"standard"}
            showsUserLocation={true}
            showsCompass={true}
            showsMyLocationButton={true}
          >
            <MapView.Marker draggable
-                           coordinate={this.state.markerCoordinate}
+                           coordinate={this.props.newConcern.coordinate}
                            onDragEnd={(e) => this.onMarkerDragEnd(e)}
            />
          </MapView>

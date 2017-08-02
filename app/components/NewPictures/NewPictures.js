@@ -45,8 +45,8 @@ export default class NewPicture extends Component {
       { key: 0,
         uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg',
         location: {
-          longitude: 37.4221145,
-          latitude: -122.0859841
+          latitude: 37.4221145,
+          longitude: -122.0859841
         }},
     ],
   };
@@ -84,7 +84,6 @@ export default class NewPicture extends Component {
         //pass the location of the first image
         pictureLocation: this.state.images[0].location,
         reportCategory: this.props.reportCategory,
-        mapRegion: this.props.mapRegion
      }
     })
   }

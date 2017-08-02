@@ -4,7 +4,7 @@ import actionTypes from '../constants/actionTypes';
 const initialState = {
   newConcern: {
     id: "XDFJKSJK129JK",
-    address: 'Getting Address...',
+    address: 'Address...',
     coordinate: {
       latitude: 37.78821,
       longitude: -122.4224,
@@ -103,11 +103,30 @@ export default function (state = initialState, action) {
         }
       };
 
-    case actionTypes.GetNewConcernAddressFromPictureGeocode + '_REJECTED':
-      return state;
+    // case actionTypes.GetNewConcernAddressFromPictureGeocode + '_REJECTED':
+    //   return state;
 
     case actionTypes.GetNewConcernAddressFromPictureGeocode + '_FULFILLED':
-      return state;
+      let address = action.payload.data.results[0].formatted_address;
+      return {
+        ...state,
+        newConcern: {
+          ...state.newConcern,
+          address: address
+        }
+      };
+
+    case actionTypes.UpdateNewConcernCoordinates:
+      return {
+        ...state,
+        newConcern: {
+          ...state.newConcern,
+          coordinate: {
+            latitude: action.payload.latitude,
+            longitude: action.payload.longitude,
+          }
+        }
+      };
 
     default:
       return state;
