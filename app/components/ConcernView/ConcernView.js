@@ -10,17 +10,15 @@ import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 const mapStateToProps= (state) => {
   return {
+    mapRegion: state.map.mapRegion
   }
 };
 
 const mapDispatchToProps = {
-};
-
-const propTypes = {
-  concernId: PropTypes.string.isRequired,
 };
 
 class ConcernView extends Component {
@@ -30,36 +28,67 @@ class ConcernView extends Component {
     this.props.navigator.dismissModal();
   }
 
+  componentWillMount() {
+    this.props.mapRegion = {
+        ...this.props.mapRegion,
+        latitude: this.props.concern.coordinate.latitude,
+        longitude: this.props.concern.coordinate.longitude,
+        longitudeDelta: 0.002,
+        latitudeDelta: 0.002
+      }
+  }
+
   render() {
 
     return (
       <View style={styles.container}>
 
-        <View style={styles.container}>
+        <View style={styles.swiperContainer}>
           <Swiper
-              height={300}
+              height={280}
               activeDotColor='orange'
               loop={false}
           >
             <View style={styles.slide1}>
-              <Text style={styles.text}>Detail</Text>
+              <Text style={styles.text}>Detail Picture 1</Text>
             </View>
             <View style={styles.slide2}>
-              <Text style={styles.text}>Picture</Text>
+              <Text style={styles.text}>Detail Picture 2</Text>
             </View>
             <View style={styles.slide3}>
-              <Text style={styles.text}>Swipe</Text>
+              <Text style={styles.text}>Detail Picture 3</Text>
             </View>
           </Swiper>
         </View>
 
-        <View style={styles.container}>
-          <Text>
-            {this.props.title}
+        <MapView
+          style={styles.mapviewContainer}
+          provider={PROVIDER_GOOGLE}
+          region={this.props.mapRegion}
+          mapType={"standard"}
+          showsUserLocation={true}
+          showsCompass={true}
+          zoomEnabled={false}
+          scrollEnabled={false}
+        >
+          <MapView.Marker coordinate={this.props.concern.coordinate}/>
+        </MapView>
+
+        <View style={styles.detailsContainer}>
+          <Text style={styles.titleText}>
+            {this.props.concern.title || 'Concern Title'}
           </Text>
-          <Text>
+          <Text style={styles.descriptionText}>
+            {this.props.concern.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'}
+          </Text>
+          <Text style={styles.descriptionText}>
+            {this.props.concern.address || '2715 Dwight Way, CA 94704'}
+          </Text>
+          <Text style={styles.descriptionText}>
+            {Math.floor(Math.random() * 20)} people think this is good!
           </Text>
         </View>
+
 
         <TouchableOpacity
           style={styles.dismissButton}
@@ -73,7 +102,5 @@ class ConcernView extends Component {
 }
 
 ConcernView.navigatorStyle = navigatorStyle;
-
-ConcernView.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConcernView);

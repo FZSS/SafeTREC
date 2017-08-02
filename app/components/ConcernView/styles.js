@@ -21,6 +21,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
   },
 
+  detailsContainer: {
+    flex: 3,
+    padding: 10,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    backgroundColor: '#9b9b9b',
+  },
+
+  swiperContainer: {
+    flex: 4,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    backgroundColor: 'grey',
+  },
+
   dismissButton: {
     position:'absolute',
     left: 20,
@@ -36,24 +51,40 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
+  mapviewContainer: {
+    flex: 3
+  },
+
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
   },
 
+  titleText: {
+    color: '#fff',
+    fontSize: 20,
+    padding: 5
+  },
+
+  descriptionText: {
+    color: '#fff',
+    fontSize: 16,
+    padding: 5
+  },
+
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#dbeb31',
+    backgroundColor: '#d4d915',
   },
 
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#e5cab3',
+    backgroundColor: '#e55721',
   },
 
   slide3: {

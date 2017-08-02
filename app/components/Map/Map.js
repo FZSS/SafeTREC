@@ -87,12 +87,13 @@ class Map extends Component {
     });
   }
 
-  showConcernDetail(concernId) {
+  showConcernDetail(concern) {
     this.props.navigator.showModal({
       screen: 'app.ConcernView',
       title:'Details',
       passProps: {
-        concernId: concernId,
+        concernId: concern.concernId,
+        concern: concern
       }
     })
   }
@@ -125,7 +126,7 @@ class Map extends Component {
               key={concern.id}
               coordinate={concern.coordinate}
             >
-              <MapView.Callout style={styles.callOut} onPress={() => this.showConcernDetail(concern.id)}>
+              <MapView.Callout style={styles.callOut} onPress={() => this.showConcernDetail(concern)}>
                 <ConcernCallOut title={concern.title} description={concern.description}/>
               </MapView.Callout>
 
