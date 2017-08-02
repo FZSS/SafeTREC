@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import {
-  getNewConcernAddressFromPictureGeocode,
+  updateNewConcernAddressFromGeocode,
   updateNewConcernAddress,
   updateNewConcernCoordinates
 } from '../../actions/concerns';
@@ -26,7 +26,7 @@ const mapStateToProps= (state) => {
 };
 
 const mapDispatchToProps = {
-  getNewConcernAddressFromPictureGeocode,
+  updateNewConcernAddressFromGeocode,
   updateNewConcernAddress,
   updateNewConcernCoordinates,
   updateMapRegion
@@ -78,37 +78,48 @@ class LocationCard extends Component {
 
       this.props.updateMapRegion(newMapRegion);
       this.props.updateNewConcernCoordinates(lat, long);
-      this.props.getNewConcernAddressFromPictureGeocode(lat, long);
+      this.props.updateNewConcernAddressFromGeocode(lat, long);
 
     } else {
       // If no GPS info in picture, assume we want to have a new concern at previous mapRegion
-      this.props.updateNewConcernCoordinates(this.props.mapRegion.latitude, this.props.mapRegion.longitude);
+      let lat = this.props.mapRegion.latitude;
+      let long = this.props.mapRegion.longitude;
+      this.props.updateNewConcernCoordinates(lat, long);
+      this.props.updateNewConcernAddressFromGeocode(lat, long);
     }
   }
 
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        this.props.updateNewConcernAddress(place.address);
+
 
         let newMapRegion = {
           ...this.props.mapRegion,
           latitude: place.latitude,
           longitude: place.longitude,
         };
-        this.props.updateMapRegion(newMapRegion);
 
-        let newCoordinate = JSON.parse(JSON.stringify(this.state.markerCoordinate));
-        newCoordinate.latitude = place.latitude;
-        newCoordinate.longitude = place.longitude;
-        this.setState({markerCoordinate:newCoordinate});
+        this.props.updateMapRegion(newMapRegion);
+        this.props.updateNewConcernAddress(place.address);
+        this.props.updateNewConcernCoordinates(place.latitude, place.longitude);
 
       })
       .catch(error => console.log(error.message));
   }
 
   onMarkerDragEnd(e) {
-    this.setState({ markerCoordinate: e.nativeEvent.coordinate })
+    let lat = e.nativeEvent.coordinate.latitude;
+    let long = e.nativeEvent.coordinate.longitude;
+    let newMapRegion = {
+      ...this.props.mapRegion,
+      latitude: lat,
+      longitude: long
+    };
+
+    this.props.updateMapRegion(newMapRegion);
+    this.props.updateNewConcernCoordinates(lat, long);
+    this.props.updateNewConcernAddressFromGeocode(lat, long);
   }
 
   render() {

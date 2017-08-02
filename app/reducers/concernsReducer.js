@@ -103,10 +103,10 @@ export default function (state = initialState, action) {
         }
       };
 
-    // case actionTypes.GetNewConcernAddressFromPictureGeocode + '_REJECTED':
+    // case actionTypes.UpdateNewConcernAddressFromGeocode + '_REJECTED':
     //   return state;
 
-    case actionTypes.GetNewConcernAddressFromPictureGeocode + '_FULFILLED':
+    case actionTypes.UpdateNewConcernAddressFromGeocode + '_FULFILLED':
       let address = action.payload.data.results[0].formatted_address;
       return {
         ...state,

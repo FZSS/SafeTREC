@@ -32,7 +32,7 @@ export const uploadConcern = (details) => {
   }
 };
 
-export const getNewConcernAddressFromPictureGeocode = (latitude, longitude) => {
+export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {
 
   let latlngString = latitude.toString() + ',' + longitude.toString();
   // let correct = '40.714224,-73.961452';
@@ -44,7 +44,7 @@ export const getNewConcernAddressFromPictureGeocode = (latitude, longitude) => {
   };
 
   return {
-    type: actionTypes.GetNewConcernAddressFromPictureGeocode,
+    type: actionTypes.UpdateNewConcernAddressFromGeocode,
     payload: axios.get('https://maps.googleapis.com/maps/api/geocode/json?', {
       params: params
     })
