@@ -2,7 +2,15 @@ import actionTypes from '../constants/actionTypes';
 
 //concern schema
 const initialState = {
-  newConcern: null,
+  newConcern: {
+    id: "XDFJKSJK129JK",
+    address: 'Getting Address...',
+    coordinate: {
+      latitude: 37.78821,
+      longitude: -122.4224,
+    }
+  },
+
   newConcernSubmissionStatus: {
     pending: false,
     success: false,
@@ -85,6 +93,21 @@ export default function (state = initialState, action) {
         ...state,
         concernsInMapRegion
       };
+
+    case actionTypes.UpdateNewConcernAddress:
+      return {
+        ...state,
+        newConcern: {
+          ...state.newConcern,
+          address: action.payload
+        }
+      };
+
+    case actionTypes.GetNewConcernAddressFromPictureGeocode + '_REJECTED':
+      return state;
+
+    case actionTypes.GetNewConcernAddressFromPictureGeocode + '_FULFILLED':
+      return state;
 
     default:
       return state;

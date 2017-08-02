@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
 import {
   Text,
-  Image,
   View,
-  ImagePickerIOS,
   TouchableOpacity,
-  TouchableHighlight,
-  TextInput,
-  ScrollView,
-  SegmentedControlIOS
 } from 'react-native'
 import styles from './styles'
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
+import { getNewConcernAddressFromPictureGeocode, updateNewConcernAddress } from '../../actions/concerns';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
-export default class LocationCard extends Component {
+const mapStateToProps= (state) => {
+  return {
+    address: state.concerns.newConcern.address
+  }
+};
+
+const mapDispatchToProps = {
+  getNewConcernAddressFromPictureGeocode,
+  updateNewConcernAddress
+};
+
+class LocationCard extends Component {
 
   constructor(props) {
     super(props);
@@ -42,17 +49,14 @@ export default class LocationCard extends Component {
               latitude: this.state.mapRegion.latitude,
               longitude: this.state.mapRegion.longitude,
             },
-            address: this.state.address,
+            address: this.props.address,
           }
         })
       }
     }
   }
 
-
   state = {
-    pictureCoordinate: this.props.location,
-    address: 'Address',
     mapRegion: this.props.mapRegion,
     markerCoordinate: {
       longitude: this.props.mapRegion.longitude,
@@ -60,11 +64,18 @@ export default class LocationCard extends Component {
     }
   };
 
+  componentWillMount() {
+    if (this.props.pictureLocation) {
+      console.log(this.props.pictureLocation.latitude);
+      this.props.getNewConcernAddressFromPictureGeocode(this.props.pictureLocation.latitude,
+                                                        this.props.pictureLocation.longitude);
+    }
+  }
 
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-        this.setState({address: place.address});
+        this.props.updateNewConcernAddress(place.address);
 
         let newMapRegion = JSON.parse(JSON.stringify(this.state.mapRegion));
         newMapRegion.latitude = place.latitude;
@@ -100,7 +111,7 @@ export default class LocationCard extends Component {
 
            <View style={styles.addressTextContainer}>
              <Text style={styles.addressText}>
-               {this.state.address}
+               {this.props.address}
              </Text>
 
            </View>
@@ -130,6 +141,6 @@ export default class LocationCard extends Component {
        </View>
     )
   }
-
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(LocationCard);

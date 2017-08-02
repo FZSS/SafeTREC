@@ -1,5 +1,6 @@
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
+import axios from 'axios';
 
 export const GET_CONCERNS_IN_AREA = () => {
 
@@ -7,7 +8,7 @@ export const GET_CONCERNS_IN_AREA = () => {
 
 export const uploadConcern = (details) => {
 
-  //check connection DELETE
+  //check connection TODO:DELETE
   const connectedRef = firebase.database().ref(".info/connected");
   connectedRef.on("value", function(snap) {
     if (snap.val() === true) {
@@ -31,4 +32,30 @@ export const uploadConcern = (details) => {
   }
 };
 
+export const getNewConcernAddressFromPictureGeocode = (latitude, longitude) => {
+
+  let latlngString = longitude.toString() + ',' + latitude.toString();
+  // let correct = '40.714224,-73.961452';
+  // console.log(latlngString);
+
+  let params = {
+    key: 'AIzaSyApaQH7UAaP8f72yjI0xWaAnQTeq4s9JlU',
+    latlng: latlngString ,
+  };
+
+  return {
+    type: actionTypes.GetNewConcernAddressFromPictureGeocode,
+    payload: axios.get('https://maps.googleapis.com/maps/api/geocode/json?', {
+      params: params
+    })
+  }
+};
+
+export const updateNewConcernAddress = (address) => {
+
+  return {
+    type: actionTypes.UpdateNewConcernAddress,
+    payload: address
+  }
+};
 

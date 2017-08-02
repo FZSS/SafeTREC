@@ -22,12 +22,8 @@ const mapStateToProps = state => {
  }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    submitConcern: (details) => {
-       dispatch(uploadConcern(details));
-    }
-  }
+const mapDispatchToProps =  {
+    uploadConcern
 };
 
 const propTypes = {
@@ -63,7 +59,7 @@ class CommentCard extends Component {
           description: this.state.concernDescription
         };
 
-        this.props.submitConcern(details);
+        this.props.uploadConcern(details);
         this.props.navigator.setStyle({
             navBarHidden: true
           })

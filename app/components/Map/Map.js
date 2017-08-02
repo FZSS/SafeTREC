@@ -59,7 +59,7 @@ class Map extends Component {
         newMapRegion.longitude = place.longitude;
         this.props.updateMapRegion(newMapRegion);
       })
-      .catch(error => console.log(error.message));  // error is a Javascript Error object
+      .catch(error => console.log(error.message));
   }
 
   goToPictures(category) {
