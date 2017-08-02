@@ -54,11 +54,6 @@ class LocationCard extends Component {
           screen: 'app.CommentCard',
           passProps: {
             reportCategory: this.props.reportCategory,
-            coordinate: {
-              latitude: this.state.mapRegion.latitude,
-              longitude: this.state.mapRegion.longitude,
-            },
-            address: this.props.newConcern.address,
           }
         })
       }

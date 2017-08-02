@@ -18,17 +18,13 @@ import PropTypes from 'prop-types';
 
 const mapStateToProps = state => {
   return {
-    submissionStatus: state.concerns.newConcernSubmissionStatus
+    submissionStatus: state.concerns.newConcernSubmissionStatus,
+    newConcern: state.concerns.newConcern
  }
 };
 
 const mapDispatchToProps =  {
     uploadConcern
-};
-
-const propTypes = {
-  coordinate: PropTypes.object.isRequired,
-  address: PropTypes.string.isRequired,
 };
 
 class CommentCard extends Component {
@@ -51,10 +47,9 @@ class CommentCard extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'submit') {
 
-        //should be a state in redux
         let details =  {
-          address: this.props.address,
-          coordinate: this.props.coordinate,
+          address: this.props.newConcern.address,
+          coordinate: this.props.newConcern.coordinate,
           title: this.props.reportCategory + ' concern' ,
           description: this.state.concernDescription
         };
@@ -150,8 +145,6 @@ class CommentCard extends Component {
     )
   }
 }
-
-CommentCard.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentCard);
 
