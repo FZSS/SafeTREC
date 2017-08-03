@@ -33,7 +33,7 @@ class ConcernView extends Component {
         ...this.props.mapRegion,
         latitude: this.props.concern.coordinate.latitude,
         longitude: this.props.concern.coordinate.longitude,
-        longitudeDelta: 0.002,
+        longitudeDelta: 0.001,
         latitudeDelta: 0.002
       }
   }
@@ -61,18 +61,6 @@ class ConcernView extends Component {
           </Swiper>
         </View>
 
-        <MapView
-          style={styles.mapviewContainer}
-          provider={PROVIDER_GOOGLE}
-          region={this.props.mapRegion}
-          mapType={"standard"}
-          showsUserLocation={true}
-          showsCompass={true}
-          zoomEnabled={false}
-          scrollEnabled={false}
-        >
-          <MapView.Marker coordinate={this.props.concern.coordinate}/>
-        </MapView>
 
         <View style={styles.detailsContainer}>
           <Text style={styles.titleText}>
@@ -88,6 +76,19 @@ class ConcernView extends Component {
             {Math.floor(Math.random() * 20)} people think this is good!
           </Text>
         </View>
+
+        <MapView
+          style={styles.mapviewContainer}
+          provider={PROVIDER_GOOGLE}
+          region={this.props.mapRegion}
+          mapType={"standard"}
+          showsUserLocation={true}
+          showsCompass={true}
+          zoomEnabled={true}
+          scrollEnabled={false}
+        >
+          <MapView.Marker coordinate={this.props.concern.coordinate}/>
+        </MapView>
 
 
         <TouchableOpacity

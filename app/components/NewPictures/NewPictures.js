@@ -42,12 +42,10 @@ export default class NewPicture extends Component {
 
   state = {
     images: [
-      { key: 0,
+      {
+        key: 0,
         uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg',
-        location: {
-          latitude: 37.4221145,
-          longitude: -122.0859841
-        }},
+      }
     ],
   };
 
