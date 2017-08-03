@@ -107,7 +107,7 @@ class Map extends Component {
           provider={PROVIDER_GOOGLE}
           // initialRegion={this.state.mapRegion}
           region={this.props.mapRegion}
-          onRegionChange={(r) => this.props.updateMapRegion(r)}
+          onRegionChangeComplete={(r) => this.props.updateMapRegion(r)}
           mapType={"standard"}
           showsUserLocation={true}
           showsCompass={true}

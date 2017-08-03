@@ -159,7 +159,7 @@ class LocationCard extends Component {
            style={styles.mapviewContainer}
            provider={PROVIDER_GOOGLE}
            region={this.props.mapRegion}
-           onRegionChange={(r) => this.props.updateMapRegion(r)}
+           onRegionChangeComplete={(r) => this.props.updateMapRegion(r)}
            mapType={"standard"}
            showsUserLocation={true}
            showsCompass={true}
