@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import {ASPECT_RATIO} from '../../constants/screen';
 
-const LATITUDE_DELTA = 0.001; //IS NOT WOKRING
+const LATITUDE_DELTA = 0.001;
 
 const mapStateToProps= (state) => {
   return {

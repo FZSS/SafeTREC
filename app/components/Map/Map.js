@@ -33,32 +33,33 @@ class Map extends Component {
 
   watchID: ?number = null;
 
-  updateMapInfo(position) {
+  updateMapOnRegionChange(mapRegion) {
+    this.props.updateMapRegion(mapRegion);
+    this.props.getConcernsInRegion(mapRegion);
+  }
+
+  updateMapOnUserPosition(position) {
     let newMapRegion = {...this.props.mapRegion,
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     };
     this.props.updateUserLocation(position.coords);
     this.props.updateMapRegion(newMapRegion);
+    this.props.getConcernsInRegion(newMapRegion);
   }
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.updateMapInfo(position);
+        this.updateMapOnUserPosition(position);
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      this.updateMapInfo(position);
+      this.updateMapOnUserPosition(position);
     });
-  }
-
-  updateMap(mapRegion) {
-    this.props.updateMapRegion(mapRegion);
-    this.props.getConcernsInRegion(mapRegion);
   }
 
   openSearchModal() {
@@ -112,7 +113,7 @@ class Map extends Component {
           provider={PROVIDER_GOOGLE}
           // initialRegion={this.state.mapRegion}
           region={this.props.mapRegion}
-          onRegionChange={(r) => this.updateMap(r)}
+          onRegionChange={(r) => this.updateMapOnRegionChange(r)}
           mapType={"standard"}
           showsUserLocation={true}
           showsCompass={true}
