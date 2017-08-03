@@ -17,6 +17,7 @@ import {
   updateMapRegion
 } from '../../actions/map'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import _ from 'underscore';
 
 const mapStateToProps= (state) => {
   return {
@@ -60,8 +61,18 @@ class LocationCard extends Component {
     }
   }
 
+  static validatePictureLocation(location) {
+    if (!_.isEmpty(location)) {
+      if (!_.isUndefined(location.latitude) && !_.isUndefined(location.longitude)) {
+        return true;
+      }
+    }
+    return false
+  }
+
   componentDidMount() {
-    if (this.props.pictureLocation) {
+    if (LocationCard.validatePictureLocation(this.props.pictureLocation)) {
+      console.log(this.props.pictureLocation);
 
       let lat = this.props.pictureLocation.latitude;
       let long = this.props.pictureLocation.longitude;
