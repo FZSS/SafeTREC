@@ -56,6 +56,11 @@ class Map extends Component {
     });
   }
 
+  updateMap(mapRegion) {
+    this.props.updateMapRegion(mapRegion);
+    this.props.getConcernsInRegion(mapRegion);
+  }
+
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
@@ -107,7 +112,7 @@ class Map extends Component {
           provider={PROVIDER_GOOGLE}
           // initialRegion={this.state.mapRegion}
           region={this.props.mapRegion}
-          onRegionChange={(r) => this.props.updateMapRegion(r)}
+          onRegionChange={(r) => this.updateMap(r)}
           mapType={"standard"}
           showsUserLocation={true}
           showsCompass={true}

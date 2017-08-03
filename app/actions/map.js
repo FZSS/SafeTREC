@@ -22,13 +22,10 @@ export const getConcernsInRegion = (mapRegion) => {
 };
 
 export const updateMapRegion = (mapRegion) => {
-  return function(dispatch) {
 
-    dispatch(getConcernsInRegion(mapRegion));
-    dispatch ({
-      type: actionTypes.UpdateMapRegion,
-      payload: mapRegion
-    })
+  return {
+    type: actionTypes.UpdateMapRegion,
+    payload: mapRegion
   }
 };
 

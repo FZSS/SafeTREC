@@ -13,11 +13,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import {ASPECT_RATIO} from '../../constants/screen';
 
-const LATITUDE_DELTA = 0.103; //IS NOT WOKRING
+const LATITUDE_DELTA = 0.001; //IS NOT WOKRING
 
 const mapStateToProps= (state) => {
   return {
-    mapRegion: state.map.mapRegion
   }
 };
 
@@ -29,16 +28,6 @@ class ConcernView extends Component {
 
   dismissModal() {
     this.props.navigator.dismissModal();
-  }
-
-  componentWillMount() {
-    this.props.mapRegion = {
-        ...this.props.mapRegion,
-        latitude: this.props.concern.coordinate.latitude,
-        longitude: this.props.concern.coordinate.longitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO,
-      }
   }
 
   render() {
@@ -83,12 +72,16 @@ class ConcernView extends Component {
         <MapView
           style={styles.mapviewContainer}
           provider={PROVIDER_GOOGLE}
-          region={this.props.mapRegion}
+          region={{
+            latitude: this.props.concern.coordinate.latitude,
+            longitude: this.props.concern.coordinate.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO,
+          }}
           mapType={"standard"}
           showsUserLocation={true}
-          showsCompass={true}
           zoomEnabled={true}
-          scrollEnabled={false}
+          scrollEnabled={true}
         >
           <MapView.Marker coordinate={this.props.concern.coordinate}/>
         </MapView>
