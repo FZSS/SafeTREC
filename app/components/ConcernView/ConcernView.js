@@ -11,6 +11,9 @@ import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import {ASPECT_RATIO} from '../../constants/screen';
+
+const LATITUDE_DELTA = 0.103; //IS NOT WOKRING
 
 const mapStateToProps= (state) => {
   return {
@@ -33,8 +36,8 @@ class ConcernView extends Component {
         ...this.props.mapRegion,
         latitude: this.props.concern.coordinate.latitude,
         longitude: this.props.concern.coordinate.longitude,
-        longitudeDelta: 0.001,
-        latitudeDelta: 0.002
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO,
       }
   }
 

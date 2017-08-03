@@ -1,4 +1,6 @@
 import actionTypes from '../constants/actionTypes';
+import {ASPECT_RATIO} from '../constants/screen';
+const LATITUDE_DELTA = 0.004;
 
 const initialState = {
   userLocation: {
@@ -8,8 +10,8 @@ const initialState = {
   mapRegion: {
     latitude: 37.78825,
     longitude: -122.4324,
-    latitudeDelta: 0.0082,
-    longitudeDelta: 0.0121,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO
   },
 };
 
