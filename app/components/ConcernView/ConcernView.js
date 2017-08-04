@@ -34,12 +34,23 @@ class ConcernView extends Component {
   }
 
   loadImages() {
-    this.props.images.map((image) => {
-      console.log(image);
-      return <Image key={image.key}
-                    style={styles.imageSlide}
-                    source={{uri: image.uri}}/>
-    })
+      return <Swiper
+        height={280}
+        activeDotColor='orange'
+        loop={false}
+      >
+        <View style={styles.slide1}>
+          <Text style={styles.text}>Detail Picture 1</Text>
+        </View>
+        {
+          this.props.images.map(image => {
+            return <Image key={image.key}
+                          style={styles.imageSlide}
+                          source={{uri: image.uri}}/>
+          })
+        }
+
+      </Swiper>
   }
 
   componentWillMount() {
@@ -52,20 +63,7 @@ class ConcernView extends Component {
       <View style={styles.container}>
 
         <View style={styles.swiperContainer}>
-          <Swiper
-              height={280}
-              activeDotColor='orange'
-              loop={false}
-          >
-            <View style={styles.slide1}>
-              <Text style={styles.text}>Detail Picture 1</Text>
-            </View>
-            {/*<Image*/}
-              {/*style={styles.imageSlide}*/}
-              {/*source={{uri:'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'}}*/}
-            {/*/>*/}
-            {this.loadImages()}
-          </Swiper>
+          {this.loadImages()}
         </View>
 
 
