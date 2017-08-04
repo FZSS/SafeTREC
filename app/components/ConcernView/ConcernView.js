@@ -3,7 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  ScrollView
 } from 'react-native'
 import { navigatorStyle, styles} from './styles'
 import { connect } from 'react-redux';
@@ -15,6 +16,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import {ASPECT_RATIO} from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
 const LATITUDE_DELTA = 0.001;
+
 
 const mapStateToProps= state => {
   return {
@@ -34,37 +36,46 @@ class ConcernView extends Component {
   }
 
   loadImages() {
-      return <Swiper
-        height={280}
-        activeDotColor='orange'
-        loop={false}
-      >
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Detail Picture 1</Text>
-        </View>
-        {
-          this.props.images.map(image => {
-            return <Image key={image.key}
-                          style={styles.imageSlide}
-                          source={{uri: image.uri}}/>
-          })
-        }
 
-      </Swiper>
+    return this.props.images.map(image => {
+      return <Image key={image.key}
+                    style={styles.imageSlide}
+                    source={{uri: image.uri}}/>
+    })
   }
 
   componentWillMount() {
     this.props.getConcernImages(this.props.concern.id, this.props.concern.numberOfImages || 0);
   }
 
+  images() {
+    console.log(this.props.images);
+
+    return this.props.images.map(image => {
+      return <View style={styles.slide1}>
+        <Image style={styles.imageSlide}
+                      source={{uri: image.uri}}/>
+      </View>
+    })
+  };
+
   render() {
 
     return (
       <View style={styles.container}>
 
-        <View style={styles.swiperContainer}>
+        {/*<View style={styles.swiperContainer}>*/}
+          {/*{this.loadImages()}*/}
+        {/*</View>*/}
+
+        <Swiper
+          height={280}
+          activeDotColor='orange'
+          loop={false}
+        >
           {this.loadImages()}
-        </View>
+        </Swiper>
+
 
 
         <View style={styles.detailsContainer}>

@@ -109,6 +109,7 @@ class NewPicture extends Component {
   }
 
   getImages() {
+    console.log(this.props.newImages);
     return this.props.newImages.map(image => {
       return <Image key={image.key}
                     style={styles.picture}
