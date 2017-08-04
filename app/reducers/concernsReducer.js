@@ -8,7 +8,8 @@ const initialState = {
     coordinate: {
       latitude: 37.78821,
       longitude: -122.4224,
-    }
+    },
+    numberOfImages: 1
   },
 
   newConcernSubmissionStatus: {

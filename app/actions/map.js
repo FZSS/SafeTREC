@@ -15,7 +15,7 @@ export const getConcernsInRegion = (mapRegion) => {
   // }
   return {
     type: actionTypes.GetConcernsInArea,
-    payload: ref.once('value').then((snapshot) => {
+    payload: ref.once('value').then(snapshot => {
       return snapshot.val();
     })
   }

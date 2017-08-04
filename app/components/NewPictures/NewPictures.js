@@ -109,7 +109,7 @@ class NewPicture extends Component {
   }
 
   getImages() {
-    return this.props.newImages.map((image) => {
+    return this.props.newImages.map(image => {
       return <Image key={image.key}
                     style={styles.picture}
                     source={{uri: image.uri}}/>

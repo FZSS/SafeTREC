@@ -3,6 +3,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Image
 } from 'react-native'
 import { navigatorStyle, styles} from './styles'
 import { connect } from 'react-redux';
@@ -12,15 +13,17 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import {ASPECT_RATIO} from '../../constants/screen';
-
+import { getConcernImages } from '../../actions/images';
 const LATITUDE_DELTA = 0.001;
 
 const mapStateToProps= state => {
   return {
+    images: state.images.concernImages
   }
 };
 
 const mapDispatchToProps = {
+  getConcernImages
 };
 
 class ConcernView extends Component {
@@ -28,6 +31,19 @@ class ConcernView extends Component {
 
   dismissModal() {
     this.props.navigator.dismissModal();
+  }
+
+  loadImages() {
+    this.props.images.map((image) => {
+      console.log(image);
+      return <Image key={image.key}
+                    style={styles.imageSlide}
+                    source={{uri: image.uri}}/>
+    })
+  }
+
+  componentWillMount() {
+    this.props.getConcernImages(this.props.concern.id, this.props.concern.numberOfImages || 0);
   }
 
   render() {
@@ -44,12 +60,11 @@ class ConcernView extends Component {
             <View style={styles.slide1}>
               <Text style={styles.text}>Detail Picture 1</Text>
             </View>
-            <View style={styles.slide2}>
-              <Text style={styles.text}>Detail Picture 2</Text>
-            </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>Detail Picture 3</Text>
-            </View>
+            {/*<Image*/}
+              {/*style={styles.imageSlide}*/}
+              {/*source={{uri:'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg'}}*/}
+            {/*/>*/}
+            {this.loadImages()}
           </Swiper>
         </View>
 

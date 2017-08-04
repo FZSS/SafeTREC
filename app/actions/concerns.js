@@ -21,7 +21,8 @@ export const uploadConcern = (details, images) => {
       longitude: details.coordinate.longitude,
       latitude: details.coordinate.latitude,
       title: details.title,
-      description: details.description
+      description: details.description,
+      numberOfImages: images.length
     };
 
     const concernsRef = firebase.database().ref().child('concerns');

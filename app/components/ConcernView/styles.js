@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#d4d915',
   },
 
+  imageSlide: {
+    height: 250
+  },
+
   slide2: {
     flex: 1,
     justifyContent: 'center',

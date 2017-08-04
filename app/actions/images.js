@@ -48,20 +48,41 @@ const uploadOneImage = (image, concernRef, key, mime='application/octet-stream')
   return new Promise ((resolve, reject) => {
     setTimeout( () => {
       RNFetchBlob.fs.readFile(uploadUri, 'base64')
-        .then( (data) => {
+        .then( data => {
           return Blob.build(data, { type: `${mime};BASE64` })
         })
-        .then( (blob) => {
+        .then( blob => {
           return ref.put(blob, { contentType: mime })
         })
         .then( () => {
           return ref.getDownloadURL();
         })
-        .then( (url) => {
+        .then( url => {
           console.log(url);
           resolve(url);
         })
         .catch( e => reject(e))
-  }, 0);
+    }, 0);
   })
+};
+
+export const getConcernImages = (concernId, numberOfImages) => {
+
+  const concernRef = firebase.storage().ref('images').child(concernId.toString());
+  let uriList = [];
+
+  for (let i = 0; i < numberOfImages; i += 1) {
+    const pictureRef = concernRef.child('image' + i.toString());
+    pictureRef.getDownloadURL().then( url => {
+      uriList.push({
+        key: i,
+        uri: url
+      });
+    })
+  }
+
+  return {
+    type: actionTypes.ConcernImagesRetrieved,
+    payload: uriList
+  }
 };

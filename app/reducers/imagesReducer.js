@@ -13,9 +13,7 @@ const initialState = {
     failed: false,
   },
 
-  concernImages: {
-
-  }
+  concernImages: []
 };
 
 export default function (state = initialState, action) {
@@ -69,6 +67,13 @@ export default function (state = initialState, action) {
           success: false,
           failed: true
         },
+      };
+
+    case actionTypes.ConcernImagesRetrieved:
+
+      return {
+        ...state,
+        concernImages: action.payload
       };
 
     default:

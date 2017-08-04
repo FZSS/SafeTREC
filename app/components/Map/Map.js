@@ -92,7 +92,6 @@ class Map extends Component {
       screen: 'app.ConcernView',
       title:'Details',
       passProps: {
-        concernId: concern.concernId,
         concern: concern
       }
     })
