@@ -5,10 +5,6 @@ const initialState = {
   newConcernImages : [{
       key: 'placeholder',
       uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg',
-      location: {
-        latitude: 37.78721,
-        longitude: -122.4124,
-      }
   }],
 
   newConcernImagesUploadStatus: {
