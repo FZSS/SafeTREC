@@ -57,15 +57,6 @@ class NewPicture extends Component {
     this.props.resetNewConcernImages();
   }
 
-  state = {
-    images: [
-      {
-        key: 0,
-        uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg',
-      }
-    ],
-  };
-
   openPictureActionSheet() {
     ActionSheetIOS.showActionSheetWithOptions({
         options: [
@@ -97,7 +88,7 @@ class NewPicture extends Component {
       animated: true,
       passProps: {
         //pass the location of the first image
-        pictureLocation: (this.state.images[1]) ? this.state.images[1].location : {},
+        pictureLocation: this.props.newImages[0].location,
         reportCategory: this.props.reportCategory,
       }
     })

@@ -16,6 +16,7 @@ const initialState = {
     success: false,
     failed: false,
   },
+
   concernsInMapRegion: [
     {
       id: "XDFJKSJK129JK",

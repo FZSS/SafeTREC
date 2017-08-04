@@ -1,31 +1,40 @@
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 import axios from 'axios';
+import { uploadNewConcernImages } from './images'
 
-export const uploadConcern = (details) => {
+export const uploadConcern = (details, images) => {
+  return dispatch => {
 
-  //check connection TODO:DELETE
-  const connectedRef = firebase.database().ref(".info/connected");
-  connectedRef.on("value", function(snap) {
-    if (snap.val() === true) {
-      console.log('connected')
-    } else {
-      console.log('not connected')
-    }
-  });
+    //check connection TODO:DELETE
+    const connectedRef = firebase.database().ref('.info/connected');
+    connectedRef.on('value', function(snap) {
+      if (snap.val() === true) {
+        console.log('connected')
+      } else {
+        console.log('not connected')
+      }
+    });
 
-  let concern = {
-    address: details.address,
-    longitude: details.coordinate.longitude,
-    latitude: details.coordinate.latitude,
-    title: details.title,
-    description: details.description
-  };
+    let concern = {
+      address: details.address,
+      longitude: details.coordinate.longitude,
+      latitude: details.coordinate.latitude,
+      title: details.title,
+      description: details.description
+    };
 
-  return {
-    type: actionTypes.SubmitConcern,
-    payload: firebase.database().ref().child('concerns').push().set(concern)
+    const concernsRef = firebase.database().ref().child('concerns');
+    const newConcernId = concernsRef.push().key;
+
+    dispatch (uploadNewConcernImages(newConcernId, images));
+
+    dispatch ({
+      type: actionTypes.SubmitConcern,
+      payload: concernsRef.child(newConcernId).set(concern)
+    });
   }
+
 };
 
 export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {

@@ -18,13 +18,15 @@ import PropTypes from 'prop-types';
 
 const mapStateToProps = state => {
   return {
-    submissionStatus: state.concerns.newConcernSubmissionStatus,
-    newConcern: state.concerns.newConcern
- }
+    detailsStatus: state.concerns.newConcernSubmissionStatus,
+    newConcern: state.concerns.newConcern,
+    newImages: state.images.newConcernImages,
+    imageStatus: state.images.newConcernImagesUploadStatus
+  }
 };
 
 const mapDispatchToProps =  {
-    uploadConcern
+  uploadConcern,
 };
 
 class CommentCard extends Component {
@@ -47,6 +49,10 @@ class CommentCard extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'submit') {
 
+        this.props.navigator.setStyle({
+          navBarHidden: true
+        });
+
         let details =  {
           address: this.props.newConcern.address,
           coordinate: this.props.newConcern.coordinate,
@@ -54,10 +60,7 @@ class CommentCard extends Component {
           description: this.state.concernDescription
         };
 
-        this.props.uploadConcern(details);
-        this.props.navigator.setStyle({
-            navBarHidden: true
-          })
+        this.props.uploadConcern(details, this.props.newImages);
       }
     }
   }
@@ -76,8 +79,9 @@ class CommentCard extends Component {
       })
     };
 
-    if (prevProps.submissionStatus.pending === true) {
-      if (this.props.submissionStatus.failed) {
+    //Fixme: double failure message, need to work on logic
+    if (prevProps.detailsStatus.pending || prevProps.imageStatus.pending) {
+      if (this.props.detailsStatus.failed || this.props.imageStatus.failed) {
         Alert.alert(
           'Failed Submission',
           'Sorry about that', //TODO: should show error msg
@@ -85,7 +89,7 @@ class CommentCard extends Component {
             {text: 'OK', onPress: () => popToRoot()},
           ],
         )
-      } else if (this.props.submissionStatus.success) {
+      } else if (this.props.detailsStatus.success && this.props.imageStatus.success) {
         Alert.alert(
           'Successful Submission',
           'Thank you', //TODO: should show error msg
@@ -96,6 +100,7 @@ class CommentCard extends Component {
       }
     }
   }
+
 
   static getCategoryIndex(category) {
     let indices = ['Automobile', 'Bicycle', 'Pedestrian'];
@@ -132,9 +137,11 @@ class CommentCard extends Component {
 
          </View>
 
-         <View style={this.props.submissionStatus.pending ? styles.showProgress: styles.hideProgress}>
+         <View style={ (this.props.detailsStatus.pending || this.props.imageStatus.pending) ?
+                        styles.showProgress: styles.hideProgress}
+         >
            <ActivityIndicator
-             animating = {this.props.submissionStatus.pending}
+             animating = {this.props.detailsStatus.pending || this.props.imageStatus.pending}
              color = 'darkorange'
              size = "large"
              style = {styles.activityIndicator}
