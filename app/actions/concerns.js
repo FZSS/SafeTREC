@@ -2,10 +2,6 @@ import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 import axios from 'axios';
 
-export const GET_CONCERNS_IN_AREA = () => {
-
-};
-
 export const uploadConcern = (details) => {
 
   //check connection TODO:DELETE
@@ -35,9 +31,6 @@ export const uploadConcern = (details) => {
 export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {
 
   let latlngString = latitude.toString() + ',' + longitude.toString();
-  // let correct = '40.714224,-73.961452';
-  // console.log(latlngString);
-
   let params = {
     key: 'AIzaSyApaQH7UAaP8f72yjI0xWaAnQTeq4s9JlU', //My google maps javascript api key
     latlng: latlngString ,
