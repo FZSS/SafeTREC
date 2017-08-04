@@ -31,8 +31,6 @@ const mapDispatchToProps = {
 
 class Map extends Component {
 
-  watchID: ?number = null;
-
   updateMapOnRegionChange(mapRegion) {
     this.props.updateMapRegion(mapRegion);
     this.props.getConcernsInRegion(mapRegion);
@@ -56,10 +54,6 @@ class Map extends Component {
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
-
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      this.updateMapOnUserPosition(position);
-    });
   }
 
   openSearchModal() {
