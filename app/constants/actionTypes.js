@@ -5,7 +5,9 @@ const actionTypes = {
   UpdateUserLocation: "UPDATE_USER_LOCATION",
   UpdateNewConcernAddressFromGeocode: "UPDATE_ADDRESS_FROM_GEOCODE",
   UpdateNewConcernAddress: 'UPDATE_NEW_CONCERN_ADDRESS',
-  UpdateNewConcernCoordinates: 'UPDATE_NEW_CONCERN_COORDINATES'
+  UpdateNewConcernCoordinates: 'UPDATE_NEW_CONCERN_COORDINATES',
+  ResetNewConcernImages: 'RESET_NEW_CONCERN_IMAGES',
+  AddANewConcernImage: 'ADD_A_NEW_CONCERN_IMAGE'
 };
 
 export default actionTypes;

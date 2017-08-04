@@ -15,7 +15,7 @@ import {ASPECT_RATIO} from '../../constants/screen';
 
 const LATITUDE_DELTA = 0.001;
 
-const mapStateToProps= (state) => {
+const mapStateToProps= state => {
   return {
   }
 };

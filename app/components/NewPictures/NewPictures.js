@@ -9,9 +9,22 @@ import {
 } from 'react-native'
 import { styles, PHOTO_HEIGHT } from './styles'
 import ImagePicker from 'react-native-image-picker';
+import { connect } from 'react-redux'
+import { addANewConcernImage, resetNewConcernImages } from '../../actions/images';
 let imageKey = 1;
 
-export default class NewPicture extends Component {
+const mapStateToProps = state => {
+  return {
+    newImages: state.images.newConcernImages,
+  }
+};
+
+const mapDispatchToProps =  {
+  addANewConcernImage,
+  resetNewConcernImages
+};
+
+class NewPicture extends Component {
 
   static navigatorStyle = {
     statusBarTextColorScheme: 'light',
@@ -33,11 +46,15 @@ export default class NewPicture extends Component {
   }
 
   onNavigatorEvent(event) {
-    if (event.type ==='NavBarButtonPress') {
+    if (event.type === 'NavBarButtonPress') {
       if (event.id === 'next') {
         this.goToLocationCard()
       }
     }
+  }
+
+  componentWillMount() {
+    this.props.resetNewConcernImages();
   }
 
   state = {
@@ -76,24 +93,20 @@ export default class NewPicture extends Component {
   goToLocationCard() {
     this.props.navigator.push({
       screen: 'app.LocationCard',
-      title:'Location',
+      title: 'Location',
       animated: true,
       passProps: {
         //pass the location of the first image
         pictureLocation: (this.state.images[1]) ? this.state.images[1].location : {},
         reportCategory: this.props.reportCategory,
-     }
+      }
     })
   }
 
   addPicture(res) {
-    let newKey = imageKey ++;
-    // if (newKey === 1) {
-    //   this.setState({
-    //     images: [{key: 0, uri:image}]
-    //   })
-    // }
-    this.state.images.push({
+    let newKey = imageKey++;
+
+    this.props.addANewConcernImage ({
       key: newKey,
       uri: res.uri,
       // the image picker response will have lat/long if available
@@ -102,28 +115,29 @@ export default class NewPicture extends Component {
         latitude: res.latitude
       }
     });
-    this.setState({
-      images: this.state.images
-    });
   }
 
   getImages() {
-    return this.state.images.map((image) => {
-      return  <Image key={image.key}
-                     style={styles.picture}
-                     source={{uri: image.uri}}/>
+    return this.props.newImages.map((image) => {
+      return <Image key={image.key}
+                    style={styles.picture}
+                    source={{uri: image.uri}}/>
     });
   }
 
   takeNewPicture() {
     ImagePicker.launchCamera({},
-      res => {this.addPicture(res);}
+      res => {
+        this.addPicture(res);
+      }
     )
   }
 
   choosePictureFromLibrary() {
     ImagePicker.launchImageLibrary({},
-      res => {this.addPicture(res);}
+      res => {
+        this.addPicture(res);
+      }
     )
   }
 
@@ -144,18 +158,16 @@ export default class NewPicture extends Component {
           }}
         >
 
-          { this.getImages() }
+          {this.getImages()}
 
         </ScrollView>
         <Button
-          onPress={()=>this.openPictureActionSheet()}
+          onPress={() => this.openPictureActionSheet()}
           title="Add A Picture"
           color="darkorange"
         />
       </View>
     )
   }
-
-
-
 }
+export default connect(mapStateToProps, mapDispatchToProps)(NewPicture);

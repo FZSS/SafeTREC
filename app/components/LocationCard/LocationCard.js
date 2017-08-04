@@ -19,7 +19,7 @@ import {
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import _ from 'underscore';
 
-const mapStateToProps= (state) => {
+const mapStateToProps= state => {
   return {
     newConcern: state.concerns.newConcern,
     mapRegion: state.map.mapRegion
