@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   imageSlide: {
-    height: 250
+    flex: 1
   },
 
   slide2: {

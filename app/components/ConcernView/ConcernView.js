@@ -48,17 +48,6 @@ class ConcernView extends Component {
     this.props.getConcernImages(this.props.concern.id, this.props.concern.numberOfImages || 0);
   }
 
-  images() {
-    console.log(this.props.images);
-
-    return this.props.images.map(image => {
-      return <View style={styles.slide1}>
-        <Image style={styles.imageSlide}
-                      source={{uri: image.uri}}/>
-      </View>
-    })
-  };
-
   render() {
 
     return (

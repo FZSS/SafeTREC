@@ -13,10 +13,7 @@ const initialState = {
     failed: false,
   },
 
-  concernImages: [{
-      key: 'placeholder',
-      uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg',
-  }]
+  concernImages: []
 };
 
 export default function (state = initialState, action) {
