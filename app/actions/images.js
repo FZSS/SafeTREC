@@ -20,6 +20,13 @@ export const addANewConcernImage = (pictureData) => {
   }
 };
 
+export const deleteANewConcernImage = imageKey => {
+  return {
+    type: actionTypes.DeleteANewConcernImage,
+    key: imageKey
+  }
+};
+
 export const uploadNewConcernImages = (concernId, images) => {
   const concernRef = firebase.storage().ref('images').child(concernId.toString());
 

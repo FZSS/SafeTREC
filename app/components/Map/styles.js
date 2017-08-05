@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     color: 'grey',
     backgroundColor: '#ffffff',
     height: 35,
-    width: 220,
+    width: 230,
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 60,

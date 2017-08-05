@@ -90,7 +90,7 @@ class ConcernView extends Component {
             {this.props.concern.address || '2715 Dwight Way, CA 94704'}
           </Text>
           <Text style={styles.descriptionText}>
-            {Math.floor(Math.random() * 20)} people think this is good!
+            {Math.floor(Math.random() * 200)} people think this is good!
           </Text>
         </View>
 

@@ -10,6 +10,7 @@ const actionTypes = {
   ResetNewConcernImages: 'RESET_NEW_CONCERN_IMAGES',
   AddANewConcernImage: 'ADD_A_NEW_CONCERN_IMAGE',
   GetConcernImages: 'GET_CONCERN_IMAGES',
+  DeleteANewConcernImage: 'DELETE_A_NEW_CONCERN_IMAGE'
 };
 
 export default actionTypes;

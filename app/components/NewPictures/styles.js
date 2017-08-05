@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
   scrollViewContainer: {
     flex: 1,
-    backgroundColor: '#ededed',
+    backgroundColor: '#b3b3b3',
   },
 
   capture: {
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   },
 
   picture: {
+    width: Dimensions.get('window').width,
     height: PHOTO_HEIGHT
   }
 

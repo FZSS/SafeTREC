@@ -2,11 +2,8 @@ import actionTypes from '../constants/actionTypes';
 import _ from 'underscore';
 
 const initialState = {
-  newConcernImages : [{
-      key: 'placeholder',
-      uri: 'https://www.livemeshthemes.com/enigmatic/wp-content/uploads/sites/9/2012/07/placeholder1.jpg',
-  }],
 
+  newConcernImages : [],
   newConcernImagesUploadStatus: {
     pending: false,
     success: false,
@@ -14,7 +11,6 @@ const initialState = {
   },
 
   concernImages: [],
-
   concernImagesPending: false
 };
 
@@ -29,17 +25,29 @@ export default function (state = initialState, action) {
 
     case actionTypes.AddANewConcernImage:
 
-      // if the first image is placeholder, clear it
-      let newImageArray = [];
-      if (state.newConcernImages[0].key !== 'placeholder') {
-        newImageArray = _.clone(state.newConcernImages);
-      }
+      let newImageArray = _.clone(state.newConcernImages);
       newImageArray.push(action.payload);
 
       return {
         ...state,
         newConcernImages: newImageArray
       };
+
+    case actionTypes.DeleteANewConcernImage:
+
+      const keyToDelete = action.key;
+
+      let newImages = _.reject(_.clone(state.newConcernImages), image => {
+        return image.key === keyToDelete;
+      });
+
+      console.log(newImages);
+
+      return {
+        ...state,
+        newConcernImages: newImages
+      };
+
 
     case actionTypes.UploadNewConcernImages + '_PENDING':
       return {

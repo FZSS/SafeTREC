@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-  Text,
+  TouchableHighlight,
   View,
   ActionSheetIOS,
   Image,
@@ -10,8 +10,12 @@ import {
 import { styles, PHOTO_HEIGHT } from './styles'
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux'
-import { addANewConcernImage, resetNewConcernImages } from '../../actions/images';
-let imageKey = 1;
+import {
+  addANewConcernImage,
+  resetNewConcernImages,
+  deleteANewConcernImage
+} from '../../actions/images';
+let imageKey = 0;
 
 const mapStateToProps = state => {
   return {
@@ -20,6 +24,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps =  {
+  deleteANewConcernImage,
   addANewConcernImage,
   resetNewConcernImages
 };
@@ -48,7 +53,13 @@ class NewPicture extends Component {
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'next') {
-        this.goToLocationCard()
+
+        //alert if no picture
+        if (this.props.newImages.length === 0) {
+          alert('Please Add A Picture!')
+        } else {
+          this.goToLocationCard()
+        }
       }
     }
   }
@@ -81,6 +92,25 @@ class NewPicture extends Component {
       });
   }
 
+  openDeleteActionSheet(imageKey) {
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: [
+          'Delete',
+          'Cancel',
+        ],
+        cancelButtonIndex: 1,
+        tintColor: 'darkorange',
+      },
+
+      (buttonIndex) => {
+      switch (buttonIndex) {
+        case 0:
+          this.props.deleteANewConcernImage(imageKey);
+          break;
+      }
+    })
+  }
+
   goToLocationCard() {
     this.props.navigator.push({
       screen: 'app.LocationCard',
@@ -111,9 +141,14 @@ class NewPicture extends Component {
   getImages() {
     console.log(this.props.newImages);
     return this.props.newImages.map(image => {
-      return <Image key={image.key}
-                    style={styles.picture}
-                    source={{uri: image.uri}}/>
+      return (
+        <TouchableHighlight
+          onLongPress={() => this.openDeleteActionSheet(image.key)}
+          key={image.key}
+        >
+          <Image style={styles.picture} source={{uri: image.uri}}/>
+        </TouchableHighlight>
+      )
     });
   }
 
@@ -149,8 +184,14 @@ class NewPicture extends Component {
             }
           }}
         >
-
           {this.getImages()}
+
+          <TouchableHighlight
+            onPress={() => this.openPictureActionSheet()}
+            key={'placeholder'}
+          >
+            <Image style={styles.picture} source={require('../../images/photo.png')}/>
+          </TouchableHighlight>
 
         </ScrollView>
         <Button

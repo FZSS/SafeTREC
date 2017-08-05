@@ -72,7 +72,7 @@ class Map extends Component {
   goToPictures(category) {
     this.props.navigator.push({
       screen: 'app.NewPictures',
-      title:'Pictures',
+      title:'Add Pictures',
       passProps: {
         reportCategory: category,
       }
@@ -115,7 +115,7 @@ class Map extends Component {
 
           <TextInput
             style={styles.searchBox}
-            placeholder="Where?"
+            placeholder="View traffic concerns at?"
             onFocus={() => this.openSearchModal()}
           >
           </TextInput>
