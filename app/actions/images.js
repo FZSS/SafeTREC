@@ -67,35 +67,24 @@ const uploadOneImage = (image, concernRef, key, mime='application/octet-stream')
 };
 
 export const getConcernImages = (concernId, numberOfImages) => {
-  return dispatch => {
 
-    let promiseList = [];
-    const concernRef = firebase.storage().ref(`images/${concernId}`);
+  let promiseList = [];
+  const concernRef = firebase.storage().ref(`images/${concernId}`);
 
-    for (let i = 0; i < numberOfImages; i += 1) {
-      let downloadPromise = concernRef.child(`image${i}`).getDownloadURL()
-        .then( url => {
-          return {
-            key: i,
-            uri: url
-          }
-        });
-      promiseList.push(downloadPromise)
-    }
-
-    Promise.all(promiseList)
-      .then(images => {
-        dispatch( {
-          type: actionTypes.ConcernImagesRetrieved,
-          payload: images
-        })
-      })
-      .catch(e => {
-        console.log(e);
-        dispatch( {
-          type: actionTypes.ConcernImagesRetrieved,
-          payload:[]
-        })
+  for (let i = 0; i < numberOfImages; i += 1) {
+    let downloadPromise = concernRef.child(`image${i}`).getDownloadURL()
+      .then( url => {
+        return {
+          key: i,
+          uri: url
+        }
       });
+    promiseList.push(downloadPromise)
   }
+
+  return {
+    type: actionTypes.GetConcernImages,
+    payload: new Promise.all(promiseList)
+  }
+
 };

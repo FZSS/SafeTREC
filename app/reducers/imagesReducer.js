@@ -13,7 +13,9 @@ const initialState = {
     failed: false,
   },
 
-  concernImages: []
+  concernImages: [],
+
+  concernImagesPending: false
 };
 
 export default function (state = initialState, action) {
@@ -69,12 +71,29 @@ export default function (state = initialState, action) {
         },
       };
 
-    case actionTypes.ConcernImagesRetrieved:
+    case actionTypes.GetConcernImages + '_PENDING':
 
       return {
         ...state,
-        concernImages: action.payload
+        concernImagesPending: true
       };
+
+    case actionTypes.GetConcernImages + '_FULFILLED':
+
+      return {
+        ...state,
+        concernImages: action.payload,
+        concernImagesPending: false
+      };
+
+    case actionTypes.GetConcernImages + '_REJECTED':
+
+      return {
+        ...state,
+        concernImages: [],
+        concernImagesPending: false
+      };
+
 
     default:
       return state

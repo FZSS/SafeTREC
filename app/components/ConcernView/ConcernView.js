@@ -4,7 +4,7 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ScrollView
+  ActivityIndicator
 } from 'react-native'
 import { navigatorStyle, styles} from './styles'
 import { connect } from 'react-redux';
@@ -20,7 +20,8 @@ const LATITUDE_DELTA = 0.001;
 
 const mapStateToProps= state => {
   return {
-    images: state.images.concernImages
+    images: state.images.concernImages,
+    imagesPending: state.images.concernImagesPending
   }
 };
 
@@ -36,12 +37,34 @@ class ConcernView extends Component {
   }
 
   loadImages() {
-
     return this.props.images.map(image => {
       return <Image key={image.key}
                     style={styles.imageSlide}
                     source={{uri: image.uri}}/>
     })
+  }
+
+  loadSwiper() {
+    if (this.props.imagesPending) {
+      return (
+        <ActivityIndicator
+          animating = {true}
+          color = 'darkorange'
+          size = "large"
+          style = {styles.activityIndicator}
+        />
+      )
+    } else {
+      return (
+        <Swiper
+          height={280}
+          activeDotColor='orange'
+          loop={false}
+        >
+          {this.loadImages()}
+        </Swiper>
+      )
+    }
   }
 
   componentWillMount() {
@@ -53,19 +76,8 @@ class ConcernView extends Component {
     return (
       <View style={styles.container}>
 
-        {/*<View style={styles.swiperContainer}>*/}
-          {/*{this.loadImages()}*/}
-        {/*</View>*/}
 
-        <Swiper
-          height={280}
-          activeDotColor='orange'
-          loop={false}
-        >
-          {this.loadImages()}
-        </Swiper>
-
-
+        {this.loadSwiper()}
 
         <View style={styles.detailsContainer}>
           <Text style={styles.titleText}>

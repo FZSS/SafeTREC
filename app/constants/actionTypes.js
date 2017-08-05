@@ -9,7 +9,7 @@ const actionTypes = {
   UpdateNewConcernCoordinates: 'UPDATE_NEW_CONCERN_COORDINATES',
   ResetNewConcernImages: 'RESET_NEW_CONCERN_IMAGES',
   AddANewConcernImage: 'ADD_A_NEW_CONCERN_IMAGE',
-  ConcernImagesRetrieved: 'CONCERN_IMAGES_RETRIEVED',
+  GetConcernImages: 'GET_CONCERN_IMAGES',
 };
 
 export default actionTypes;

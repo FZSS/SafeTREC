@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#9b9b9b',
   },
 
-  swiperContainer: {
-    flex: 4,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    backgroundColor: 'grey',
+  activityIndicator: {
+    height: 280,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
 
   dismissButton: {
     position:'absolute',
