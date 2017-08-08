@@ -11,7 +11,8 @@ const actionTypes = {
   ResetNewConcernImages: 'RESET_NEW_CONCERN_IMAGES',
   AddANewConcernImage: 'ADD_A_NEW_CONCERN_IMAGE',
   GetConcernImages: 'GET_CONCERN_IMAGES',
-  DeleteANewConcernImage: 'DELETE_A_NEW_CONCERN_IMAGE'
+  DeleteANewConcernImage: 'DELETE_A_NEW_CONCERN_IMAGE',
+  GetImagePredictions: 'GET_IMAGE_PREDICTIONS'
 };
 
 export default actionTypes;

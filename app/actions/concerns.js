@@ -1,7 +1,8 @@
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 import axios from 'axios';
-import { uploadNewConcernImages } from './images'
+import { uploadNewConcernImages } from './images';
+import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps'
 
 export const uploadConcern = (details, images) => {
   return dispatch => {
@@ -54,7 +55,7 @@ export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {
 
   let latlngString = latitude.toString() + ',' + longitude.toString();
   let params = {
-    key: 'AIzaSyApaQH7UAaP8f72yjI0xWaAnQTeq4s9JlU', //My google maps javascript api key
+    key: GOOGLE_MAPS_JAVASCRIPT_API_KEY, //My google maps javascript api key
     latlng: latlngString ,
   };
 

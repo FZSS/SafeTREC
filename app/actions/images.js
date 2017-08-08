@@ -2,10 +2,31 @@ import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 import RNFetchBlob from 'react-native-fetch-blob'
 import _ from 'underscore';
+import clarifai from '../config/clarifai';
 
 const Blob = RNFetchBlob.polyfill.Blob;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
+
+export const getImagePredictions = (image) => {
+
+  const uploadUri = image.uri.replace('file://', '');
+
+  const getFileAndGetPredictions = () => {
+    return RNFetchBlob.fs.readFile(uploadUri, 'base64')
+      .then( data => {
+        return clarifai.models.predict(Clarifai.GENERAL_MODEL, {base64: data}) //Polyfill issue
+      });
+  };
+
+  const getPredictions = () => {
+      return clarifai.models.predict(Clarifai.GENERAL_MODEL, {base64: data}) //Polyfill issue
+  };
+
+  return {
+    type: actionTypes.GetImagePredictions,
+  }
+};
 
 export const resetNewConcernImages = () => {
   return {
@@ -99,5 +120,4 @@ export const getConcernImages = (concernId, numberOfImages) => {
     type: actionTypes.GetConcernImages,
     payload: new Promise.all(promiseList)
   }
-
 };

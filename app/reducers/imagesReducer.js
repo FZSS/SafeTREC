@@ -9,6 +9,7 @@ const initialState = {
     success: false,
     failed: false,
   },
+  newConcernImagesPredication: [],
 
   concernImages: [],
   concernImagesPending: false
@@ -102,6 +103,13 @@ export default function (state = initialState, action) {
         concernImagesPending: false
       };
 
+    case actionTypes.GetImagePredictions + '_REJECTED':
+      console.log(action.payload);
+      return state;
+
+    case actionTypes.GetImagePredictions + '_FULFILLED':
+      console.log(action.payload.outputs.concepts);
+      return state;
 
     default:
       return state

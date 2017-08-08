@@ -13,7 +13,8 @@ import { connect } from 'react-redux'
 import {
   addANewConcernImage,
   resetNewConcernImages,
-  deleteANewConcernImage
+  deleteANewConcernImage,
+  getImagePredictions
 } from '../../actions/images';
 let imageKey = 0;
 
@@ -26,7 +27,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps =  {
   deleteANewConcernImage,
   addANewConcernImage,
-  resetNewConcernImages
+  resetNewConcernImages,
+  getImagePredictions
 };
 
 class NewPicture extends Component {
@@ -58,6 +60,7 @@ class NewPicture extends Component {
         if (this.props.newImages.length === 0) {
           alert('Please Add A Picture!')
         } else {
+          // this.props.getImagePredictions(this.props.newImages[0]);
           this.goToLocationCard()
         }
       }
