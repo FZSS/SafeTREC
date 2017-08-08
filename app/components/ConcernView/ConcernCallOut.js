@@ -28,7 +28,7 @@ class concernCallOut extends Component {
   render() {
 
     return (
-      <View style={styles.callOut}>
+      <View>
         <TouchableHighlight>
           <Text>{this.props.title}</Text>
         </TouchableHighlight>
