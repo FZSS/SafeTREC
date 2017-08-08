@@ -117,8 +117,7 @@ class Map extends Component {
             style={styles.searchBox}
             placeholder="View traffic concerns at?"
             onFocus={() => this.openSearchModal()}
-          >
-          </TextInput>
+          />
 
           {this.props.concerns.map(concern => (
             <MapView.Marker

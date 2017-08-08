@@ -45,9 +45,10 @@ class ConcernView extends Component {
           'Delete',
           'Cancel',
         ],
+        destructiveButtonIndex: 0,
         cancelButtonIndex: 1,
         tintColor: 'darkorange',
-      },
+    },
 
       (buttonIndex) => {
         switch (buttonIndex) {

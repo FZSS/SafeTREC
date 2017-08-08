@@ -53,6 +53,7 @@ class LocationCard extends Component {
       if (event.id === 'next') {
         this.props.navigator.push({
           screen: 'app.CommentCard',
+          title: 'Concern Details',
           passProps: {
             reportCategory: this.props.reportCategory,
           }

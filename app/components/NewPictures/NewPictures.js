@@ -98,6 +98,7 @@ class NewPicture extends Component {
           'Delete',
           'Cancel',
         ],
+        destructiveButtonIndex: 0,
         cancelButtonIndex: 1,
         tintColor: 'darkorange',
       },
@@ -116,6 +117,7 @@ class NewPicture extends Component {
       screen: 'app.LocationCard',
       title: 'Location',
       animated: true,
+      backButtonTitle: 'Pictures',
       passProps: {
         //pass the location of the first image
         pictureLocation: this.props.newImages[0].location,
