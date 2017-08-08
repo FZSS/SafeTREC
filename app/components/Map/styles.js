@@ -73,10 +73,6 @@ const styles = StyleSheet.create({
     color: 'black'
   },
 
-  callOut: {
-    height: 50,
-    width: 150
-  }
 });
 
 export {navigatorStyle, styles};

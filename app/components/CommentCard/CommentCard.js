@@ -102,7 +102,6 @@ class CommentCard extends Component {
     }
   }
 
-
   static getCategoryIndex(category) {
     let indices = ['Automobile', 'Bicycle', 'Pedestrian'];
     return indices.indexOf(category);

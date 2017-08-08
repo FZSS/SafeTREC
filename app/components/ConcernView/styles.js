@@ -88,30 +88,14 @@ const styles = StyleSheet.create({
     padding: 5
   },
 
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#d4d915',
-  },
-
   imageSlide: {
     flex: 1,
   },
 
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#e55721',
-  },
-
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#d9ae33',
-  },
+  callOut: {
+    width: 300,
+    backgroundColor: '#e59b23'
+  }
 
 
 });

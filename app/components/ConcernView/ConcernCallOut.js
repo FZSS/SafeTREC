@@ -4,7 +4,7 @@ import {
   View,
   TouchableHighlight,
 } from 'react-native'
-import styles from './styles'
+import { styles } from './styles'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -28,7 +28,7 @@ class concernCallOut extends Component {
   render() {
 
     return (
-      <View>
+      <View style={styles.callOut}>
         <TouchableHighlight>
           <Text>{this.props.title}</Text>
         </TouchableHighlight>
