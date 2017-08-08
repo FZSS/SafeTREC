@@ -88,6 +88,17 @@ const styles = StyleSheet.create({
     padding: 5
   },
 
+  addressText: {
+    color: '#fff',
+    fontSize: 15,
+    padding: 5
+  },
+
+  detailsIcon: {
+    color: '#fff',
+    fontSize: 24,
+  },
+
   imageSlide: {
     flex: 1,
   },

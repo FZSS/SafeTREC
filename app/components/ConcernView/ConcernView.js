@@ -113,10 +113,12 @@ class ConcernView extends Component {
             {this.props.concern.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'}
           </Text>
           <Text style={styles.descriptionText}>
-            {this.props.concern.address || '2715 Dwight Way, CA 94704'}
+            <Icon name='ios-thumbs-up' style={styles.detailsIcon}/>
+            {' ' + Math.floor(Math.random() * 200)} people agree with this!
           </Text>
-          <Text style={styles.descriptionText}>
-            {Math.floor(Math.random() * 200)} people think this is good!
+          <Text style={styles.addressText}>
+            <Icon name='ios-pin' style={styles.detailsIcon}/>
+            {' ' + this.props.concern.address || '2715 Dwight Way, CA 94704'}
           </Text>
         </View>
 
@@ -129,7 +131,7 @@ class ConcernView extends Component {
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO,
           }}
-          mapType={"standard"}
+          mapType={'standard'}
           showsUserLocation={true}
           zoomEnabled={true}
           scrollEnabled={true}
@@ -142,14 +144,14 @@ class ConcernView extends Component {
           style={styles.dismissButton}
           onPress={()=> this.dismissModal()}
         >
-          <Icon name="ios-close-circle-outline" style={styles.dismissIcon} />
+          <Icon name='ios-close-circle-outline' style={styles.dismissIcon} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.moreButton}
           onPress={()=> this.openDeleteActionSheet()}
         >
-          <Icon name="ios-more-outline" style={styles.moreIcon} />
+          <Icon name='ios-more-outline' style={styles.moreIcon} />
         </TouchableOpacity>
 
       </View>
