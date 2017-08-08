@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  ActionSheetIOS
 } from 'react-native'
 import { navigatorStyle, styles} from './styles'
 import { connect } from 'react-redux';
@@ -15,6 +16,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import {ASPECT_RATIO} from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
+import { deleteConcern } from "../../actions/concerns";
 const LATITUDE_DELTA = 0.001;
 
 
@@ -26,7 +28,8 @@ const mapStateToProps= state => {
 };
 
 const mapDispatchToProps = {
-  getConcernImages
+  getConcernImages,
+  deleteConcern
 };
 
 class ConcernView extends Component {
@@ -34,6 +37,26 @@ class ConcernView extends Component {
 
   dismissModal() {
     this.props.navigator.dismissModal();
+  }
+
+  openDeleteActionSheet() {
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: [
+          'Delete',
+          'Cancel',
+        ],
+        cancelButtonIndex: 1,
+        tintColor: 'darkorange',
+      },
+
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            this.props.deleteConcern(this.props.concern.id);
+            this.dismissModal();
+            break;
+        }
+      })
   }
 
   loadImages() {
@@ -123,7 +146,7 @@ class ConcernView extends Component {
 
         <TouchableOpacity
           style={styles.moreButton}
-          onPress={()=> this.dismissModal()}
+          onPress={()=> this.openDeleteActionSheet()}
         >
           <Icon name="ios-more-outline" style={styles.moreIcon} />
         </TouchableOpacity>

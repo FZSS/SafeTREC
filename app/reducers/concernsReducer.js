@@ -73,6 +73,16 @@ export default function (state = initialState, action) {
         },
       };
 
+    case actionTypes.DeleteConcern + '_PENDING':
+      return state;
+
+    case actionTypes.DeleteConcern + '_FULFILLED':
+      console.log(action.payload);
+      return state;
+
+    case actionTypes.DeleteConcern + '_REJECTED':
+      console.log(action.payload);
+      return state;
 
     case actionTypes.GetConcernsInArea + '_FULFILLED':
       const concernsInMapRegion = [];

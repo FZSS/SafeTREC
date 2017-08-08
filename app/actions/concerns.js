@@ -38,6 +38,18 @@ export const uploadConcern = (details, images) => {
 
 };
 
+export const deleteConcern = (concernId) => {
+  const concernRef = firebase.database().ref(`concerns/${concernId}`);
+  //FIXME: firebase storage does not support deleting directory, this is not working, need to delete 1 by 1
+  const concernImagesRef = firebase.storage().ref(`images/${concernId}`);
+
+  return {
+    type: actionTypes.DeleteConcern,
+    payload: new Promise.all([concernRef.remove(), concernImagesRef.delete()])
+  };
+
+};
+
 export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {
 
   let latlngString = latitude.toString() + ',' + longitude.toString();
