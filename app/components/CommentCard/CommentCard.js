@@ -10,6 +10,7 @@ import styles from './styles'
 import { connect } from 'react-redux';
 import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { uploadConcern } from '../../actions/concerns';
+import { getConcernsInRegion} from '../../actions/map';
 import PropTypes from 'prop-types';
 
 const mapStateToProps = state => {
@@ -17,12 +18,14 @@ const mapStateToProps = state => {
     detailsStatus: state.concerns.newConcernSubmissionStatus,
     newConcern: state.concerns.newConcern,
     newImages: state.images.newConcernImages,
-    imageStatus: state.images.newConcernImagesUploadStatus
+    imageStatus: state.images.newConcernImagesUploadStatus,
+    mapRegion: state.map.mapRegion
   }
 };
 
 const mapDispatchToProps =  {
   uploadConcern,
+  getConcernsInRegion
 };
 
 class CommentCard extends Component {
@@ -86,9 +89,11 @@ class CommentCard extends Component {
           ],
         )
       } else if (this.props.detailsStatus.success && this.props.imageStatus.success) {
+
+        this.props.getConcernsInRegion(this.props.mapRegion);
         Alert.alert(
           'Successful Submission',
-          'Thank you', //TODO: should show error msg
+          'Thank you',
           [
             {text: 'OK', onPress: () => popToRoot()},
           ],

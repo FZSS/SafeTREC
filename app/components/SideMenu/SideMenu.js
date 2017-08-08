@@ -13,15 +13,11 @@ export default class SideMenu extends Component {
 
     return (
       <View style={styles.container}>
-
-        <Text style={styles.title}>Side Menu</Text>
-
         <FBLogin />
 
-          <TouchableOpacity style={styles.settingsButton} >
-            <Text style={styles.buttonText}>Settings</Text>
-          </TouchableOpacity>
-
+        <TouchableOpacity style={styles.settingsButton} >
+          <Text style={styles.buttonText}>Settings</Text>
+        </TouchableOpacity>
       </View>
    )
   }

@@ -27,6 +27,12 @@ export const deleteANewConcernImage = imageKey => {
   }
 };
 
+/**
+ * Return an action that upload all images in the concern
+ * @param concernId
+ * @param images
+ * @returns {{type: string, payload: Promise.all}}
+ */
 export const uploadNewConcernImages = (concernId, images) => {
   const concernRef = firebase.storage().ref('images').child(concernId.toString());
 

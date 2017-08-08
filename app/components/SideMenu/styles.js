@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'black',
+    backgroundColor: 'darkgray',
   },
 
   controlText: {
@@ -12,6 +12,8 @@ export default StyleSheet.create({
   },
 
   settingsButton:{
+    marginLeft: 'auto',
+    marginRight: 'auto',
     padding: 10,
     width: 200,
     backgroundColor: '#828282'
