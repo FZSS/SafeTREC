@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Text,
-  Image,
   View,
-  TouchableOpacity,
   TextInput,
-  ScrollView,
   SegmentedControlIOS,
   ActivityIndicator,
   Alert

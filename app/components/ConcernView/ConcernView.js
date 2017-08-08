@@ -40,7 +40,9 @@ class ConcernView extends Component {
     return this.props.images.map(image => {
       return <Image key={image.key}
                     style={styles.imageSlide}
-                    source={{uri: image.uri}}/>
+                    source={{uri: image.uri}}
+                    // defaultSource={{uri:require('../../images/image-placeholder.png')}} //FIXME:not working
+      />
     })
   }
 
@@ -118,6 +120,14 @@ class ConcernView extends Component {
         >
           <Icon name="ios-close-circle-outline" style={styles.dismissIcon} />
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.moreButton}
+          onPress={()=> this.dismissModal()}
+        >
+          <Icon name="ios-more-outline" style={styles.moreIcon} />
+        </TouchableOpacity>
+
       </View>
     )
   }

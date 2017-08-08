@@ -37,17 +37,32 @@ const styles = StyleSheet.create({
 
 
   dismissButton: {
-    position:'absolute',
+    position: 'absolute',
     left: 20,
     top: 30,
     width: 30,
     height: 20,
-    backgroundColor:'transparent',
+    backgroundColor: 'transparent',
   },
 
   dismissIcon: {
     fontSize: 30,
     height: 30,
+    color: 'white'
+  },
+
+  moreButton: {
+    position: 'absolute',
+    right: 40,
+    top: 25,
+    width: 30,
+    height: 20,
+    backgroundColor: 'transparent'
+  },
+
+  moreIcon: {
+    fontSize: 40,
+    height: 40,
     color: 'white'
   },
 
@@ -81,7 +96,7 @@ const styles = StyleSheet.create({
   },
 
   imageSlide: {
-    flex: 1
+    flex: 1,
   },
 
   slide2: {
