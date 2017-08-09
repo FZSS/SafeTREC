@@ -1,23 +1,23 @@
+import axios from 'axios';
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
-import axios from 'axios';
 import { uploadNewConcernImages } from './images';
-import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps'
+import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps';
 
 export const uploadConcern = (details, images) => {
   return dispatch => {
 
     //check connection TODO:DELETE
     const connectedRef = firebase.database().ref('.info/connected');
-    connectedRef.on('value', function(snap) {
+    connectedRef.on('value', snap => {
       if (snap.val() === true) {
-        console.log('connected')
+        console.log('connected');
       } else {
-        console.log('not connected')
+        console.log('not connected');
       }
     });
 
-    let concern = {
+    const concern = {
       address: details.address,
       longitude: details.coordinate.longitude,
       latitude: details.coordinate.latitude,
@@ -29,14 +29,13 @@ export const uploadConcern = (details, images) => {
     const concernsRef = firebase.database().ref().child('concerns');
     const newConcernId = concernsRef.push().key;
 
-    dispatch (uploadNewConcernImages(newConcernId, images));
+    dispatch(uploadNewConcernImages(newConcernId, images));
 
-    dispatch ({
+    dispatch({
       type: actionTypes.SubmitConcern,
       payload: concernsRef.child(newConcernId).set(concern)
     });
-  }
-
+  };
 };
 
 export const deleteConcern = (concernId) => {

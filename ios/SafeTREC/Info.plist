@@ -62,13 +62,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Your Camera</string>
+	<string>Camera</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your Location</string>
+	<string>Location</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Your Mircophone</string>
+	<string>Mircophone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need to get access to your Photos Library</string>
 	<key>UIAppFonts</key>

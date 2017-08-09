@@ -56,11 +56,11 @@ class NewPicture extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'next') {
 
-        //alert if no picture
         if (this.props.newImages.length === 0) {
+          // Make sure there is a picture before moving on
           alert('Please Add A Picture!')
         } else {
-          this.props.getImagePredictions(this.props.newImages[0]);
+          // this.props.getImagePredictions(this.props.newImages[0]);
           this.goToLocationCard()
         }
       }

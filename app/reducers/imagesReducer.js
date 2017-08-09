@@ -32,21 +32,19 @@ export default function (state = initialState, action) {
         newConcernImagePredictions: initialState.newConcernImagePredictions
       };
 
-    case actionTypes.AddANewConcernImage:
-
-      let newImageArray = _.clone(state.newConcernImages);
+    case actionTypes.AddANewConcernImage: {
+      const newImageArray = _.clone(state.newConcernImages);
       newImageArray.push(action.payload);
 
       return {
         ...state,
-        newConcernImages: newImageArray
+        newConcernImages: newImageArray,
       };
+    }
 
-    case actionTypes.DeleteANewConcernImage:
-
+    case actionTypes.DeleteANewConcernImage: {
       const keyToDelete = action.key;
-
-      let newImages = _.reject(_.clone(state.newConcernImages), image => {
+      const newImages = _.reject(_.clone(state.newConcernImages), image => {
         return image.key === keyToDelete;
       });
 
@@ -54,9 +52,9 @@ export default function (state = initialState, action) {
 
       return {
         ...state,
-        newConcernImages: newImages
+        newConcernImages: newImages,
       };
-
+    }
 
     case actionTypes.UploadNewConcernImages + '_PENDING':
       return {
@@ -64,8 +62,8 @@ export default function (state = initialState, action) {
         newConcernImagesUploadStatus: {
           pending: true,
           success: false,
-          failed: false
-        }
+          failed: false,
+        },
       };
 
     case actionTypes.UploadNewConcernImages + '_FULFILLED':
@@ -74,7 +72,7 @@ export default function (state = initialState, action) {
         newConcernImagesUploadStatus: {
           pending: false,
           success: true,
-          failed: false
+          failed: false,
         },
       };
 

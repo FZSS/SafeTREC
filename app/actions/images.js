@@ -1,11 +1,11 @@
+import RNFetchBlob from 'react-native-fetch-blob';
+import axios from 'axios';
+import _ from 'underscore';
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
-import RNFetchBlob from 'react-native-fetch-blob'
-import _ from 'underscore';
 import clarifai from '../config/clarifai';
 import { uriBase, subscriptionKey } from '../config/microsoft-vision';
 import { visionURL } from '../config/google-vision';
-import axios from 'axios'
 
 const Blob = RNFetchBlob.polyfill.Blob;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
@@ -51,14 +51,14 @@ export const getImagePredictions = (image) => {
       .then(data => {
 
         return axios.post(visionURL, {
-        "requests":[
+        'requests':[
           {
-            "image":{
-              "content": data
+            'image':{
+              'content': data
             },
-            "features":[
+            'features':[
               {
-                "type":"LABEL_DETECTION",
+                'type':'LABEL_DETECTION',
               }
             ]
           }
