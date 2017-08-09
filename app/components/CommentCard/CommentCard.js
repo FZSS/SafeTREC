@@ -4,7 +4,8 @@ import {
   TextInput,
   SegmentedControlIOS,
   ActivityIndicator,
-  Alert
+  Alert,
+  Text
 } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux';
@@ -19,7 +20,8 @@ const mapStateToProps = state => {
     newConcern: state.concerns.newConcern,
     newImages: state.images.newConcernImages,
     imageStatus: state.images.newConcernImagesUploadStatus,
-    mapRegion: state.map.mapRegion
+    mapRegion: state.map.mapRegion,
+    predictions: state.images.newConcernImagePredictions
   }
 };
 
@@ -107,6 +109,14 @@ class CommentCard extends Component {
     return indices.indexOf(category);
   }
 
+  getPredictions() {
+    console.log(this.props.predictions);
+    return this.props.predictions.map( (prediction, index) => (
+      <Text key={index}> {prediction.description + ' ' + prediction.score} </Text>
+    ))
+
+  }
+
   render() {
 
     return (
@@ -123,6 +133,8 @@ class CommentCard extends Component {
                this.setState({reportCategory: value});
              }}
            />
+
+           {this.getPredictions()}
 
            <TextInput
              placeholder={'What are you concerned about at this location?'}

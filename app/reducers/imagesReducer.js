@@ -1,6 +1,13 @@
 import actionTypes from '../constants/actionTypes';
 import _ from 'underscore';
 
+/**
+ *  predication_example = {
+ *    description: "flower",
+ *    mid: "/m/0c9ph5",
+ *    score: 0.91282445
+ *  };
+ */
 const initialState = {
 
   newConcernImages : [],
@@ -9,7 +16,8 @@ const initialState = {
     success: false,
     failed: false,
   },
-  newConcernImagesPredication: [],
+  newConcernImagePredictions: [],
+
 
   concernImages: [],
   concernImagesPending: false
@@ -21,7 +29,8 @@ export default function (state = initialState, action) {
     case actionTypes.ResetNewConcernImages:
       return {
         ...state,
-        newConcernImages: initialState.newConcernImages
+        newConcernImages: initialState.newConcernImages,
+        newConcernImagePredictions: initialState.newConcernImagePredictions
       };
 
     case actionTypes.AddANewConcernImage:
@@ -108,8 +117,11 @@ export default function (state = initialState, action) {
       return state;
 
     case actionTypes.GetImagePredictions + '_FULFILLED':
-      console.log(action.payload);
-      return state;
+      let predictions = action.payload.data.responses[0].labelAnnotations;
+      return {
+        ...state,
+        newConcernImagePredictions: predictions
+      };
 
     default:
       return state

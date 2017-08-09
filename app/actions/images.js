@@ -4,6 +4,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 import _ from 'underscore';
 import clarifai from '../config/clarifai';
 import { uriBase, subscriptionKey } from '../config/microsoft-vision';
+import { visionURL } from '../config/google-vision';
 import axios from 'axios'
 
 const Blob = RNFetchBlob.polyfill.Blob;
@@ -12,9 +13,9 @@ window.Blob = Blob;
 
 export const getImagePredictions = (image) => {
 
-  console.log(image);
   const uploadUri = image.uri.replace('file://', '');
 
+  // Clarifai fails with process.nextTick undefined
   const getFileAndGetPredictionsWithClarifai = () => {
     return RNFetchBlob.fs.readFile(uploadUri, 'base64')
       .then( data => {
@@ -22,7 +23,8 @@ export const getImagePredictions = (image) => {
       });
   };
 
-  //https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1ff
+  // https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1ff
+  // fails with weird response
   const tagImageWithMircosoft = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -44,9 +46,30 @@ export const getImagePredictions = (image) => {
     })
   };
 
+  const predictWithGoogleVision = () => {
+    return RNFetchBlob.fs.readFile(uploadUri, 'base64')
+      .then(data => {
+
+        return axios.post(visionURL, {
+        "requests":[
+          {
+            "image":{
+              "content": data
+            },
+            "features":[
+              {
+                "type":"LABEL_DETECTION",
+              }
+            ]
+          }
+        ]
+      })
+      })
+  };
+
   return {
     type: actionTypes.GetImagePredictions,
-    payload: tagImageWithMircosoft()
+    payload: predictWithGoogleVision()
   }
 };
 
