@@ -1586,6 +1586,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1CD26B8334BFAC888F43B18B /* Pods-SafeTREC.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1627,6 +1628,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A42D9EFFD1D6BAAA4BB99B79 /* Pods-SafeTREC.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S368ECSR39;

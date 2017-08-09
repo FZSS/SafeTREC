@@ -32,7 +32,12 @@
 
   NSURL *jsCodeLocation;
 
+#ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+#else
+  // run pre-bundled
+  jsCodeLocation = [[NSBundle mainBundle] URLForResource: @"main" withExtension: @"jsbundle"];
+#endif
 
   // **********************************************
   // ***  Native Navigation from wix BOOTSTRAP ****
@@ -40,7 +45,7 @@
   
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   self.window.backgroundColor = [UIColor whiteColor];
-  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
+  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
   
   // **********************************************
   // ***  Facebook Login SDK                    ***
