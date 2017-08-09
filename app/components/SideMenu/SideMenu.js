@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-} from 'react-native'
-import styles from './styles'
+} from 'react-native';
+import styles from './styles';
 import FBLogin from './FBLogin';
 
+/* eslint react/prefer-stateless-function:0 */
 export default class SideMenu extends Component {
-
   render() {
-
     return (
       <View style={styles.container}>
         <FBLogin />
@@ -19,9 +18,7 @@ export default class SideMenu extends Component {
           <Text style={styles.buttonText}>Settings</Text>
         </TouchableOpacity>
       </View>
-   )
+    );
   }
 }
-
-
 

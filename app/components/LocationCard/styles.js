@@ -17,7 +17,7 @@ export default StyleSheet.create({
     borderColor: 'yellow',
     paddingTop: 30,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
   },
 
   addressTextContainer: {
@@ -27,27 +27,27 @@ export default StyleSheet.create({
   addressText: {
     color: 'darkorange',
     fontSize: 18,
-    fontWeight:'600'
+    fontWeight: '600',
   },
 
   locationIconContainer: {
     paddingLeft: 30,
-    flex: 1
+    flex: 1,
   },
 
   locationArrowContainer: {
-    flex: 1
+    flex: 1,
   },
 
   locationIcon: {
     fontSize: 20,
     height: 22,
-    color: 'darkorange'
+    color: 'darkorange',
   },
 
   mapviewContainer: {
-    flex: 5
-  }
+    flex: 5,
+  },
 
 
 });

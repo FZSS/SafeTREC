@@ -1,5 +1,6 @@
 import actionTypes from '../constants/actionTypes';
-import {ASPECT_RATIO} from '../constants/screen';
+import { ASPECT_RATIO } from '../constants/screen';
+
 const LATITUDE_DELTA = 0.004;
 
 const initialState = {
@@ -11,7 +12,7 @@ const initialState = {
     latitude: 37.78825,
     longitude: -122.4324,
     latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO
+    longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO,
   },
 };
 
@@ -20,16 +21,16 @@ export default function (state = initialState, action) {
     case actionTypes.UpdateMapRegion:
       return {
         ...state,
-        mapRegion: action.payload
+        mapRegion: action.payload,
       };
 
     case actionTypes.UpdateUserLocation:
       return {
         ...state,
-        userLocation: action.coordinates
+        userLocation: action.coordinates,
       };
 
     default:
-      return state
+      return state;
   }
 }

@@ -1,5 +1,5 @@
-import actionTypes from '../constants/actionTypes';
 import _ from 'underscore';
+import actionTypes from '../constants/actionTypes';
 
 /**
  *  predication_example = {
@@ -9,8 +9,7 @@ import _ from 'underscore';
  *  };
  */
 const initialState = {
-
-  newConcernImages : [],
+  newConcernImages: [],
   newConcernImagesUploadStatus: {
     pending: false,
     success: false,
@@ -19,17 +18,17 @@ const initialState = {
   newConcernImagePredictions: [],
 
   concernImages: [],
-  concernImagesPending: false
+  concernImagesPending: false,
 };
 
 export default function (state = initialState, action) {
+  /* eslint prefer-template: 0 */
   switch (action.type) {
-
     case actionTypes.ResetNewConcernImages:
       return {
         ...state,
         newConcernImages: initialState.newConcernImages,
-        newConcernImagePredictions: initialState.newConcernImagePredictions
+        newConcernImagePredictions: initialState.newConcernImagePredictions,
       };
 
     case actionTypes.AddANewConcernImage: {
@@ -44,11 +43,8 @@ export default function (state = initialState, action) {
 
     case actionTypes.DeleteANewConcernImage: {
       const keyToDelete = action.key;
-      const newImages = _.reject(_.clone(state.newConcernImages), image => {
-        return image.key === keyToDelete;
-      });
-
-      console.log(newImages);
+      const checkImageKey = image => image.key === keyToDelete;
+      const newImages = _.reject(_.clone(state.newConcernImages), checkImageKey);
 
       return {
         ...state,
@@ -82,7 +78,7 @@ export default function (state = initialState, action) {
         newConcernImagesUploadStatus: {
           pending: false,
           success: false,
-          failed: true
+          failed: true,
         },
       };
 
@@ -90,7 +86,7 @@ export default function (state = initialState, action) {
 
       return {
         ...state,
-        concernImagesPending: true
+        concernImagesPending: true,
       };
 
     case actionTypes.GetConcernImages + '_FULFILLED':
@@ -98,7 +94,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         concernImages: action.payload,
-        concernImagesPending: false
+        concernImagesPending: false,
       };
 
     case actionTypes.GetConcernImages + '_REJECTED':
@@ -106,21 +102,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         concernImages: [],
-        concernImagesPending: false
+        concernImagesPending: false,
       };
 
     case actionTypes.GetImagePredictions + '_REJECTED':
-      console.log(action.payload);
       return state;
 
-    case actionTypes.GetImagePredictions + '_FULFILLED':
-      let predictions = action.payload.data.responses[0].labelAnnotations;
+    case actionTypes.GetImagePredictions + '_FULFILLED': {
+      const predictions = action.payload.data.responses[0].labelAnnotations;
       return {
         ...state,
-        newConcernImagePredictions: predictions
+        newConcernImagePredictions: predictions,
       };
+    }
 
     default:
-      return state
+      return state;
   }
 }

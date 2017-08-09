@@ -6,7 +6,7 @@ import images from './imagesReducer';
 const rootReducer = combineReducers({
   concerns,
   map,
-  images
+  images,
 });
 
 export default rootReducer;

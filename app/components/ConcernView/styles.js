@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   dismissIcon: {
     fontSize: 30,
     height: 30,
-    color: 'white'
+    color: 'white',
   },
 
   moreButton: {
@@ -57,17 +57,17 @@ const styles = StyleSheet.create({
     top: 25,
     width: 30,
     height: 20,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
 
   moreIcon: {
     fontSize: 40,
     height: 40,
-    color: 'white'
+    color: 'white',
   },
 
   mapviewContainer: {
-    flex: 3
+    flex: 3,
   },
 
   text: {
@@ -79,19 +79,19 @@ const styles = StyleSheet.create({
   titleText: {
     color: '#fff',
     fontSize: 20,
-    padding: 5
+    padding: 5,
   },
 
   descriptionText: {
     color: '#fff',
     fontSize: 16,
-    padding: 5
+    padding: 5,
   },
 
   addressText: {
     color: '#fff',
     fontSize: 15,
-    padding: 5
+    padding: 5,
   },
 
   detailsIcon: {
@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
 
   callOut: {
     width: 300,
-    backgroundColor: '#e59b23'
-  }
+    backgroundColor: '#e59b23',
+  },
 
 
 });
 
-export {navigatorStyle, styles};
+export { navigatorStyle, styles };
 

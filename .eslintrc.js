@@ -2,15 +2,16 @@ module.exports = {
   'parser': 'babel-eslint',
   'plugins': [
     'react',
-    'react-native'
+    'react-native',
+    'jsx-a11y',
   ],
+  'env': {
+    'browser': true
+  },
   'extends': [
     'airbnb',
   ],
   'rules': {
-    'arrow-parens': [
-      'warn',
-      'as-needed'
-    ]
+    'react/jsx-filename-extension': 0
   }
 };

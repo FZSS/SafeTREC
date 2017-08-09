@@ -20,7 +20,7 @@ export default StyleSheet.create({
 
   back: {
     flex: 1,
-    zIndex: 1
+    zIndex: 1,
   },
 
   showProgress: {
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     width: window.width,
     height: window.height,
     backgroundColor: 'white',
-    zIndex: 2
+    zIndex: 2,
   },
 
   hideProgress: {
@@ -40,14 +40,14 @@ export default StyleSheet.create({
     width: window.width,
     height: window.height,
     backgroundColor: 'transparent',
-    zIndex: 0
+    zIndex: 0,
   },
 
   activityIndicator: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 80
+    height: 80,
   },
 
   comment: {
@@ -62,7 +62,7 @@ export default StyleSheet.create({
 
     fontSize: 20,
     color: 'darkorange',
-    backgroundColor: 'yellow'
+    backgroundColor: 'yellow',
   },
 
 });

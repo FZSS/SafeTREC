@@ -1,52 +1,84 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
   TouchableOpacity,
-} from 'react-native'
-import styles from './styles'
+} from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import _ from 'underscore';
 import {
   updateNewConcernAddressFromGeocode,
   updateNewConcernAddress,
-  updateNewConcernCoordinates
+  updateNewConcernCoordinates,
 } from '../../actions/concerns';
 import {
-  updateMapRegion
-} from '../../actions/map'
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import _ from 'underscore';
+  updateMapRegion,
+} from '../../actions/map';
+import styles from './styles';
 
-const mapStateToProps= state => {
-  return {
-    newConcern: state.concerns.newConcern,
-    mapRegion: state.map.mapRegion
-  }
+/* eslint react/prop-types: 1 */
+const propTypes = {
 };
+
+const mapStateToProps = state => ({
+  newConcern: state.concerns.newConcern,
+  mapRegion: state.map.mapRegion,
+});
 
 const mapDispatchToProps = {
   updateNewConcernAddressFromGeocode,
   updateNewConcernAddress,
   updateNewConcernCoordinates,
-  updateMapRegion
+  updateMapRegion,
 };
 
 class LocationCard extends Component {
+  static navigatorButtons = {
+    rightButtons: [{
+      title: 'Next',
+      id: 'next',
+      buttonFontWeight: '900',
+    }],
+  };
+
+  static validatePictureLocation(location) {
+    if (!_.isEmpty(location)) {
+      if (!_.isUndefined(location.latitude) && !_.isUndefined(location.longitude)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  static navigatorButtons = {
-    rightButtons: [{
-        title: 'Next',
-        id: 'next',
-        buttonFontWeight: '900',
-      }],
-  };
+  componentDidMount() {
+    if (LocationCard.validatePictureLocation(this.props.pictureLocation)) {
+      const lat = this.props.pictureLocation.latitude;
+      const long = this.props.pictureLocation.longitude;
+      const newMapRegion = {
+        ...this.props.mapRegion,
+        latitude: lat,
+        longitude: long,
+      };
+
+      this.props.updateMapRegion(newMapRegion);
+      this.props.updateNewConcernCoordinates(lat, long);
+      this.props.updateNewConcernAddressFromGeocode(lat, long);
+    } else {
+      // If no GPS info in picture, assume we want to have a new concern at previous mapRegion
+      const lat = this.props.mapRegion.latitude;
+      const long = this.props.mapRegion.longitude;
+      this.props.updateNewConcernCoordinates(lat, long);
+      this.props.updateNewConcernAddressFromGeocode(lat, long);
+    }
+  }
 
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
@@ -56,51 +88,30 @@ class LocationCard extends Component {
           title: 'Concern Details',
           passProps: {
             reportCategory: this.props.reportCategory,
-          }
-        })
+          },
+        });
       }
     }
   }
 
-  static validatePictureLocation(location) {
-    if (!_.isEmpty(location)) {
-      if (!_.isUndefined(location.latitude) && !_.isUndefined(location.longitude)) {
-        return true;
-      }
-    }
-    return false
-  }
+  onMarkerDragEnd(e) {
+    const lat = e.nativeEvent.coordinate.latitude;
+    const long = e.nativeEvent.coordinate.longitude;
+    const newMapRegion = {
+      ...this.props.mapRegion,
+      latitude: lat,
+      longitude: long,
+    };
 
-  componentDidMount() {
-    if (LocationCard.validatePictureLocation(this.props.pictureLocation)) {
-
-      let lat = this.props.pictureLocation.latitude;
-      let long = this.props.pictureLocation.longitude;
-      let newMapRegion = {
-        ...this.props.mapRegion,
-        latitude: lat,
-        longitude: long
-      };
-
-      this.props.updateMapRegion(newMapRegion);
-      this.props.updateNewConcernCoordinates(lat, long);
-      this.props.updateNewConcernAddressFromGeocode(lat, long);
-
-    } else {
-      // If no GPS info in picture, assume we want to have a new concern at previous mapRegion
-      let lat = this.props.mapRegion.latitude;
-      let long = this.props.mapRegion.longitude;
-      this.props.updateNewConcernCoordinates(lat, long);
-      this.props.updateNewConcernAddressFromGeocode(lat, long);
-    }
+    this.props.updateMapRegion(newMapRegion);
+    this.props.updateNewConcernCoordinates(lat, long);
+    this.props.updateNewConcernAddressFromGeocode(lat, long);
   }
 
   openSearchModal() {
     RNGooglePlaces.openAutocompleteModal()
       .then((place) => {
-
-
-        let newMapRegion = {
+        const newMapRegion = {
           ...this.props.mapRegion,
           latitude: place.latitude,
           longitude: place.longitude,
@@ -109,71 +120,58 @@ class LocationCard extends Component {
         this.props.updateMapRegion(newMapRegion);
         this.props.updateNewConcernAddress(place.address);
         this.props.updateNewConcernCoordinates(place.latitude, place.longitude);
-
       })
       .catch(error => console.log(error.message));
   }
 
-  onMarkerDragEnd(e) {
-    let lat = e.nativeEvent.coordinate.latitude;
-    let long = e.nativeEvent.coordinate.longitude;
-    let newMapRegion = {
-      ...this.props.mapRegion,
-      latitude: lat,
-      longitude: long
-    };
-
-    this.props.updateMapRegion(newMapRegion);
-    this.props.updateNewConcernCoordinates(lat, long);
-    this.props.updateNewConcernAddressFromGeocode(lat, long);
-  }
-
   render() {
-
     return (
-       <View style={styles.container}>
+      <View style={styles.container}>
 
-         <TouchableOpacity
-           style={styles.locationContainer}
-           onPress={()=> this.openSearchModal()}
-         >
+        <TouchableOpacity
+          style={styles.locationContainer}
+          onPress={() => this.openSearchModal()}
+        >
 
-           <View style={styles.locationIconContainer}>
-             <Icon name="ios-pin" style={styles.locationIcon} />
-           </View>
+          <View style={styles.locationIconContainer}>
+            <Icon name="ios-pin" style={styles.locationIcon} />
+          </View>
 
-           <View style={styles.addressTextContainer}>
-             <Text style={styles.addressText}>
-               {this.props.newConcern.address}
-             </Text>
+          <View style={styles.addressTextContainer}>
+            <Text style={styles.addressText}>
+              {this.props.newConcern.address}
+            </Text>
 
-           </View>
+          </View>
 
-           <View style={styles.locationArrowContainer}>
-             <Icon name="ios-arrow-forward" style={styles.locationIcon} />
-           </View>
+          <View style={styles.locationArrowContainer}>
+            <Icon name="ios-arrow-forward" style={styles.locationIcon} />
+          </View>
 
-         </TouchableOpacity>
+        </TouchableOpacity>
 
-         <MapView
-           style={styles.mapviewContainer}
-           provider={PROVIDER_GOOGLE}
-           region={this.props.mapRegion}
-           onRegionChangeComplete={(r) => this.props.updateMapRegion(r)}
-           mapType={"standard"}
-           showsUserLocation={true}
-           showsCompass={true}
-           showsMyLocationButton={true}
-         >
-           <MapView.Marker draggable
-                           coordinate={this.props.newConcern.coordinate}
-                           onDragEnd={(e) => this.onMarkerDragEnd(e)}
-           />
-         </MapView>
+        <MapView
+          style={styles.mapviewContainer}
+          provider={PROVIDER_GOOGLE}
+          region={this.props.mapRegion}
+          onRegionChangeComplete={r => this.props.updateMapRegion(r)}
+          mapType={'standard'}
+          showsUserLocation
+          showsCompass
+          showsMyLocationButton
+        >
+          <MapView.Marker
+            draggable
+            coordinate={this.props.newConcern.coordinate}
+            onDragEnd={e => this.onMarkerDragEnd(e)}
+          />
+        </MapView>
 
-       </View>
-    )
+      </View>
+    );
   }
 }
+
+LocationCard.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationCard);

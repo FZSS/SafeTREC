@@ -1,7 +1,7 @@
-import { registerScreens } from './screens';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore.js';
+import configureStore from './store/configureStore';
+import registerScreens from './screens';
 
 const store = configureStore();
 
@@ -11,17 +11,15 @@ Navigation.startSingleScreenApp({
   screen: {
     screen: 'app.Map',
     title: 'Map',
-    navigatorStyle:{
+    navigatorStyle: {
       navBarHidden: true,
     },
   },
   drawer: {
     left: {
-      screen: 'app.SideMenu'
+      screen: 'app.SideMenu',
     },
-    disableOpenGesture: true
-  }
+    disableOpenGesture: true,
+  },
 });
-
-
 

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 60,
 
-    shadowOffset:{
+    shadowOffset: {
       width: 5,
       height: 4,
     },
@@ -46,34 +46,34 @@ const styles = StyleSheet.create({
 
     shadowColor: 'black',
     shadowOpacity: 0.4,
-    shadowRadius: 3
+    shadowRadius: 3,
   },
 
   newReportButtonIcon: {
     fontSize: 20,
     height: 22,
-    color: 'white'
+    color: 'white',
   },
 
   sideMenuContainer: {
 
-    position:'absolute',
+    position: 'absolute',
 
     left: 20,
     top: 30,
 
     width: 30,
     height: 20,
-    backgroundColor:'transparent',
+    backgroundColor: 'transparent',
   },
 
   sideMenuIcon: {
     fontSize: 30,
     height: 30,
-    color: 'black'
+    color: 'black',
   },
 
 });
 
-export {navigatorStyle, styles};
+export { navigatorStyle, styles };
 

@@ -11,18 +11,18 @@ export default StyleSheet.create({
     color: 'white',
   },
 
-  settingsButton:{
+  settingsButton: {
     marginLeft: 'auto',
     marginRight: 'auto',
     padding: 10,
     width: 200,
-    backgroundColor: '#828282'
+    backgroundColor: '#828282',
   },
 
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
 });

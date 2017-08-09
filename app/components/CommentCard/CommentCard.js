@@ -1,69 +1,52 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   TextInput,
   SegmentedControlIOS,
   ActivityIndicator,
   Alert,
-  Text
-} from 'react-native'
-import styles from './styles'
-import { connect } from 'react-redux';
-import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+  Text,
+} from 'react-native';
+import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
-import { getConcernsInRegion} from '../../actions/map';
-import PropTypes from 'prop-types';
+import { getConcernsInRegion } from '../../actions/map';
 
-const mapStateToProps = state => {
-  return {
-    detailsStatus: state.concerns.newConcernSubmissionStatus,
-    newConcern: state.concerns.newConcern,
-    newImages: state.images.newConcernImages,
-    imageStatus: state.images.newConcernImagesUploadStatus,
-    mapRegion: state.map.mapRegion,
-    predictions: state.images.newConcernImagePredictions
-  }
+const mapStateToProps = state => ({
+  detailsStatus: state.concerns.newConcernSubmissionStatus,
+  newConcern: state.concerns.newConcern,
+  newImages: state.images.newConcernImages,
+  imageStatus: state.images.newConcernImagesUploadStatus,
+  mapRegion: state.map.mapRegion,
+  predictions: state.images.newConcernImagePredictions,
+});
+
+const mapDispatchToProps = {
+  uploadConcern,
+  getConcernsInRegion,
 };
 
-const mapDispatchToProps =  {
-  uploadConcern,
-  getConcernsInRegion
+/* eslint react/prop-types: 1 */
+const propTypes = {
 };
 
 class CommentCard extends Component {
+  static navigatorButtons = {
+    rightButtons: [{
+      title: 'Submit',
+      id: 'submit',
+      buttonFontWeight: '900',
+    }],
+  };
+
+  static getCategoryIndex(category) {
+    const indices = ['Automobile', 'Bicycle', 'Pedestrian'];
+    return indices.indexOf(category);
+  }
 
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  static navigatorButtons = {
-
-    rightButtons: [{
-        title: 'Submit',
-        id: 'submit',
-        buttonFontWeight: '900',
-      }],
-  };
-
-  onNavigatorEvent(event) {
-    if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'submit') {
-
-        this.props.navigator.setStyle({
-          navBarHidden: true
-        });
-
-        let details =  {
-          address: this.props.newConcern.address,
-          coordinate: this.props.newConcern.coordinate,
-          title: this.props.reportCategory + ' concern' ,
-          description: this.state.concernDescription
-        };
-
-        this.props.uploadConcern(details, this.props.newImages);
-      }
-    }
   }
 
   state = {
@@ -71,100 +54,112 @@ class CommentCard extends Component {
     concernDescription: '',
   };
 
-  componentDidUpdate(prevProps, prevState) {
 
+  componentDidUpdate(prevProps) {
     const popToRoot = () => {
       this.props.navigator.popToRoot({
         animated: true,
         animationType: 'fade',
-      })
+      });
     };
 
-    //Fixme: double failure message, need to work on logic
+    // Fixme: double failure message, need to work on logic
     if (prevProps.detailsStatus.pending || prevProps.imageStatus.pending) {
       if (this.props.detailsStatus.failed || this.props.imageStatus.failed) {
         Alert.alert(
           'Failed Submission',
-          'Sorry about that', //TODO: should show error msg
+          'Sorry about that', // TODO: should show error msg
           [
-            {text: 'OK', onPress: () => popToRoot()},
+            { text: 'OK', onPress: () => popToRoot() },
           ],
-        )
+        );
       } else if (this.props.detailsStatus.success && this.props.imageStatus.success) {
-
         this.props.getConcernsInRegion(this.props.mapRegion);
         Alert.alert(
           'Successful Submission',
           'Thank you',
           [
-            {text: 'OK', onPress: () => popToRoot()},
+            { text: 'OK', onPress: () => popToRoot() },
           ],
-        )
+        );
       }
     }
   }
 
-  static getCategoryIndex(category) {
-    let indices = ['Automobile', 'Bicycle', 'Pedestrian'];
-    return indices.indexOf(category);
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'submit') {
+        this.props.navigator.setStyle({
+          navBarHidden: true,
+        });
+
+        const details = {
+          address: this.props.newConcern.address,
+          coordinate: this.props.newConcern.coordinate,
+          title: `${this.props.reportCategory} concern`,
+          description: this.state.concernDescription,
+        };
+
+        this.props.uploadConcern(details, this.props.newImages);
+      }
+    }
   }
 
   getPredictions() {
+    /* eslint react/no-array-index-key: 0 */
     console.log(this.props.predictions);
-    return this.props.predictions.map( (prediction, index) => (
-      <Text key={index}> {prediction.description + ' ' + prediction.score} </Text>
-    ))
-
+    return this.props.predictions.map((prediction, index) => (
+      <Text key={index}> {`${prediction.description} ${prediction.score}`} </Text>
+    ));
   }
 
   render() {
-
     return (
-       <View style={styles.container}>
+      <View style={styles.container}>
 
-         <View style={styles.back}>
+        <View style={styles.back}>
 
-           <SegmentedControlIOS
-             style={styles.categorySelection}
-             tintColor="darkorange"
-             values={['Automobile', 'Bicycle', 'Pedestrian']}
-             selectedIndex={CommentCard.getCategoryIndex(this.state.reportCategory)}
-             onValueChange={(value) => {
-               this.setState({reportCategory: value});
-             }}
-           />
+          <SegmentedControlIOS
+            style={styles.categorySelection}
+            tintColor="darkorange"
+            values={['Automobile', 'Bicycle', 'Pedestrian']}
+            selectedIndex={CommentCard.getCategoryIndex(this.state.reportCategory)}
+            onValueChange={(value) => {
+              this.setState({ reportCategory: value });
+            }}
+          />
 
-           {this.getPredictions()}
+          {this.getPredictions()}
 
-           <TextInput
-             placeholder={'What are you concerned about at this location?'}
-             multiline = {true}
-             editable = {true}
-             style={styles.comment}
-             placeholderTextColor={'orange'}
-             onChangeText={(concernDescription) => this.setState({concernDescription})}
-             value={this.state.concernDescription}
-           >
-           </TextInput>
+          <TextInput
+            placeholder={'What are you concerned about at this location?'}
+            multiline
+            editable
+            style={styles.comment}
+            placeholderTextColor={'orange'}
+            onChangeText={concernDescription => this.setState({ concernDescription })}
+            value={this.state.concernDescription}
+          />
 
-         </View>
+        </View>
 
-         <View style={ (this.props.detailsStatus.pending || this.props.imageStatus.pending) ?
-                        styles.showProgress: styles.hideProgress}
-         >
-           <ActivityIndicator
-             animating = {this.props.detailsStatus.pending || this.props.imageStatus.pending}
-             color = 'darkorange'
-             size = "large"
-             style = {styles.activityIndicator}
-           />
-         </View>
+        <View style={(this.props.detailsStatus.pending || this.props.imageStatus.pending) ?
+          styles.showProgress : styles.hideProgress}
+        >
+          <ActivityIndicator
+            animating={this.props.detailsStatus.pending || this.props.imageStatus.pending}
+            color="darkorange"
+            size="large"
+            style={styles.activityIndicator}
+          />
+        </View>
 
-       </View>
-    )
+      </View>
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentCard);
+CommentCard.propTypes = propTypes;
 
+export default connect(mapStateToProps, mapDispatchToProps)(CommentCard);
 

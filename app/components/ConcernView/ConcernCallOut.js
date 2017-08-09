@@ -1,32 +1,30 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
   TouchableHighlight,
-} from 'react-native'
-import { styles } from './styles'
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const mapStateToProps= (state) => {
-  return {
-  }
-};
+/* eslint no-unused-vars: 1 */
+import { styles } from './styles';
+
+const mapStateToProps = state => ({
+});
 
 const mapDispatchToProps = {
 };
 
 const propTypes = {
   // category : PropTypes.oneOf(['Pedestrian', 'Automobile', 'Bicycle']).isRequired,
-  description : PropTypes.string.isRequired,
-  title : PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-
-class concernCallOut extends Component {
-
+/* eslint react/prefer-stateless-function: 1 */
+class ConcernCallOut extends Component {
   render() {
-
     return (
       <View>
         <TouchableHighlight>
@@ -36,10 +34,10 @@ class concernCallOut extends Component {
           <Text>{this.props.description}</Text>
         </TouchableHighlight>
       </View>
-    )
+    );
   }
 }
 
-concernCallOut.propTypes = propTypes;
+ConcernCallOut.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(concernCallOut);
+export default connect(mapStateToProps, mapDispatchToProps)(ConcernCallOut);

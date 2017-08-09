@@ -2,9 +2,9 @@ import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 
 export const getConcernsInRegion = (mapRegion) => {
-
-  //TODO:rewrite so read actually concernsInArea but not all concerns
-  const ref  = firebase.database().ref('concerns');
+  /* eslint no-unused-vars: 1 */
+  // TODO:rewrite so read actually concernsInArea but not all concerns
+  const ref = firebase.database().ref('concerns');
 
   // return {
   //   type: actionTypes.GetConcernsInArea,
@@ -15,24 +15,16 @@ export const getConcernsInRegion = (mapRegion) => {
   // }
   return {
     type: actionTypes.GetConcernsInArea,
-    payload: ref.once('value').then(snapshot => {
-      return snapshot.val();
-    })
-  }
+    payload: ref.once('value').then(snapshot => snapshot.val()),
+  };
 };
 
-export const updateMapRegion = (mapRegion) => {
+export const updateMapRegion = mapRegion => ({
+  type: actionTypes.UpdateMapRegion,
+  payload: mapRegion,
+});
 
-  return {
-    type: actionTypes.UpdateMapRegion,
-    payload: mapRegion
-  }
-};
-
-export const updateUserLocation = (coordinates) => {
-
-  return {
-    type: actionTypes.UpdateUserLocation,
-    coordinates: coordinates
-  }
-};
+export const updateUserLocation = coordinates => ({
+  type: actionTypes.UpdateUserLocation,
+  coordinates,
+});

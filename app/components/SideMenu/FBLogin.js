@@ -1,49 +1,47 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
-} from 'react-native'
-import styles from './styles'
-import firebase from '../../config/firebase';
+} from 'react-native';
 import {
   LoginButton,
-  LoginManager,
-  AccessToken
+  AccessToken,
 } from 'react-native-fbsdk';
+import styles from './styles';
+import firebase from '../../config/firebase';
 
-class FBLogin extends Component{
-
-  connectWithFirebase(error, result) {
+class FBLogin extends Component {
+  static connectWithFirebase(error, result) {
     if (error) {
-      alert("login has error: " + result.error);
+      alert(`login has error: ${result.error}`);
     } else if (result.isCancelled) {
-      alert("login is cancelled.");
+      alert('login is cancelled.');
     } else {
       AccessToken.getCurrentAccessToken().then(
         (data) => {
           const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
           firebase
             .auth()
-            .signInWithCredential(credential)
-        }
-      )
+            .signInWithCredential(credential);
+        },
+      );
     }
   }
 
-  disconnectWithFirebase() {
+  static disconnectWithFirebase() {
     firebase
       .auth()
       .signOut()
-      .catch((error) => console.log(error))
+      .catch(error => console.log(error));
   }
 
-
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={this.connectWithFirebase}
-          onLogoutFinished={this.disconnectWithFirebase}/>
+          publishPermissions={['publish_actions']}
+          onLoginFinished={FBLogin.connectWithFirebase}
+          onLogoutFinished={FBLogin.disconnectWithFirebase}
+        />
       </View>
     );
   }

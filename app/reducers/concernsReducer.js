@@ -1,15 +1,16 @@
+import _ from 'underscore';
 import actionTypes from '../constants/actionTypes';
 
-//concern schema
+/* concern schema */
 const initialState = {
   newConcern: {
-    id: "XDFJKSJK129JK",
+    id: 'XDFJKSJK129JK',
     address: 'Address...',
     coordinate: {
       latitude: 37.78821,
       longitude: -122.4224,
     },
-    numberOfImages: 1
+    numberOfImages: 1,
   },
 
   newConcernSubmissionStatus: {
@@ -20,36 +21,37 @@ const initialState = {
 
   concernsInMapRegion: [
     {
-      id: "XDFJKSJK129JK",
+      id: 'XDFJKSJK129JK',
       address: null,
       coordinate: {
         latitude: 37.78821,
         longitude: -122.4224,
       },
       title: 'concern 0',
-      description: 'a safety concern!'
+      description: 'a safety concern!',
     },
     {
-      id: "ADFJ2SJK129JK",
+      id: 'ADFJ2SJK129JK',
       address: null,
       coordinate: {
         latitude: 37.78721,
         longitude: -122.4124,
       },
       title: 'concern 1',
-      description: 'another safety concern!'
+      description: 'another safety concern!',
     },
-  ]
+  ],
 };
 
 export default function (state = initialState, action) {
+  /* eslint prefer-template: 0 */
   switch (action.type) {
     case actionTypes.SubmitConcern + '_PENDING':
       return {
         ...state,
         newConcernSubmissionStatus: {
           ...state.newConcernSubmissionStatus,
-          pending: true
+          pending: true,
         },
       };
 
@@ -59,7 +61,7 @@ export default function (state = initialState, action) {
         newConcernSubmissionStatus: {
           ...state.newConcernSubmissionStatus,
           pending: false,
-          success: true
+          success: true,
         },
       };
 
@@ -69,7 +71,7 @@ export default function (state = initialState, action) {
         newConcernSubmissionStatus: {
           ...state.newConcernSubmissionStatus,
           pending: false,
-          failed: true
+          failed: true,
         },
       };
 
@@ -84,49 +86,49 @@ export default function (state = initialState, action) {
       console.log(action.payload);
       return state;
 
-    case actionTypes.GetConcernsInArea + '_FULFILLED':
+    case actionTypes.GetConcernsInArea + '_FULFILLED': {
       const concernsInMapRegion = [];
 
-      // conforming database entry according to store scheme
-      for (const key in action.payload) {
-        if (action.payload.hasOwnProperty(key)) {
-          let newConcern = action.payload[key]; //TODO: use three dots
-          newConcern.id = key;
-
-          newConcern.coordinate = {
-            longitude: newConcern.longitude,
-            latitude: newConcern.latitude
-          };
-          concernsInMapRegion.push(newConcern);
-        }
-      }
+      /* conforming database entry according to store scheme */
+      Object.keys(action.payload).forEach((key) => {
+        const newConcern = _.clone(action.payload[key]);
+        newConcern.id = key;
+        newConcern.coordinate = {
+          longitude: newConcern.longitude,
+          latitude: newConcern.latitude,
+        };
+        concernsInMapRegion.push(newConcern);
+      });
 
       return {
         ...state,
-        concernsInMapRegion
+        concernsInMapRegion,
       };
+    }
 
-    case actionTypes.UpdateNewConcernAddress:
+    case actionTypes.UpdateNewConcernAddress: {
       return {
         ...state,
         newConcern: {
           ...state.newConcern,
-          address: action.payload
-        }
+          address: action.payload,
+        },
       };
+    }
 
     // case actionTypes.UpdateNewConcernAddressFromGeocode + '_REJECTED':
     //   return state;
 
-    case actionTypes.UpdateNewConcernAddressFromGeocode + '_FULFILLED':
-      let address = action.payload.data.results[0].formatted_address;
+    case actionTypes.UpdateNewConcernAddressFromGeocode + '_FULFILLED': {
+      const address = action.payload.data.results[0].formatted_address;
       return {
         ...state,
         newConcern: {
           ...state.newConcern,
-          address: address
-        }
+          address,
+        },
       };
+    }
 
     case actionTypes.UpdateNewConcernCoordinates:
       return {
@@ -136,8 +138,8 @@ export default function (state = initialState, action) {
           coordinate: {
             latitude: action.payload.latitude,
             longitude: action.payload.longitude,
-          }
-        }
+          },
+        },
       };
 
     default:
