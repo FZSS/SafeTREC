@@ -108,7 +108,7 @@ export default function (state = initialState, action) {
       return state;
 
     case actionTypes.GetImagePredictions + '_FULFILLED':
-      console.log(action.payload.outputs.concepts);
+      console.log(action.payload);
       return state;
 
     default:

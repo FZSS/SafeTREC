@@ -73,7 +73,6 @@ class LocationCard extends Component {
 
   componentDidMount() {
     if (LocationCard.validatePictureLocation(this.props.pictureLocation)) {
-      console.log(this.props.pictureLocation);
 
       let lat = this.props.pictureLocation.latitude;
       let long = this.props.pictureLocation.longitude;

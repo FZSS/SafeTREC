@@ -3,6 +3,8 @@ import firebase from '../config/firebase';
 import RNFetchBlob from 'react-native-fetch-blob'
 import _ from 'underscore';
 import clarifai from '../config/clarifai';
+import { uriBase, subscriptionKey } from '../config/microsoft-vision';
+import axios from 'axios'
 
 const Blob = RNFetchBlob.polyfill.Blob;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
@@ -10,21 +12,41 @@ window.Blob = Blob;
 
 export const getImagePredictions = (image) => {
 
+  console.log(image);
   const uploadUri = image.uri.replace('file://', '');
 
-  const getFileAndGetPredictions = () => {
+  const getFileAndGetPredictionsWithClarifai = () => {
     return RNFetchBlob.fs.readFile(uploadUri, 'base64')
       .then( data => {
         return clarifai.models.predict(Clarifai.GENERAL_MODEL, {base64: data}) //Polyfill issue
       });
   };
 
-  const getPredictions = () => {
-      return clarifai.models.predict(Clarifai.GENERAL_MODEL, {base64: data}) //Polyfill issue
+  //https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1ff
+  const tagImageWithMircosoft = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        RNFetchBlob.fs.readFile(uploadUri, 'base64')
+          .then(data => {
+            return axios.create({
+              method: 'post',
+              url: uriBase + '/tag',
+              headers: {
+                'Content-Type': 'application/octet-stream',
+                'Ocp-Apim-Subscription-Key': subscriptionKey
+              },
+              data: data
+            })
+          })
+          .then(res => resolve(res))
+          .catch( e => reject(e))
+      }, 0)
+    })
   };
 
   return {
     type: actionTypes.GetImagePredictions,
+    payload: tagImageWithMircosoft()
   }
 };
 
@@ -79,7 +101,7 @@ const uploadOneImage = (image, concernRef, key, mime='application/octet-stream')
   const uploadUri = image.uri.replace('file://', '');
   const ref = concernRef.child('image' + key.toString());
 
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     setTimeout( () => {
       RNFetchBlob.fs.readFile(uploadUri, 'base64')
         .then( data => {

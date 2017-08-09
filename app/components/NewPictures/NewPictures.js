@@ -60,7 +60,7 @@ class NewPicture extends Component {
         if (this.props.newImages.length === 0) {
           alert('Please Add A Picture!')
         } else {
-          // this.props.getImagePredictions(this.props.newImages[0]);
+          this.props.getImagePredictions(this.props.newImages[0]);
           this.goToLocationCard()
         }
       }
