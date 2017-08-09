@@ -18,7 +18,6 @@ const initialState = {
   },
   newConcernImagePredictions: [],
 
-
   concernImages: [],
   concernImagesPending: false
 };
