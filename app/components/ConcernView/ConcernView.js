@@ -96,6 +96,8 @@ class ConcernView extends Component {
     return (
       <View style={styles.container}>
 
+        <Spinner color="rgb(255, 153, 0)" overlayColor="white" />
+
         {this.loadSwiper()}
 
         <View style={styles.detailsContainer}>

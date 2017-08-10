@@ -8,6 +8,7 @@ import {
   Alert,
   Text,
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
@@ -142,6 +143,12 @@ class CommentCard extends Component {
           />
 
         </View>
+
+        {/*<Spinner*/}
+          {/*visible={(this.props.detailsStatus.pending || this.props.imageStatus.pending)}*/}
+          {/*color="rgb(255, 153, 0)"*/}
+          {/*overlayColor="white"*/}
+        {/*/>*/}
 
         <View style={(this.props.detailsStatus.pending || this.props.imageStatus.pending) ?
           styles.showProgress : styles.hideProgress}
