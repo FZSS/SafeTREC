@@ -124,10 +124,11 @@ export const getConcernImages = (concernId, numberOfImages) => {
   const concernRef = firebase.storage().ref(`images/${concernId}`);
 
   for (let i = 0; i < numberOfImages; i += 1) {
+    // Concern images are stored at firebase storage 'images/{concernId}/image{i}'
     const downloadPromise = concernRef.child(`image${i}`).getDownloadURL()
-      .then(url => ({
+      .then(uri => ({
         key: i,
-        uri: url,
+        uri,
       }));
     promiseList.push(downloadPromise);
   }

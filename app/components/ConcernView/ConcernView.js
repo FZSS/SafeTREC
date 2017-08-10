@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { ASPECT_RATIO } from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
 import { deleteConcern } from '../../actions/concerns';
