@@ -101,19 +101,14 @@ const uploadOneImage = (image, concernRef, key, mime = 'application/octet-stream
 };
 
 /**
- * Return an action that upload all images in the concern
+ * Return a list of promises to upload all images in the concern
  * @param concernId
  * @param images
- * @returns {{type: string, payload: Promise.all}}
+ * @returns {Array}
  */
 export const uploadNewConcernImages = (concernId, images) => {
   const concernRef = firebase.storage().ref('images').child(concernId.toString());
-  const uploadPictureList = _.map(images, (image, key) => uploadOneImage(image, concernRef, key, 'image/png;'));
-
-  return {
-    type: actionTypes.UploadNewConcernImages,
-    payload: Promise.all(uploadPictureList),
-  };
+  return _.map(images, (image, key) => uploadOneImage(image, concernRef, key, 'image/png;'));
 };
 
 

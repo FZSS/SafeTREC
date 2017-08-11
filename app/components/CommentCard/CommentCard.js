@@ -13,10 +13,9 @@ import { getConcernsInRegion } from '../../actions/map';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
 const mapStateToProps = state => ({
-  detailsStatus: state.concerns.newConcernSubmissionStatus,
+  submissionStatus: state.concerns.newConcernSubmissionStatus,
   newConcern: state.concerns.newConcern,
   newImages: state.images.newConcernImages,
-  imageStatus: state.images.newConcernImagesUploadingStatus,
   mapRegion: state.map.mapRegion,
   predictions: state.images.newConcernImagePredictions,
 });
@@ -65,8 +64,8 @@ class CommentCard extends Component {
     };
 
     // Fixme: double failure message, need to work on logic
-    if (prevProps.detailsStatus.pending || prevProps.imageStatus.pending) {
-      if (this.props.detailsStatus.failed || this.props.imageStatus.failed) {
+    if (prevProps.submissionStatus.pending) {
+      if (this.props.submissionStatus.failed) {
         Alert.alert(
           'Failed Submission',
           'Sorry about that', // TODO: should show error msg
@@ -74,7 +73,7 @@ class CommentCard extends Component {
             { text: 'OK', onPress: () => popToRoot() },
           ],
         );
-      } else if (this.props.detailsStatus.success && this.props.imageStatus.success) {
+      } else if (this.props.submissionStatus.success) {
         this.props.getConcernsInRegion(this.props.mapRegion);
         Alert.alert(
           'Successful Submission',
@@ -118,9 +117,7 @@ class CommentCard extends Component {
     return (
       <View style={styles.container}>
 
-        <SpinnerOverlay visible={(this.props.detailsStatus.pending ||
-                                  this.props.imageStatus.pending)}
-        />
+        <SpinnerOverlay visible={(this.props.submissionStatus.pending)}/>
 
         <View style={styles.back}>
 

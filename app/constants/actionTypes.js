@@ -1,7 +1,6 @@
 const actionTypes = {
   SubmitConcern: 'SUBMIT_CONCERN',
   DeleteConcern: 'DELETE_CONCERN',
-  UploadNewConcernImages: 'UPLOAD_NEW_CONCERN_IMAGES',
   GetConcernsInArea: 'GET_CONCERNS_IN_AREA',
   UpdateMapRegion: 'UPDATE_MAP_REGION',
   UpdateUserLocation: 'UPDATE_USER_LOCATION',

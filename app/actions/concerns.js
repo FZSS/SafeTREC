@@ -4,7 +4,7 @@ import firebase from '../config/firebase';
 import { uploadNewConcernImages } from './images';
 import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps';
 
-export const uploadConcern = (details, images) => (dispatch) => {
+export const uploadConcern = (details, images) => {
   // check connection TODO:DELETE
   const connectedRef = firebase.database().ref('.info/connected');
   connectedRef.on('value', (snap) => {
@@ -27,12 +27,16 @@ export const uploadConcern = (details, images) => (dispatch) => {
   const concernsRef = firebase.database().ref().child('concerns');
   const newConcernId = concernsRef.push().key;
 
-  dispatch(uploadNewConcernImages(newConcernId, images));
+  // Get a list of promises to upload new concern images
+  const promises = uploadNewConcernImages(newConcernId, images);
 
-  dispatch({
+  // Push the promise to set concern to the new ref to the list
+  promises.push(concernsRef.child(newConcernId).set(concern));
+
+  return {
     type: actionTypes.SubmitConcern,
-    payload: concernsRef.child(newConcernId).set(concern),
-  });
+    payload: Promise.all(promises),
+  };
 };
 
 export const deleteConcern = (concernId, numOfImages = 0) => {
