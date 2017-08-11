@@ -3,6 +3,7 @@ import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
 import { uploadNewConcernImages } from './images';
 import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps';
+import geofire from '../config/geofire';
 
 export const uploadConcern = (details, images) => {
   // check connection TODO:DELETE
@@ -17,8 +18,8 @@ export const uploadConcern = (details, images) => {
 
   const concern = {
     address: details.address,
-    longitude: details.coordinate.longitude,
     latitude: details.coordinate.latitude,
+    longitude: details.coordinate.longitude,
     title: details.title,
     description: details.description,
     numberOfImages: images.length,
@@ -27,11 +28,15 @@ export const uploadConcern = (details, images) => {
   const concernsRef = firebase.database().ref().child('concerns');
   const newConcernId = concernsRef.push().key;
 
-  // Get a list of promises to upload new concern images
+  // Add a list of promises to upload new concern images
   const promises = uploadNewConcernImages(newConcernId, images);
 
-  // Push the promise to set concern to the new ref to the list
+  // Add the promise to set concern to the new ref
   promises.push(concernsRef.child(newConcernId).set(concern));
+
+  // Add the promise to set geohash in geofire
+  const [lat, long] = [details.coordinate.latitude, details.coordinate.longitude];
+  promises.push(geofire.set(newConcernId, [lat, long]));
 
   return {
     type: actionTypes.SubmitConcern,

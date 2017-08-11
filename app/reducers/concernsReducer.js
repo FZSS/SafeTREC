@@ -24,31 +24,6 @@ const initialState = {
     success: false,
     failed: false,
   },
-
-  concernsInMapRegion: [
-    {
-      id: 'XDFJKSJK129JK',
-      address: null,
-      coordinate: {
-        latitude: 37.78821,
-        longitude: -122.4224,
-      },
-      title: 'concern 0',
-      description: 'a safety concern!',
-      numberOfImages: 1,
-    },
-    {
-      id: 'ADFJ2SJK129JK',
-      address: null,
-      coordinate: {
-        latitude: 37.78721,
-        longitude: -122.4124,
-      },
-      title: 'concern 1',
-      description: 'another safety concern!',
-      numberOfImages: 1,
-    },
-  ],
 };
 
 export default function (state = initialState, action) {
@@ -111,26 +86,6 @@ export default function (state = initialState, action) {
           failed: true,
         },
       };
-
-    case actionTypes.GetConcernsInArea + '_FULFILLED': {
-      const concernsInMapRegion = [];
-
-      /* conforming database entry according to store scheme */
-      Object.keys(action.payload).forEach((key) => {
-        const newConcern = _.clone(action.payload[key]);
-        newConcern.id = key;
-        newConcern.coordinate = {
-          longitude: newConcern.longitude,
-          latitude: newConcern.latitude,
-        };
-        concernsInMapRegion.push(newConcern);
-      });
-
-      return {
-        ...state,
-        concernsInMapRegion,
-      };
-    }
 
     case actionTypes.UpdateNewConcernAddress: {
       return {

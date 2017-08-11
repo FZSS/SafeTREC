@@ -12,6 +12,9 @@ const actionTypes = {
   GetConcernImages: 'GET_CONCERN_IMAGES',
   DeleteANewConcernImage: 'DELETE_A_NEW_CONCERN_IMAGE',
   GetImagePredictions: 'GET_IMAGE_PREDICTIONS',
+  AddToConcernsInMapRegion: 'ADD_TO_CONCERNS_IN_MAP_REGION',
+  RemoveFromConcernsInMapRegion: 'REMOVE_FROM_CONCERNS_IN_MAP_REGION',
+  InitializeGeoQuery: 'INITIALIZE_GEO_QUERY',
 };
 
 export default actionTypes;

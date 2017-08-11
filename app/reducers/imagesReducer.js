@@ -37,8 +37,8 @@ export default function (state = initialState, action) {
 
     case actionTypes.DeleteANewConcernImage: {
       const keyToDelete = action.key;
-      const checkImageKey = image => image.key === keyToDelete;
-      const newImages = _.reject(_.clone(state.newConcernImages), checkImageKey);
+      const rejectImageKey = image => image.key === keyToDelete;
+      const newImages = _.reject(_.clone(state.newConcernImages), rejectImageKey);
 
       return {
         ...state,

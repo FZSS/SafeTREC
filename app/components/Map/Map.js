@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 const mapStateToProps = state => ({
-  concerns: state.concerns.concernsInMapRegion,
+  concerns: state.map.concernsInMapRegion,
   mapRegion: state.map.mapRegion,
   userPosition: state.map.userPosition,
 });
@@ -33,7 +33,7 @@ class Map extends Component {
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.updateMapOnUserPosition(position);
+        this.initializeMap(position);
       },
       error => alert(JSON.stringify(error)),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -45,7 +45,7 @@ class Map extends Component {
     this.props.getConcernsInRegion(mapRegion);
   }
 
-  updateMapOnUserPosition(position) {
+  initializeMap(position) {
     const newMapRegion = { ...this.props.mapRegion,
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
