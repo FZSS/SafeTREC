@@ -6,9 +6,9 @@ import {
   Image,
   ActivityIndicator,
   ActionSheetIOS,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
-// TODO: using https://github.com/ahmed3mar/react-native-swiper/tree/proptypes because original package broke
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -16,6 +16,7 @@ import { navigatorStyle, styles } from './styles';
 import { ASPECT_RATIO } from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
 import { deleteConcern } from '../../actions/concerns';
+import { getConcernsInRegion } from '../../actions/map';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
 const LATITUDE_DELTA = 0.001;
@@ -24,21 +25,48 @@ const mapStateToProps = state => ({
   images: state.images.concernImages,
   imagesPending: state.images.concernImagesPending,
   deleteStatus: state.concerns.concernDeleteStatus,
+  mapRegion: state.map.mapRegion,
 });
 
 const mapDispatchToProps = {
   getConcernImages,
   deleteConcern,
-};
-
-/* eslint react/prop-types: 1 */
-const propTypes = {
+  getConcernsInRegion,
 };
 
 class ConcernView extends Component {
+  /* eslint react/prop-types: 1 */
+  static propTypes = {
+  };
+
+  static navigatorStyle = navigatorStyle;
+
   componentWillMount() {
     console.log(`Viewing concern: ${this.props.concern.id}`);
     this.props.getConcernImages(this.props.concern.id, this.props.concern.numberOfImages || 0);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.deleteStatus.pending) {
+      if (this.props.deleteStatus.failed) {
+        Alert.alert(
+          'Deletion has failed',
+          'Sorry', // TODO: should show error msg
+          [
+            { text: 'OK', onPress: () => this.dismissModal() },
+          ],
+        );
+      } else if (this.props.deleteStatus.success) {
+        this.props.getConcernsInRegion(this.props.mapRegion);
+        Alert.alert(
+          'Successfully deleted!',
+          'Thanks',
+          [
+            { text: 'OK', onPress: () => this.dismissModal() },
+          ],
+        );
+      }
+    }
   }
 
   dismissModal() {
@@ -59,7 +87,6 @@ class ConcernView extends Component {
     (buttonIndex) => {
       if (buttonIndex === 0) {
         this.props.deleteConcern(this.props.concern.id, this.props.concern.numberOfImages);
-        this.dismissModal();
       }
     });
   }
@@ -155,8 +182,5 @@ class ConcernView extends Component {
     );
   }
 }
-
-ConcernView.propTypes = propTypes;
-ConcernView.navigatorStyle = navigatorStyle;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConcernView);

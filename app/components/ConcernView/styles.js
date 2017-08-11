@@ -103,12 +103,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  callOut: {
-    width: 300,
-    backgroundColor: '#e59b23',
-  },
-
-
 });
 
 export { navigatorStyle, styles };
