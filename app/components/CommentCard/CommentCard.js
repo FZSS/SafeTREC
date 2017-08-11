@@ -4,20 +4,19 @@ import {
   View,
   TextInput,
   SegmentedControlIOS,
-  ActivityIndicator,
   Alert,
   Text,
 } from 'react-native';
-import Spinner from 'react-native-loading-spinner-overlay';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
+import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
 const mapStateToProps = state => ({
   detailsStatus: state.concerns.newConcernSubmissionStatus,
   newConcern: state.concerns.newConcern,
   newImages: state.images.newConcernImages,
-  imageStatus: state.images.newConcernImagesUploadStatus,
+  imageStatus: state.images.newConcernImagesUploadingStatus,
   mapRegion: state.map.mapRegion,
   predictions: state.images.newConcernImagePredictions,
 });
@@ -27,11 +26,12 @@ const mapDispatchToProps = {
   getConcernsInRegion,
 };
 
-/* eslint react/prop-types: 1 */
-const propTypes = {
-};
 
 class CommentCard extends Component {
+  /* eslint react/prop-types: 1 */
+  static propTypes = {
+  };
+
   static navigatorButtons = {
     rightButtons: [{
       title: 'Submit',
@@ -108,7 +108,7 @@ class CommentCard extends Component {
 
   getPredictions() {
     /* eslint react/no-array-index-key: 0 */
-    console.log(this.props.predictions);
+    // console.log(this.props.predictions);
     return this.props.predictions.map((prediction, index) => (
       <Text key={index}> {`${prediction.description} ${prediction.score}`} </Text>
     ));
@@ -117,6 +117,10 @@ class CommentCard extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <SpinnerOverlay visible={(this.props.detailsStatus.pending ||
+                                  this.props.imageStatus.pending)}
+        />
 
         <View style={styles.back}>
 
@@ -144,29 +148,11 @@ class CommentCard extends Component {
 
         </View>
 
-        {/*<Spinner*/}
-          {/*visible={(this.props.detailsStatus.pending || this.props.imageStatus.pending)}*/}
-          {/*color="rgb(255, 153, 0)"*/}
-          {/*overlayColor="white"*/}
-        {/*/>*/}
-
-        <View style={(this.props.detailsStatus.pending || this.props.imageStatus.pending) ?
-          styles.showProgress : styles.hideProgress}
-        >
-          <ActivityIndicator
-            animating={this.props.detailsStatus.pending || this.props.imageStatus.pending}
-            color="darkorange"
-            size="large"
-            style={styles.activityIndicator}
-          />
-        </View>
 
       </View>
     );
   }
 }
-
-CommentCard.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentCard);
 

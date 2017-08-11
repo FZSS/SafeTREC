@@ -10,7 +10,7 @@ import actionTypes from '../constants/actionTypes';
  */
 const initialState = {
   newConcernImages: [],
-  newConcernImagesUploadStatus: {
+  newConcernImagesUploadingStatus: {
     pending: false,
     success: false,
     failed: false,
@@ -55,7 +55,7 @@ export default function (state = initialState, action) {
     case actionTypes.UploadNewConcernImages + '_PENDING':
       return {
         ...state,
-        newConcernImagesUploadStatus: {
+        newConcernImagesUploadingStatus: {
           pending: true,
           success: false,
           failed: false,
@@ -65,7 +65,7 @@ export default function (state = initialState, action) {
     case actionTypes.UploadNewConcernImages + '_FULFILLED':
       return {
         ...state,
-        newConcernImagesUploadStatus: {
+        newConcernImagesUploadingStatus: {
           pending: false,
           success: true,
           failed: false,
@@ -75,7 +75,7 @@ export default function (state = initialState, action) {
     case actionTypes.UploadNewConcernImages + '_REJECTED':
       return {
         ...state,
-        newConcernImagesUploadStatus: {
+        newConcernImagesUploadingStatus: {
           pending: false,
           success: false,
           failed: true,

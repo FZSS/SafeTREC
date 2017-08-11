@@ -19,6 +19,12 @@ const initialState = {
     failed: false,
   },
 
+  concernDeleteStatus: {
+    pending: false,
+    success: false,
+    failed: false,
+  },
+
   concernsInMapRegion: [
     {
       id: 'XDFJKSJK129JK',
@@ -76,15 +82,33 @@ export default function (state = initialState, action) {
       };
 
     case actionTypes.DeleteConcern + '_PENDING':
-      return state;
+      return {
+        ...state,
+        concernDeleteStatus: {
+          ...state.concernDeleteStatus,
+          pending: true,
+        },
+      };
 
     case actionTypes.DeleteConcern + '_FULFILLED':
-      console.log(action.payload);
-      return state;
+      return {
+        ...state,
+        concernDeleteStatus: {
+          ...state.concernDeleteStatus,
+          pending: false,
+          success: true,
+        },
+      };
 
     case actionTypes.DeleteConcern + '_REJECTED':
-      console.log(action.payload);
-      return state;
+      return {
+        ...state,
+        concernDeleteStatus: {
+          ...state.concernDeleteStatus,
+          pending: false,
+          failed: true,
+        },
+      };
 
     case actionTypes.GetConcernsInArea + '_FULFILLED': {
       const concernsInMapRegion = [];

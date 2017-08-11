@@ -23,33 +23,6 @@ export default StyleSheet.create({
     zIndex: 1,
   },
 
-  showProgress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: window.width,
-    height: window.height,
-    backgroundColor: 'white',
-    zIndex: 2,
-  },
-
-  hideProgress: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: window.width,
-    height: window.height,
-    backgroundColor: 'transparent',
-    zIndex: 0,
-  },
-
-  activityIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 80,
-  },
-
   comment: {
     flex: 1,
     marginLeft: 5,

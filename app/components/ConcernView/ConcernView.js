@@ -12,17 +12,18 @@ import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { navigatorStyle, styles } from './styles';
 import { ASPECT_RATIO } from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
 import { deleteConcern } from '../../actions/concerns';
-import { navigatorStyle, styles } from './styles';
+import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
 const LATITUDE_DELTA = 0.001;
 
 const mapStateToProps = state => ({
   images: state.images.concernImages,
   imagesPending: state.images.concernImagesPending,
+  deleteStatus: state.concerns.concernDeleteStatus,
 });
 
 const mapDispatchToProps = {
@@ -96,7 +97,7 @@ class ConcernView extends Component {
     return (
       <View style={styles.container}>
 
-        <Spinner color="rgb(255, 153, 0)" overlayColor="white" />
+        <SpinnerOverlay visible={this.props.deleteStatus.pending} />
 
         {this.loadSwiper()}
 

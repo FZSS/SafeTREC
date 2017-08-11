@@ -10,7 +10,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import { navigatorStyle, styles } from './styles';
-import ConcernCallOut from '../ConcernView/ConcernCallOut';
+import ConcernCallOut from './ConcernCallOut';
 import { getConcernsInRegion, updateMapRegion, updateUserLocation } from '../../actions/map';
 
 /* eslint react/prop-types: 1 */
