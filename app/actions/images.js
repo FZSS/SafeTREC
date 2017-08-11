@@ -89,16 +89,14 @@ const uploadOneImage = (image, concernRef, key, mime = 'application/octet-stream
   const ref = concernRef.child(`image${key.toString()}`);
 
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      RNFetchBlob.fs.readFile(uploadUri, 'base64')
-        .then(data => Blob.build(data, { type: `${mime};BASE64` }))
-        .then(blob => ref.put(blob, { contentType: mime }))
-        .then(() => ref.getDownloadURL())
-        .then((url) => {
-          resolve(url);
-        })
-        .catch(e => reject(e));
-    }, 0);
+    RNFetchBlob.fs.readFile(uploadUri, 'base64')
+      .then(data => Blob.build(data, { type: `${mime};BASE64` }))
+      .then(blob => ref.put(blob, { contentType: mime }))
+      .then(() => ref.getDownloadURL())
+      .then((url) => {
+        resolve(url);
+      })
+      .catch(e => reject(e));
   });
 };
 
@@ -120,7 +118,7 @@ export const uploadNewConcernImages = (concernId, images) => {
 
 
 export const getConcernImages = (concernId, numberOfImages) => {
-  const promiseList = [];
+  const promises = [];
   const concernRef = firebase.storage().ref(`images/${concernId}`);
 
   for (let i = 0; i < numberOfImages; i += 1) {
@@ -130,11 +128,11 @@ export const getConcernImages = (concernId, numberOfImages) => {
         key: i,
         uri,
       }));
-    promiseList.push(downloadPromise);
+    promises.push(downloadPromise);
   }
 
   return {
     type: actionTypes.GetConcernImages,
-    payload: Promise.all(promiseList),
+    payload: Promise.all(promises),
   };
 };

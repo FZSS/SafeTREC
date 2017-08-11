@@ -35,14 +35,21 @@ export const uploadConcern = (details, images) => (dispatch) => {
   });
 };
 
-export const deleteConcern = (concernId) => {
+export const deleteConcern = (concernId, numOfImages = 0) => {
+  console.log(`Deleting concern: ${concernId}`);
+  const promises = [];
   const concernRef = firebase.database().ref(`concerns/${concernId}`);
-  // FIXME: not working: firebase storage does not support deleting directory, need to delete 1 by 1
   const concernImagesRef = firebase.storage().ref(`images/${concernId}`);
+
+  promises.push(concernRef.remove());
+
+  for (let i = 0; i < numOfImages; i += 1) {
+    promises.push(concernImagesRef.child(`image${i}`).delete());
+  }
 
   return {
     type: actionTypes.DeleteConcern,
-    payload: Promise.all([concernRef.remove(), concernImagesRef.delete()]),
+    payload: Promise.all(promises),
   };
 };
 

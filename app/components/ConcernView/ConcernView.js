@@ -37,6 +37,7 @@ const propTypes = {
 
 class ConcernView extends Component {
   componentWillMount() {
+    console.log(`Viewing concern: ${this.props.concern.id}`);
     this.props.getConcernImages(this.props.concern.id, this.props.concern.numberOfImages || 0);
   }
 
@@ -57,7 +58,7 @@ class ConcernView extends Component {
 
     (buttonIndex) => {
       if (buttonIndex === 0) {
-        this.props.deleteConcern(this.props.concern.id);
+        this.props.deleteConcern(this.props.concern.id, this.props.concern.numberOfImages);
         this.dismissModal();
       }
     });

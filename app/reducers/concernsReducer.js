@@ -35,6 +35,7 @@ const initialState = {
       },
       title: 'concern 0',
       description: 'a safety concern!',
+      numberOfImages: 1,
     },
     {
       id: 'ADFJ2SJK129JK',
@@ -45,6 +46,7 @@ const initialState = {
       },
       title: 'concern 1',
       description: 'another safety concern!',
+      numberOfImages: 1,
     },
   ],
 };
