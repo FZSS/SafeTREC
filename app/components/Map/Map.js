@@ -11,7 +11,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import { navigatorStyle, styles } from './styles';
 import ConcernCallOut from './ConcernCallOut';
-import { getConcernsInRegion, updateMapRegion, updateUserLocation } from '../../actions/map';
+import {
+  getConcernsInRegion,
+  updateMapRegion,
+  updateMapRegionWithFix,
+  updateUserLocation,
+} from '../../actions/map';
 
 /* eslint react/prop-types: 1 */
 const propTypes = {
@@ -24,6 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  updateMapRegionWithFix,
   getConcernsInRegion,
   updateMapRegion,
   updateUserLocation,
@@ -38,11 +44,6 @@ class Map extends Component {
       error => alert(JSON.stringify(error)),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-  }
-
-  updateMapOnRegionChange(mapRegion) {
-    this.props.updateMapRegion(mapRegion);
-    this.props.getConcernsInRegion(mapRegion);
   }
 
   initializeMap(position) {
@@ -103,9 +104,9 @@ class Map extends Component {
         <MapView
           style={{ flex: 1 }}
           provider={PROVIDER_GOOGLE}
-          // initialRegion={this.state.mapRegion}
           region={this.props.mapRegion}
-          onRegionChange={r => this.updateMapOnRegionChange(r)}
+          onRegionChange={r => this.props.updateMapRegionWithFix(r)}
+          onRegionChangeComplete={r => this.props.getConcernsInRegion(r)}
           mapType={'standard'}
           showsUserLocation
           showsCompass

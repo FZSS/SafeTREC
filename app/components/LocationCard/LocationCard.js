@@ -16,6 +16,7 @@ import {
 } from '../../actions/concerns';
 import {
   updateMapRegion,
+  updateMapRegionWithFix,
 } from '../../actions/map';
 import styles from './styles';
 
@@ -33,6 +34,7 @@ const mapDispatchToProps = {
   updateNewConcernAddress,
   updateNewConcernCoordinates,
   updateMapRegion,
+  updateMapRegionWithFix,
 };
 
 class LocationCard extends Component {
@@ -103,6 +105,7 @@ class LocationCard extends Component {
       longitude: long,
     };
 
+    // alert(`dragged to lat: ${lat}, long: ${long}`);
     this.props.updateMapRegion(newMapRegion);
     this.props.updateNewConcernCoordinates(lat, long);
     this.props.updateNewConcernAddressFromGeocode(lat, long);
@@ -154,7 +157,7 @@ class LocationCard extends Component {
           style={styles.mapviewContainer}
           provider={PROVIDER_GOOGLE}
           region={this.props.mapRegion}
-          onRegionChangeComplete={r => this.props.updateMapRegion(r)}
+          onRegionChangeComplete={r => this.props.updateMapRegionWithFix(r)}
           mapType={'standard'}
           showsUserLocation
           showsCompass

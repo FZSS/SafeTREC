@@ -28,13 +28,13 @@ export const uploadConcern = (details, images) => {
   const concernsRef = firebase.database().ref().child('concerns');
   const newConcernId = concernsRef.push().key;
 
-  // Add a list of promises to upload new concern images
+  // add a list of promises to upload new concern images
   const promises = uploadNewConcernImages(newConcernId, images);
 
-  // Add the promise to set concern to the new ref
+  // add the promise to set concern to the new ref
   promises.push(concernsRef.child(newConcernId).set(concern));
 
-  // Add the promise to set geohash in geofire
+  // add the promise to set geohash in geofire
   const [lat, long] = [details.coordinate.latitude, details.coordinate.longitude];
   promises.push(geofire.set(newConcernId, [lat, long]));
 

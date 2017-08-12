@@ -101,6 +101,17 @@ export default function (state = initialState, action) {
     //   return state;
 
     case actionTypes.UpdateNewConcernAddressFromGeocode + '_FULFILLED': {
+      // if reverse geocode return no result
+      if (action.payload.data.status === 'ZERO_RESULTS') {
+        return {
+          ...state,
+          newConcern: {
+            ...state.newConcern,
+            address: 'No Address Found',
+          },
+        };
+      }
+
       const address = action.payload.data.results[0].formatted_address;
       return {
         ...state,
