@@ -50,11 +50,16 @@ export const deleteConcern = (concernId, numOfImages = 0) => {
   const concernRef = firebase.database().ref(`concerns/${concernId}`);
   const concernImagesRef = firebase.storage().ref(`images/${concernId}`);
 
+  // add a promise to remove the concernNode
   promises.push(concernRef.remove());
 
+  // add promises to delete all images
   for (let i = 0; i < numOfImages; i += 1) {
     promises.push(concernImagesRef.child(`image${i}`).delete());
   }
+
+  // add a promise to remove the geofire entry
+  promises.push(geofire.remove(concernId));
 
   return {
     type: actionTypes.DeleteConcern,
