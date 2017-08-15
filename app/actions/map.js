@@ -11,9 +11,8 @@ export const getConcernsInRegion = mapRegion => (dispatch) => {
   const region = _.clone(mapRegion);
   region.longitude = (region.longitude < 180) ? region.longitude : region.longitude - 360;
 
-  /* eslint no-unused-vars: 1 */
-  console.log('Getting concern in region MapRegion:');
-  console.log(region);
+  // console.log('Getting concern in region MapRegion:');
+  // console.log(region);
 
   // initialize a geoQuery with respect to current region
   const [lat, long] = [region.latitude, region.longitude];
