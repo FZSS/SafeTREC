@@ -11,6 +11,13 @@ import actionTypes from '../constants/actionTypes';
 const initialState = {
   newConcernImages: [],
   newConcernImagePredictions: [],
+
+  imagePredictionStatus: {
+    pending: false,
+    success: false,
+    failed: false,
+  },
+
   concernImages: [],
   concernImagesPending: false,
 };
@@ -47,14 +54,12 @@ export default function (state = initialState, action) {
     }
 
     case actionTypes.GetConcernImages + '_PENDING':
-
       return {
         ...state,
         concernImagesPending: true,
       };
 
     case actionTypes.GetConcernImages + '_FULFILLED':
-
       return {
         ...state,
         concernImages: action.payload,
@@ -62,23 +67,45 @@ export default function (state = initialState, action) {
       };
 
     case actionTypes.GetConcernImages + '_REJECTED':
-
       return {
         ...state,
         concernImages: [],
         concernImagesPending: false,
       };
 
-    case actionTypes.GetImagePredictions + '_REJECTED':
-      return state;
+    case actionTypes.GetImagePredictions + '_PENDING':
+      return {
+        ...state,
+        imagePredictionStatus: {
+          pending: true,
+        },
+      };
 
     case actionTypes.GetImagePredictions + '_FULFILLED': {
-      const predictions = action.payload.data.responses[0].labelAnnotations;
+      let predictions = action.payload.data.responses[0].labelAnnotations;
+
+      // reject predictions that have low prediction score
+      predictions = _.reject(predictions, prediction => prediction.score < 0.8);
+
       return {
         ...state,
         newConcernImagePredictions: predictions,
+        imagePredictionStatus: {
+          pending: false,
+          success: true,
+        },
       };
     }
+
+    case actionTypes.GetImagePredictions + '_REJECTED':
+      return {
+        ...state,
+        newConcernImagePredictions: [],
+        imagePredictionStatus: {
+          pending: false,
+          failed: true,
+        },
+      };
 
     default:
       return state;

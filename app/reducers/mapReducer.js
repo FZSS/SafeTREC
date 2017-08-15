@@ -67,7 +67,6 @@ export default function (state = initialState, action) {
       // Transform firebase date entry according to store schema
       Object.keys(action.payload).forEach((key) => {
         const newConcern = _.clone(action.payload[key]);
-        newConcern.id = key;
         newConcern.coordinate = {
           longitude: newConcern.longitude,
           latitude: newConcern.latitude,

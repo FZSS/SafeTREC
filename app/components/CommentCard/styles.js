@@ -14,7 +14,7 @@ export default StyleSheet.create({
   },
 
   categorySelection: {
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 5,
     marginLeft: 5,
     marginRight: 5,

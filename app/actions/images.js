@@ -50,6 +50,7 @@ export const getImagePredictions = (image) => {
           features: [
             {
               type: 'LABEL_DETECTION',
+              maxResults: 10,
             },
           ],
         },

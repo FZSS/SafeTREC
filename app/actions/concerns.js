@@ -16,17 +16,18 @@ export const uploadConcern = (details, images) => {
     }
   });
 
+  const concernsRef = firebase.database().ref().child('concerns');
+  const newConcernId = concernsRef.push().key;
+
   const concern = {
     address: details.address,
     latitude: details.coordinate.latitude,
     longitude: details.coordinate.longitude,
     title: details.title,
+    id: newConcernId,
     description: details.description,
     numberOfImages: images.length,
   };
-
-  const concernsRef = firebase.database().ref().child('concerns');
-  const newConcernId = concernsRef.push().key;
 
   // add a list of promises to upload new concern images
   const promises = uploadNewConcernImages(newConcernId, images);

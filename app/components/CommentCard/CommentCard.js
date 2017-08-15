@@ -8,7 +8,9 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
+import _ from 'underscore';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
@@ -20,6 +22,7 @@ const mapStateToProps = state => ({
   newImages: state.images.newConcernImages,
   mapRegion: state.map.mapRegion,
   predictions: state.images.newConcernImagePredictions,
+  predictionStatus: state.images.imagePredictionStatus,
 });
 
 const mapDispatchToProps = {
@@ -106,41 +109,30 @@ class CommentCard extends Component {
     }
   }
 
-  appendConcernDescription(text) {
-  }
-
   getPredictions() {
     /* eslint react/no-array-index-key: 0 */
-    console.log(this.props.predictions);
-    // TODO:remove mock
-    const predictions = [
-      {
-        description: 'leaf',
-        score: 0.78,
-      }, {
-        description: 'crossroad',
-        score: 0.123,
-      }, {
-        description: 'sunlight',
-        score: 0.98,
-      }, {
-        description: 'sunlight',
-        score: 0.98,
-      }, {
-        description: 'sunlight',
-        score: 0.98,
-      }, {
-        description: 'sunlight',
-        score: 0.98,
-      },
-    ];
-
+    if (this.props.predictionStatus.pending) {
+      return (
+        <ActivityIndicator
+          animating={this.props.predictionStatus.pending}
+          color="darkorange"
+        />
+      );
+    } else if (this.props.predictionStatus.failed) {
+      return (
+        <Text style={styles.predictionTagText}>
+          Failed to Get Prediction
+        </Text>
+      );
+    }
     return (
-      predictions.map((prediction, index) => ( //FIXME: append this.props.
+      this.props.predictions.map((prediction, index) => ( // FIXME: append this.props.
         <TouchableOpacity
           key={index}
           style={styles.predictionTagContainer}
-          onPress={() => {}}
+          onPress={() => {
+            this.appendConcernDescription(prediction.description);
+          }}
         >
           <Text style={styles.predictionTagText}>
             {prediction.description}
@@ -148,6 +140,11 @@ class CommentCard extends Component {
         </TouchableOpacity>
       ))
     );
+  }
+
+  appendConcernDescription(text) {
+    const concernDescription = _.clone(this.state.concernDescription).concat(text);
+    this.setState({ concernDescription });
   }
 
   render() {
