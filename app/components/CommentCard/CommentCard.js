@@ -6,6 +6,7 @@ import {
   SegmentedControlIOS,
   Alert,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
@@ -113,10 +114,10 @@ class CommentCard extends Component {
         description: 'leaf',
         score: 0.78,
       }, {
-        description: 'Crossroad',
+        description: 'crossroad',
         score: 0.123,
       }, {
-        description: 'leaf',
+        description: 'sunlight',
         score: 0.98,
       },
     ];
@@ -124,7 +125,15 @@ class CommentCard extends Component {
     return (
       <View style={styles.predictionBox}>
         {predictions.map((prediction, index) => (
-          <Text key={index}> {`${prediction.description} ${prediction.score}`} </Text>))}
+          <TouchableOpacity
+            key={index}
+            style={styles.predictionTagContainer}
+          >
+            <Text style={styles.predictionTagText}>
+              {prediction.description}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }
@@ -135,8 +144,7 @@ class CommentCard extends Component {
 
         <SpinnerOverlay visible={(this.props.submissionStatus.pending)} />
 
-        <View style={styles.commentCard}>
-
+        <View style={styles.card}>
           <SegmentedControlIOS
             style={styles.categorySelection}
             tintColor="darkorange"
@@ -150,7 +158,7 @@ class CommentCard extends Component {
           {this.getPredictions()}
 
           <TextInput
-            style={styles.comment}
+            style={styles.commentBox}
             placeholder={'What are you concerned about at this location?'}
             multiline
             editable
@@ -158,7 +166,6 @@ class CommentCard extends Component {
             onChangeText={concernDescription => this.setState({ concernDescription })}
             value={this.state.concernDescription}
           />
-
         </View>
 
 

@@ -8,7 +8,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
 
-  commentCard: {
+  card: {
     flex: 1,
     zIndex: 1,
   },
@@ -22,12 +22,35 @@ export default StyleSheet.create({
   },
 
   predictionBox: {
+    marginLeft: 5,
+    marginRight: 5,
     flexDirection: 'row',
     backgroundColor: 'yellow',
-    // flex: 1,
+    padding: 10,
+    borderColor: 'darkorange',
+    borderWidth: 1,
+    borderBottomWidth: 0,
   },
 
-  comment: {
+  predictionTagContainer: {
+    marginLeft: 5,
+    marginRight: 5,
+    padding: 10,
+    minWidth: 70,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: 'darkorange',
+  },
+
+  predictionTagText: {
+    padding: 0,
+    fontSize: 16,
+    color: 'darkorange',
+    textAlign: 'center',
+  },
+
+  commentBox: {
     flex: 1,
     marginLeft: 5,
     marginRight: 5,
@@ -35,6 +58,8 @@ export default StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 40,
     paddingRight: 40,
+    borderColor: 'darkorange',
+    borderWidth: 1,
 
     fontSize: 20,
     color: 'darkorange',
