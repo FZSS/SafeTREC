@@ -24,6 +24,7 @@ export default StyleSheet.create({
   predictionBox: {
     marginLeft: 5,
     marginRight: 5,
+    flex: 1,
     flexDirection: 'row',
     backgroundColor: 'yellow',
     padding: 10,
@@ -37,6 +38,7 @@ export default StyleSheet.create({
     marginRight: 5,
     padding: 10,
     minWidth: 70,
+    maxHeight: 40,
     backgroundColor: 'white',
     borderWidth: 1,
     borderRadius: 20,
@@ -51,13 +53,13 @@ export default StyleSheet.create({
   },
 
   commentBox: {
-    flex: 1,
+    flex: 11,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 10,
     paddingTop: 20,
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingLeft: 25,
+    paddingRight: 25,
     borderColor: 'darkorange',
     borderWidth: 1,
 

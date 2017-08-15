@@ -11,6 +11,7 @@ const initialState = {
       longitude: -122.4224,
     },
     numberOfImages: 1,
+    description: '',
   },
 
   newConcernSubmissionStatus: {

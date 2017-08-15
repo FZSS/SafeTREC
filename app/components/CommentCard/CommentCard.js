@@ -7,6 +7,7 @@ import {
   Alert,
   Text,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
@@ -105,6 +106,9 @@ class CommentCard extends Component {
     }
   }
 
+  appendConcernDescription(text) {
+  }
+
   getPredictions() {
     /* eslint react/no-array-index-key: 0 */
     console.log(this.props.predictions);
@@ -119,22 +123,30 @@ class CommentCard extends Component {
       }, {
         description: 'sunlight',
         score: 0.98,
+      }, {
+        description: 'sunlight',
+        score: 0.98,
+      }, {
+        description: 'sunlight',
+        score: 0.98,
+      }, {
+        description: 'sunlight',
+        score: 0.98,
       },
     ];
 
     return (
-      <View style={styles.predictionBox}>
-        {predictions.map((prediction, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.predictionTagContainer}
-          >
-            <Text style={styles.predictionTagText}>
-              {prediction.description}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      predictions.map((prediction, index) => ( //FIXME: append this.props.
+        <TouchableOpacity
+          key={index}
+          style={styles.predictionTagContainer}
+          onPress={() => {}}
+        >
+          <Text style={styles.predictionTagText}>
+            {prediction.description}
+          </Text>
+        </TouchableOpacity>
+      ))
     );
   }
 
@@ -155,7 +167,9 @@ class CommentCard extends Component {
             }}
           />
 
-          {this.getPredictions()}
+          <ScrollView style={styles.predictionBox} horizontal >
+            {this.getPredictions()}
+          </ScrollView>
 
           <TextInput
             style={styles.commentBox}
