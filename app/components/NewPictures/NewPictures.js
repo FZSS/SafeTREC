@@ -145,18 +145,20 @@ class NewPicture extends Component {
   }
 
   addPicture(res) {
-    const newKey = imageKey;
-    imageKey += 1;
+    if (!res.didCancel) {
+      const newKey = imageKey;
+      imageKey += 1;
 
-    this.props.addANewConcernImage({
-      key: newKey,
-      uri: res.uri,
-      // the image picker response will have lat/long if available
-      location: {
-        longitude: res.longitude,
-        latitude: res.latitude,
-      },
-    });
+      this.props.addANewConcernImage({
+        key: newKey,
+        uri: res.uri,
+        // the image picker response will have lat/long if available
+        location: {
+          longitude: res.longitude,
+          latitude: res.latitude,
+        },
+      });
+    }
   }
 
   takeNewPicture() {
