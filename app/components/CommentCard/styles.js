@@ -8,6 +8,11 @@ export default StyleSheet.create({
     backgroundColor: 'white',
   },
 
+  commentCard: {
+    flex: 1,
+    zIndex: 1,
+  },
+
   categorySelection: {
     marginTop: 20,
     marginBottom: 5,
@@ -16,9 +21,10 @@ export default StyleSheet.create({
     height: 30,
   },
 
-  back: {
-    flex: 1,
-    zIndex: 1,
+  predictionBox: {
+    flexDirection: 'row',
+    backgroundColor: 'yellow',
+    // flex: 1,
   },
 
   comment: {
@@ -26,10 +32,9 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 10,
-    marginTop: 5,
-    paddingTop: 40,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingTop: 20,
+    paddingLeft: 40,
+    paddingRight: 40,
 
     fontSize: 20,
     color: 'darkorange',

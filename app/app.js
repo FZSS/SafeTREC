@@ -9,10 +9,11 @@ registerScreens(store, Provider);
 
 Navigation.startSingleScreenApp({
   screen: {
-    screen: 'app.Map',
+    screen: 'app.CommentCard',
+    // screen: 'app.Map',
     title: 'Map',
     navigatorStyle: {
-      navBarHidden: true,
+      // navBarHidden: true,
     },
   },
   drawer: {

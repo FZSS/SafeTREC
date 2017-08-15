@@ -63,7 +63,6 @@ class CommentCard extends Component {
       });
     };
 
-    // Fixme: double failure message, need to work on logic
     if (prevProps.submissionStatus.pending) {
       if (this.props.submissionStatus.failed) {
         Alert.alert(
@@ -107,19 +106,36 @@ class CommentCard extends Component {
 
   getPredictions() {
     /* eslint react/no-array-index-key: 0 */
-    // console.log(this.props.predictions);
-    return this.props.predictions.map((prediction, index) => (
-      <Text key={index}> {`${prediction.description} ${prediction.score}`} </Text>
-    ));
+    console.log(this.props.predictions);
+    // TODO:remove mock
+    const predictions = [
+      {
+        description: 'leaf',
+        score: 0.78,
+      }, {
+        description: 'Crossroad',
+        score: 0.123,
+      }, {
+        description: 'leaf',
+        score: 0.98,
+      },
+    ];
+
+    return (
+      <View style={styles.predictionBox}>
+        {predictions.map((prediction, index) => (
+          <Text key={index}> {`${prediction.description} ${prediction.score}`} </Text>))}
+      </View>
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
 
-        <SpinnerOverlay visible={(this.props.submissionStatus.pending)}/>
+        <SpinnerOverlay visible={(this.props.submissionStatus.pending)} />
 
-        <View style={styles.back}>
+        <View style={styles.commentCard}>
 
           <SegmentedControlIOS
             style={styles.categorySelection}
@@ -134,10 +150,10 @@ class CommentCard extends Component {
           {this.getPredictions()}
 
           <TextInput
+            style={styles.comment}
             placeholder={'What are you concerned about at this location?'}
             multiline
             editable
-            style={styles.comment}
             placeholderTextColor={'orange'}
             onChangeText={concernDescription => this.setState({ concernDescription })}
             value={this.state.concernDescription}
