@@ -67,7 +67,8 @@ class NewPicture extends Component {
           // Make sure there is a picture before moving on
           alert('Please Add A Picture!');
         } else {
-          this.props.getImagePredictions(this.props.newImages[0]);
+          // get computer vision tags from the first image
+          // this.props.getImagePredictions(this.props.newImages[0]);
           this.goToLocationCard();
         }
       }

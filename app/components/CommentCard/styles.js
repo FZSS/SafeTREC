@@ -15,9 +15,9 @@ export default StyleSheet.create({
 
   categorySelection: {
     marginTop: 10,
-    marginBottom: 5,
     marginLeft: 5,
     marginRight: 5,
+    marginBottom: 5,
     height: 30,
   },
 
@@ -26,14 +26,14 @@ export default StyleSheet.create({
     marginRight: 5,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
     padding: 10,
     borderColor: 'darkorange',
     borderWidth: 1,
     borderBottomWidth: 0,
   },
 
-  predictionTagContainer: {
+  predictionTag: {
     marginLeft: 5,
     marginRight: 5,
     padding: 10,
@@ -52,6 +52,24 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
 
+  ratingBox: {
+    marginLeft: 5,
+    marginRight: 5,
+    flexDirection: 'row',
+  },
+
+  ratingIcons: {
+    flex: 2,
+  },
+
+  ratingText: {
+    paddingTop: 9,
+    fontSize: 18,
+    flex: 1,
+    color: 'darkorange',
+    textAlign: 'center',
+  },
+
   commentBox: {
     flex: 11,
     marginLeft: 5,
@@ -65,7 +83,7 @@ export default StyleSheet.create({
 
     fontSize: 20,
     color: 'darkorange',
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
   },
 
 });

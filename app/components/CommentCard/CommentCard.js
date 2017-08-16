@@ -11,10 +11,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import _ from 'underscore';
+import StarRating from 'react-native-star-rating';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
+
+const types = ['Speeding', 'Visibility', 'Right of way', 'Violation'];
 
 const mapStateToProps = state => ({
   submissionStatus: state.concerns.newConcernSubmissionStatus,
@@ -45,8 +48,7 @@ class CommentCard extends Component {
   };
 
   static getCategoryIndex(category) {
-    const indices = ['Automobile', 'Bicycle', 'Pedestrian'];
-    return indices.indexOf(category);
+    return types.indexOf(category);
   }
 
   constructor(props) {
@@ -57,6 +59,8 @@ class CommentCard extends Component {
   state = {
     reportCategory: this.props.reportCategory,
     concernDescription: '',
+    rating: 1,
+    ratingText: 'Alert',
   };
 
 
@@ -109,6 +113,29 @@ class CommentCard extends Component {
     }
   }
 
+  onRatingPressed(rating) {
+    switch (rating) {
+      case 1:
+        this.setState({ ratingText: 'Alert' });
+        break;
+      case 2:
+        this.setState({ ratingText: 'Warning' });
+        break;
+      case 3:
+        this.setState({ ratingText: 'Dangerous' });
+        break;
+      case 4:
+        this.setState({ ratingText: 'Disaster' });
+        break;
+      case 5:
+        this.setState({ ratingText: 'Hell' });
+        break;
+      default:
+    }
+
+    this.setState({ rating });
+  }
+
   getPredictions() {
     /* eslint react/no-array-index-key: 0 */
     if (this.props.predictionStatus.pending) {
@@ -129,7 +156,7 @@ class CommentCard extends Component {
       this.props.predictions.map((prediction, index) => ( // FIXME: append this.props.
         <TouchableOpacity
           key={index}
-          style={styles.predictionTagContainer}
+          style={styles.predictionTag}
           onPress={() => {
             this.appendConcernDescription(prediction.description);
           }}
@@ -147,6 +174,7 @@ class CommentCard extends Component {
     this.setState({ concernDescription });
   }
 
+
   render() {
     return (
       <View style={styles.container}>
@@ -157,13 +185,29 @@ class CommentCard extends Component {
           <SegmentedControlIOS
             style={styles.categorySelection}
             tintColor="darkorange"
-            values={['Automobile', 'Bicycle', 'Pedestrian']}
+            values={types}
             selectedIndex={CommentCard.getCategoryIndex(this.state.reportCategory)}
             onValueChange={(value) => {
               this.setState({ reportCategory: value });
             }}
           />
 
+          <View style={styles.ratingBox}>
+            <View style={styles.ratingIcons}>
+              <StarRating
+                disabled={false}
+                emptyStar={'ios-alert-outline'}
+                fullStar={'ios-alert'}
+                iconSet={'Ionicons'}
+                maxStars={5}
+                rating={this.state.rating}
+                selectedStar={rating => this.onRatingPressed(rating)}
+                starColor={'darkorange'}
+                emptyStarColor={'darkorange'}
+              />
+            </View>
+            <Text style={styles.ratingText}> {this.state.ratingText} </Text>
+          </View>
           <ScrollView style={styles.predictionBox} horizontal >
             {this.getPredictions()}
           </ScrollView>
