@@ -36,7 +36,7 @@ const mapDispatchToProps = {
   getImagePredictions,
 };
 
-class NewPicture extends Component {
+class PicturesView extends Component {
   static navigatorStyle = {
     statusBarTextColorScheme: 'light',
   };
@@ -216,6 +216,6 @@ class NewPicture extends Component {
   }
 }
 
-NewPicture.propTypes = propTypes;
+PicturesView.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPicture);
+export default connect(mapStateToProps, mapDispatchToProps)(PicturesView);

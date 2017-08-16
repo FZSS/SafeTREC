@@ -71,7 +71,7 @@ class Map extends Component {
 
   goToPictures(category) {
     this.props.navigator.push({
-      screen: 'app.NewPictures',
+      screen: 'app.PicturesView',
       title: 'Add Pictures',
       passProps: {
         reportCategory: category,
