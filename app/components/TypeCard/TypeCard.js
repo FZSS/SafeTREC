@@ -46,13 +46,19 @@ class TypeCard extends Component {
     }],
   };
 
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+
   componentWillMount() {
     this.props.updateConcernTypes(this.props.mode, this.props.time, this.props.coordinate);
   }
 
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'next') {
+      if (event.id === 'skip') {
         this.openCommentCard('Other');
       }
     }
