@@ -41,9 +41,6 @@ const initialState = {
       numberOfImages: 1,
     },
   ],
-
-  geoQuery: null,
-
 };
 
 export default function (state = initialState, action) {

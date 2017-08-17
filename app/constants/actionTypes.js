@@ -2,6 +2,7 @@ const actionTypes = {
   SubmitConcern: 'SUBMIT_CONCERN',
   DeleteConcern: 'DELETE_CONCERN',
   GetConcernsInArea: 'GET_CONCERNS_IN_AREA',
+  UpdateConcernTypes: 'UPDATE_CONCERN_TYPES',
   UpdateMapRegion: 'UPDATE_MAP_REGION',
   UpdateUserLocation: 'UPDATE_USER_LOCATION',
   UpdateNewConcernAddressFromGeocode: 'UPDATE_ADDRESS_FROM_GEOCODE',

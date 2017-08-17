@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
+import PropTypes from 'prop-types';
 import { navigatorStyle, styles } from './styles';
 import ConcernCallOut from './ConcernCallOut';
 import {
@@ -18,9 +19,7 @@ import {
   updateUserLocation,
 } from '../../actions/map';
 
-/* eslint react/prop-types: 1 */
-const propTypes = {
-};
+const modes = ['Pedestrian', 'Bicycle', 'Automobile'];
 
 const mapStateToProps = state => ({
   concerns: state.map.concernsInMapRegion,
@@ -36,6 +35,14 @@ const mapDispatchToProps = {
 };
 
 class Map extends Component {
+  /* eslint react/prop-types: 1 */
+  static propTypes = {
+    updateMapRegionWithFix: PropTypes.func.isRequired,
+    getConcernsInRegion: PropTypes.func.isRequired,
+    updateMapRegion: PropTypes.func.isRequired,
+    updateUserLocation: PropTypes.func.isRequired,
+  };
+
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -69,12 +76,12 @@ class Map extends Component {
       .catch(error => console.log(error.message));
   }
 
-  goToPictures(category) {
+  goToPictures(mode) {
     this.props.navigator.push({
       screen: 'app.PicturesView',
       title: 'Add Pictures',
       passProps: {
-        reportCategory: category,
+        reportCategory: mode,
       },
     });
   }
@@ -145,13 +152,13 @@ class Map extends Component {
           position="center"
           size={80}
         >
-          <ActionButton.Item buttonColor="#9b59b6" title="Pedestrian" onPress={() => this.goToPictures('Pedestrian')}>
+          <ActionButton.Item buttonColor="#9b59b6" title={modes[0]} onPress={() => this.goToPictures(modes[0])}>
             <Icon name="ios-walk" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#3498db" title="Bicycle" onPress={() => this.goToPictures('Bicycle')}>
+          <ActionButton.Item buttonColor="#3498db" title={modes[1]} onPress={() => this.goToPictures(modes[1])}>
             <Icon name="ios-bicycle" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#1abc9c" title="Automobile" onPress={() => this.goToPictures('Automobile')}>
+          <ActionButton.Item buttonColor="#1abc9c" title={modes[2]} onPress={() => this.goToPictures(modes[2])}>
             <Icon name="ios-car" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
@@ -162,7 +169,6 @@ class Map extends Component {
 }
 
 Map.navigatorStyle = navigatorStyle;
-Map.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
 

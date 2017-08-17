@@ -20,9 +20,6 @@ import {
 } from '../../actions/map';
 import styles from './styles';
 
-/* eslint react/prop-types: 1 */
-const propTypes = {
-};
 
 const mapStateToProps = state => ({
   newConcern: state.concerns.newConcern,
@@ -38,6 +35,10 @@ const mapDispatchToProps = {
 };
 
 class LocationCard extends Component {
+  /* eslint react/prop-types: 1 */
+  static propTypes = {
+  };
+
   static navigatorButtons = {
     rightButtons: [{
       title: 'Next',
@@ -86,8 +87,9 @@ class LocationCard extends Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'next') {
         this.props.navigator.push({
-          screen: 'app.CommentCard',
-          title: 'Concern Details',
+          screen: 'app.TypeCard',
+          title: 'Type of Concern',
+          backButtonTitle: 'Location',
           passProps: {
             reportCategory: this.props.reportCategory,
           },
@@ -174,7 +176,5 @@ class LocationCard extends Component {
     );
   }
 }
-
-LocationCard.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationCard);

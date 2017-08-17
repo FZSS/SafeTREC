@@ -95,3 +95,18 @@ export const updateNewConcernCoordinates = (latitude, longitude) => ({
     longitude,
   },
 });
+
+
+const types = ['Speeding', 'Visibility', 'Right of way', 'Violation'];
+
+/**
+ * Return the types of traffic safety concerns based on parameters
+ * @param mode - Mode of Transportation
+ * @param time - The Date object when the concern is created
+ * @param coordinate - The coordinate of the concern
+ */
+/* eslint no-unused-vars: 1 */
+export const updateConcernTypes = (mode, time, coordinate) => ({
+  type: actionTypes.UpdateConcernTypes,
+  types, // not doing anything with parameters now, just returning fixed types
+});

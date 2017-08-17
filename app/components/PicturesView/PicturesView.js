@@ -22,10 +22,6 @@ const photoPlaceholder = require('../../images/photo.png');
 
 let imageKey = 0;
 
-/* eslint react/prop-types: 1 */
-const propTypes = {
-};
-
 const mapStateToProps = state => ({
   newImages: state.images.newConcernImages,
 });
@@ -38,6 +34,10 @@ const mapDispatchToProps = {
 };
 
 class PicturesView extends Component {
+  /* eslint react/prop-types: 1 */
+  static propTypes = {
+  };
+
   static navigatorStyle = {
     statusBarTextColorScheme: 'light',
   };
@@ -89,17 +89,6 @@ class PicturesView extends Component {
         <Image style={styles.picture} source={{ uri: image.uri }} />
       </TouchableHighlight>
     ));
-  }
-
-  alertNoPicture() {
-    Alert.alert(
-      'No Picture',
-      'Are you sure to proceed without a picture?',
-      [
-        { text: 'Confirm', onPress: () => this.goToLocationCard() },
-        { text: 'Cancel', style: 'cancel' },
-      ],
-    );
   }
 
   openPictureActionSheet() {
@@ -164,6 +153,17 @@ class PicturesView extends Component {
   getPictureLocation() {
     const firstImage = this.props.newImages[0];
     return (firstImage) ? firstImage.location : null;
+  }
+
+  alertNoPicture() {
+    Alert.alert(
+      'No Picture',
+      'Are you sure to proceed without a picture?',
+      [
+        { text: 'Confirm', onPress: () => this.goToLocationCard() },
+        { text: 'Cancel', style: 'cancel' },
+      ],
+    );
   }
 
   addPicture(res) {
@@ -236,7 +236,5 @@ class PicturesView extends Component {
     );
   }
 }
-
-PicturesView.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(PicturesView);

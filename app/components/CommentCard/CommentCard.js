@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 import StarRating from 'react-native-star-rating';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
@@ -37,6 +38,8 @@ const mapDispatchToProps = {
 class CommentCard extends Component {
   /* eslint react/prop-types: 1 */
   static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    concernType: PropTypes.string.isRequired,
   };
 
   static navigatorButtons = {
@@ -137,7 +140,6 @@ class CommentCard extends Component {
   }
 
   getPredictions() {
-    /* eslint react/no-array-index-key: 0 */
     if (this.props.predictionStatus.pending) {
       return (
         <ActivityIndicator
@@ -153,8 +155,9 @@ class CommentCard extends Component {
       );
     }
     return (
-      this.props.predictions.map((prediction, index) => ( // FIXME: append this.props.
+      this.props.predictions.map((prediction, index) => (
         <TouchableOpacity
+          /* eslint react/no-array-index-key: 1 */
           key={index}
           style={styles.predictionTag}
           onPress={() => {
