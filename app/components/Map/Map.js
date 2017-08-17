@@ -143,6 +143,7 @@ class Map extends Component {
         <ActionButton
           buttonColor="rgba(231,76,60,1)"
           position="center"
+          size={80}
         >
           <ActionButton.Item buttonColor="#9b59b6" title="Pedestrian" onPress={() => this.goToPictures('Pedestrian')}>
             <Icon name="ios-walk" style={styles.newReportButtonIcon} />

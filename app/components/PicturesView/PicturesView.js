@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Button,
+  Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
@@ -60,12 +61,16 @@ class PicturesView extends Component {
     this.props.resetNewConcernImages();
   }
 
+  componentDidMount() {
+    this.takeNewPicture();
+  }
+
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'next') {
         if (this.props.newImages.length === 0) {
-          // Make sure there is a picture before moving on
-          alert('Please Add A Picture!');
+          // if there is no picture, it is fine, but just alert
+          this.alertNoPicture();
         } else {
           // get computer vision tags from the first image
           // this.props.getImagePredictions(this.props.newImages[0]);
@@ -84,6 +89,17 @@ class PicturesView extends Component {
         <Image style={styles.picture} source={{ uri: image.uri }} />
       </TouchableHighlight>
     ));
+  }
+
+  alertNoPicture() {
+    Alert.alert(
+      'No Picture',
+      'Are you sure to proceed without a picture?',
+      [
+        { text: 'Confirm', onPress: () => this.goToLocationCard() },
+        { text: 'Cancel', style: 'cancel' },
+      ],
+    );
   }
 
   openPictureActionSheet() {
@@ -134,15 +150,20 @@ class PicturesView extends Component {
   goToLocationCard() {
     this.props.navigator.push({
       screen: 'app.LocationCard',
-      title: 'Location',
+      title: 'Confirm Location',
       animated: true,
       backButtonTitle: 'Pictures',
       passProps: {
-        // pass the location of the first image
-        pictureLocation: this.props.newImages[0].location,
+        // pass the location of the first image if there is one
+        pictureLocation: this.getPictureLocation(),
         reportCategory: this.props.reportCategory,
       },
     });
+  }
+
+  getPictureLocation() {
+    const firstImage = this.props.newImages[0];
+    return (firstImage) ? firstImage.location : null;
   }
 
   addPicture(res) {
