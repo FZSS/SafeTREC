@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   View,
   TextInput,
-  SegmentedControlIOS,
   Alert,
   Text,
   TouchableOpacity,
@@ -18,7 +17,7 @@ import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
-const types = ['Speeding', 'Visibility', 'Right of way', 'Violation'];
+const severity = ['Tip', 'Alert', 'Warning', 'Dangerous', 'Critical'];
 
 const mapStateToProps = state => ({
   submissionStatus: state.concerns.newConcernSubmissionStatus,
@@ -50,10 +49,6 @@ class CommentCard extends Component {
     }],
   };
 
-  static getCategoryIndex(category) {
-    return types.indexOf(category);
-  }
-
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -66,6 +61,9 @@ class CommentCard extends Component {
     ratingText: 'Alert',
   };
 
+  componentWillMount() {
+    this.props.navigator.setTitle({ title: `${this.props.concernType} Concern` });
+  }
 
   componentDidUpdate(prevProps) {
     const popToRoot = () => {
@@ -119,19 +117,19 @@ class CommentCard extends Component {
   onRatingPressed(rating) {
     switch (rating) {
       case 1:
-        this.setState({ ratingText: 'Alert' });
+        this.setState({ ratingText: severity[0] });
         break;
       case 2:
-        this.setState({ ratingText: 'Warning' });
+        this.setState({ ratingText: severity[1] });
         break;
       case 3:
-        this.setState({ ratingText: 'Dangerous' });
+        this.setState({ ratingText: severity[2] });
         break;
       case 4:
-        this.setState({ ratingText: 'Disaster' });
+        this.setState({ ratingText: severity[3] });
         break;
       case 5:
-        this.setState({ ratingText: 'Hell' });
+        this.setState({ ratingText: severity[4] });
         break;
       default:
     }
@@ -185,15 +183,6 @@ class CommentCard extends Component {
         <SpinnerOverlay visible={(this.props.submissionStatus.pending)} />
 
         <View style={styles.card}>
-          <SegmentedControlIOS
-            style={styles.categorySelection}
-            tintColor="darkorange"
-            values={types}
-            selectedIndex={CommentCard.getCategoryIndex(this.state.reportCategory)}
-            onValueChange={(value) => {
-              this.setState({ reportCategory: value });
-            }}
-          />
 
           <View style={styles.ratingBox}>
             <View style={styles.ratingIcons}>

@@ -53,19 +53,24 @@ export default StyleSheet.create({
   },
 
   ratingBox: {
+    marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
     flexDirection: 'row',
+    borderWidth: 1,
+    borderBottomWidth: 0,
+    borderColor: 'darkorange',
   },
 
   ratingIcons: {
-    flex: 2,
+    flex: 3,
+    marginLeft: 5,
   },
 
   ratingText: {
     paddingTop: 9,
     fontSize: 18,
-    flex: 1,
+    flex: 2,
     color: 'darkorange',
     textAlign: 'center',
   },
