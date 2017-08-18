@@ -13,7 +13,7 @@ export default StyleSheet.create({
     zIndex: 1,
   },
 
-  categorySelection: {
+  segmentedControl: {
     marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
@@ -70,15 +70,18 @@ export default StyleSheet.create({
     borderColor: 'darkorange',
   },
 
-  ratingIcons: {
-    flex: 3,
-    marginLeft: 5,
-  },
-
   ratingText: {
     paddingTop: 9,
     fontSize: 18,
     flex: 2,
+    color: 'darkorange',
+    textAlign: 'center',
+  },
+
+  ratingTextLong: {
+    paddingTop: 9,
+    fontSize: 18,
+    flex: 5,
     color: 'darkorange',
     textAlign: 'center',
   },

@@ -74,9 +74,9 @@ class PicturesView extends Component {
     this.props.resetNewConcernImages();
   }
 
-  componentDidMount() {
-    this.takeNewPicture();
-  }
+  // componentDidMount() {
+  //   this.takeNewPicture();
+  // }
 
   onNavigatorEvent(event) {
     if (event.type === 'NavBarButtonPress') {

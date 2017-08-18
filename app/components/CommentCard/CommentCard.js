@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  Slider,
+  SegmentedControlIOS,
 } from 'react-native';
 import _ from 'underscore';
 import PropTypes from 'prop-types';
-import StarRating from 'react-native-star-rating';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
@@ -19,8 +20,9 @@ import { concernsPropTypes } from '../../reducers/concernsReducer';
 import { imagesPropTypes } from '../../reducers/imagesReducer';
 import { mapPropTypes } from '../../reducers/mapReducer';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
+import modes from '../../constants/modesOfTransportation';
 
-const severity = ['Tip', 'Alert', 'Warning', 'Dangerous', 'Critical'];
+// const severity = ['Tip', 'Alert', 'Warning', 'Dangerous', 'Critical'];
 
 const mapStateToProps = state => ({
   submissionStatus: state.concerns.newConcernSubmissionStatus,
@@ -30,6 +32,7 @@ const mapStateToProps = state => ({
   predictions: state.images.newConcernImagePredictions,
   predictionStatus: state.images.imagePredictionStatus,
   imagePredictionEnabled: state.images.imagePredictionEnabled,
+  concernTypes: state.concerns.concernTypes,
 });
 
 const mapDispatchToProps = {
@@ -47,6 +50,7 @@ class CommentCard extends Component {
     predictions: PropTypes.arrayOf(imagesPropTypes.prediction).isRequired,
     predictionStatus: imagesPropTypes.imagePredictionStatus.isRequired,
     imagePredictionEnabled: PropTypes.bool.isRequired,
+    concernTypes: concernsPropTypes.concernTypes.isRequired,
     /* actions */
     uploadConcern: PropTypes.func.isRequired,
     getConcernsInRegion: PropTypes.func.isRequired,
@@ -76,7 +80,6 @@ class CommentCard extends Component {
   state = {
     concernDescription: '',
     rating: 1,
-    ratingText: severity[0],
   };
 
   componentWillMount() {
@@ -123,36 +126,13 @@ class CommentCard extends Component {
         const details = {
           address: this.props.newConcern.address,
           coordinate: this.props.newConcern.coordinate,
-          title: `${this.props.modeOfTransportation} concern`,
+          title: `${this.props.concernType} concern`,
           description: this.state.concernDescription,
         };
 
         this.props.uploadConcern(details, this.props.newImages);
       }
     }
-  }
-
-  onRatingPressed(rating) {
-    switch (rating) {
-      case 1:
-        this.setState({ ratingText: severity[0] });
-        break;
-      case 2:
-        this.setState({ ratingText: severity[1] });
-        break;
-      case 3:
-        this.setState({ ratingText: severity[2] });
-        break;
-      case 4:
-        this.setState({ ratingText: severity[3] });
-        break;
-      case 5:
-        this.setState({ ratingText: severity[4] });
-        break;
-      default:
-    }
-
-    this.setState({ rating });
   }
 
   getPredictions() {
@@ -200,11 +180,21 @@ class CommentCard extends Component {
     );
   }
 
+  updateRating(value) {
+    const rating = Math.round(value);
+    this.setState({ rating });
+  }
+
   appendConcernDescription(text) {
     const concernDescription = _.clone(this.state.concernDescription).concat(text);
     this.setState({ concernDescription });
   }
 
+  getConcernTypes() {
+    const types = _.clone(this.props.concernTypes);
+    types.push('Other');
+    return types;
+  }
 
   render() {
     return (
@@ -214,21 +204,37 @@ class CommentCard extends Component {
 
         <View style={styles.card}>
 
+          <SegmentedControlIOS
+            style={styles.segmentedControl}
+            tintColor="darkorange"
+            values={modes}
+            selectedIndex={modes.indexOf(this.props.modeOfTransportation)}
+            // onValueChange={(value) => {
+            //   this.setState({ reportCategory: value });
+            // }}
+          />
+
+          {/* <SegmentedControlIOS */}
+          {/* style={styles.segmentedControl} */}
+          {/* tintColor="darkorange" */}
+          {/* values={this.getConcernTypes()} */}
+          {/* enabled={false} */}
+          {/* selectedIndex={this.getConcernTypes().indexOf(this.props.concernType)} */}
+          {/* // onValueChange={(value) => { */}
+          {/* //   this.setState({ reportCategory: value }); */}
+          {/* // }} */}
+          {/* /> */}
+
           <View style={styles.ratingBox}>
-            <View style={styles.ratingIcons}>
-              <StarRating
-                disabled={false}
-                emptyStar={'ios-alert-outline'}
-                fullStar={'ios-alert'}
-                iconSet={'Ionicons'}
-                maxStars={5}
-                rating={this.state.rating}
-                selectedStar={rating => this.onRatingPressed(rating)}
-                starColor={'darkorange'}
-                emptyStarColor={'darkorange'}
-              />
-            </View>
-            <Text style={styles.ratingText}> {this.state.ratingText} </Text>
+            <Text style={styles.ratingTextLong}> Concern Rating </Text>
+            <Slider
+              style={{ flex: 5 }}
+              onValueChange={v => this.updateRating(v)}
+              minimumTrackTintColor="darkorange"
+              minimumValue={1}
+              maximumValue={100}
+            />
+            <Text style={styles.ratingText}> {this.state.rating} </Text>
           </View>
 
           <ScrollView style={styles.predictionBox} horizontal >

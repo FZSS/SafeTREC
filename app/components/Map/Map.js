@@ -84,7 +84,7 @@ class Map extends Component {
   goToPictures(mode) {
     this.props.navigator.push({
       screen: 'app.PicturesView',
-      title: 'Add Pictures',
+      title: 'Start with a Picture',
       passProps: {
         modeOfTransportation: mode,
       },
@@ -157,13 +157,13 @@ class Map extends Component {
           position="center"
           size={80}
         >
-          <ActionButton.Item buttonColor="#9b59b6" title={modes[0]} onPress={() => this.goToPictures(modes[0])}>
+          <ActionButton.Item buttonColor="#9b59b6" spaceBetween={10} title={`${modes[0]} Concern`} onPress={() => this.goToPictures(modes[0])}>
             <Icon name="ios-walk" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#3498db" title={modes[1]} onPress={() => this.goToPictures(modes[1])}>
+          <ActionButton.Item buttonColor="#3498db" spaceBetween={10} title={`${modes[1]} Concern`} onPress={() => this.goToPictures(modes[1])}>
             <Icon name="ios-bicycle" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#1abc9c" title={modes[2]} onPress={() => this.goToPictures(modes[2])}>
+          <ActionButton.Item buttonColor="#1abc9c" spaceBetween={10} title={`${modes[2]} Concern`} onPress={() => this.goToPictures(modes[2])}>
             <Icon name="ios-car" style={styles.newReportButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

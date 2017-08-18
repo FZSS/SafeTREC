@@ -106,7 +106,7 @@ class LocationCard extends Component {
       if (event.id === 'next') {
         this.props.navigator.push({
           screen: 'app.TypeCard',
-          title: 'Type of Concern',
+          title: 'What\'s your concern?',
           backButtonTitle: 'Location',
         });
       }
