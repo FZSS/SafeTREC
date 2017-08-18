@@ -50,7 +50,11 @@ class LocationCard extends Component {
     updateMapRegionWithFix: PropTypes.func.isRequired,
     /* own props */
     navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-    pictureLocation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    pictureLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  };
+
+  static defaultProps = {
+    pictureLocation: null,
   };
 
   static navigatorButtons = {

@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
   mapRegion: state.map.mapRegion,
   predictions: state.images.newConcernImagePredictions,
   predictionStatus: state.images.imagePredictionStatus,
+  imagePredictionEnabled: state.images.imagePredictionEnabled,
 });
 
 const mapDispatchToProps = {
@@ -45,6 +46,7 @@ class CommentCard extends Component {
     mapRegion: mapPropTypes.mapRegion.isRequired,
     predictions: PropTypes.arrayOf(imagesPropTypes.prediction).isRequired,
     predictionStatus: imagesPropTypes.imagePredictionStatus.isRequired,
+    imagePredictionEnabled: PropTypes.bool.isRequired,
     /* actions */
     uploadConcern: PropTypes.func.isRequired,
     getConcernsInRegion: PropTypes.func.isRequired,
@@ -154,7 +156,19 @@ class CommentCard extends Component {
   }
 
   getPredictions() {
-    if (this.props.predictionStatus.pending) {
+    if (this.props.newImages.length === 0) {
+      return (
+        <Text style={styles.predictionAlertText}>
+          No Image
+        </Text>
+      );
+    } else if (!this.props.imagePredictionEnabled) {
+      return (
+        <Text style={styles.predictionAlertText}>
+          Image Prediction Disabled
+        </Text>
+      );
+    } else if (this.props.predictionStatus.pending) {
       return (
         <ActivityIndicator
           animating={this.props.predictionStatus.pending}
@@ -163,7 +177,7 @@ class CommentCard extends Component {
       );
     } else if (this.props.predictionStatus.failed) {
       return (
-        <Text style={styles.predictionTagText}>
+        <Text style={styles.predictionAlertText}>
           Failed to Get Prediction
         </Text>
       );
@@ -216,6 +230,7 @@ class CommentCard extends Component {
             </View>
             <Text style={styles.ratingText}> {this.state.ratingText} </Text>
           </View>
+
           <ScrollView style={styles.predictionBox} horizontal >
             {this.getPredictions()}
           </ScrollView>

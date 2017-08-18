@@ -52,6 +52,14 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
 
+  predictionAlertText: {
+    paddingTop: 10,
+    paddingLeft: 15,
+    fontSize: 17,
+    color: 'darkgray',
+    textAlign: 'center',
+  },
+
   ratingBox: {
     marginTop: 5,
     marginLeft: 5,

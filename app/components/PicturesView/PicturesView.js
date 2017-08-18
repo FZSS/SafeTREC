@@ -26,6 +26,7 @@ let imageKey = 0;
 
 const mapStateToProps = state => ({
   newImages: state.images.newConcernImages,
+  imagePredictionEnabled: state.images.imagePredictionEnabled,
 });
 
 const mapDispatchToProps = {
@@ -38,6 +39,7 @@ const mapDispatchToProps = {
 class PicturesView extends Component {
   static propTypes = {
     /* store state */
+    imagePredictionEnabled: PropTypes.bool.isRequired,
     newImages: PropTypes.arrayOf(imagesPropTypes.image).isRequired,
     /* actions */
     deleteANewConcernImage: PropTypes.func.isRequired,
@@ -83,8 +85,10 @@ class PicturesView extends Component {
           // if there is no picture, it is fine, but just alert
           this.alertNoPicture();
         } else {
-          // get computer vision tags from the first image
-          // this.props.getImagePredictions(this.props.newImages[0]);
+          if (this.props.imagePredictionEnabled) {
+            // get computer vision tags from the first image
+            this.props.getImagePredictions(this.props.newImages[0]);
+          }
           this.goToLocationCard();
         }
       }

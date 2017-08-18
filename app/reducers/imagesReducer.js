@@ -34,15 +34,15 @@ export const imagesPropTypes = {
     key: PropTypes.number,
     uri: PropTypes.string,
     location: PropTypes.shape({
-      latitude: PropTypes.string,
-      longitude: PropTypes.string,
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
     }),
   }),
 
   prediction: PropTypes.shape({
     score: PropTypes.number,
     description: PropTypes.string,
-    mid: PropTypes.number,
+    mid: PropTypes.string,
   }),
 
   imagePredictionStatus: PropTypes.shape({

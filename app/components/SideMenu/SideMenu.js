@@ -16,7 +16,7 @@ export default class SideMenu extends Component {
   };
 
   openSettings() {
-    this.props.navigator.push({
+    this.props.navigator.showModal({
       screen: 'app.SettingsView',
       title: 'Settings',
     });

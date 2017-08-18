@@ -10,7 +10,7 @@ import styles from './styles';
 import { enableImagePrediction } from '../../actions/images';
 
 const mapStateToProps = state => ({
-  imagePredictionEnabled: state.image.imagePredictionEnabled,
+  imagePredictionEnabled: state.images.imagePredictionEnabled,
   concernCoordinate: state.concerns.newConcern.coordinate,
 });
 
@@ -25,7 +25,29 @@ class SettingsView extends Component {
     imagePredictionEnabled: PropTypes.bool.isRequired,
     /* actions */
     enableImagePrediction: PropTypes.func.isRequired,
+    /* own props */
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
+
+  static navigatorButtons = {
+    leftButtons: [{
+      title: 'Back',
+      id: 'back',
+    }],
+  };
+
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'back') {
+        this.props.navigator.dismissModal();
+      }
+    }
+  }
 
   render() {
     return (
