@@ -16,7 +16,6 @@ export default StyleSheet.create({
   },
 
   typeBackground: {
-    height: 10,
     flex: 1,
     opacity: 0.8,
     backgroundColor: 'black',

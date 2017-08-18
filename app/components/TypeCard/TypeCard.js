@@ -17,7 +17,7 @@ const modes = ['Pedestrian', 'Bicycle', 'Automobile'];
 
 const mapStateToProps = state => ({
   types: state.concerns.concernTypes,
-  coordinate: state.concerns.newConcern.coordinate,
+  coordinate: state.concerns.concern.coordinate,
 });
 
 const mapDispatchToProps = {
@@ -26,7 +26,7 @@ const mapDispatchToProps = {
 
 class TypeCard extends Component {
   static propTypes = {
-    navigator: PropTypes.object.isRequired,
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     time: PropTypes.instanceOf(Date),
     mode: PropTypes.oneOf(modes),
     types: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -96,7 +96,7 @@ class TypeCard extends Component {
         style={styles.typeCard}
         onPress={() => this.openCommentCard(type)}
       >
-        <Image
+        <ImageBackground
           resizeMode={'cover'}
           source={TypeCard.getImage(type)}
           style={styles.typeBackground}
@@ -104,7 +104,7 @@ class TypeCard extends Component {
           <Text style={styles.typeTitle}>
             {type}
           </Text>
-        </Image>
+        </ImageBackground>
       </TouchableOpacity>
     ));
   }

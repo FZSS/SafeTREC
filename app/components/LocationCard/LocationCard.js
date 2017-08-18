@@ -35,7 +35,6 @@ const mapDispatchToProps = {
 };
 
 class LocationCard extends Component {
-  /* eslint react/prop-types: 1 */
   static propTypes = {
   };
 

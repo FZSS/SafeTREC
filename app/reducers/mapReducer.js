@@ -1,4 +1,6 @@
 import _ from 'underscore';
+import PropTypes from 'prop-types';
+import { concernsPropTypes } from './concernsReducer';
 import actionTypes from '../constants/actionTypes';
 import { ASPECT_RATIO } from '../constants/screen';
 
@@ -41,6 +43,21 @@ const initialState = {
       numberOfImages: 1,
     },
   ],
+};
+
+export const mapPropTypes = {
+  userLocation: PropTypes.shape({
+    longitude: PropTypes.number,
+    latitude: PropTypes.number,
+  }),
+  mapRegion: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+    latitudeDelta: PropTypes.number,
+    longitudeDelta: PropTypes.number,
+  }),
+  concernsInMapRegion: PropTypes.arrayOf(concernsPropTypes.concern),
+
 };
 
 export default function (state = initialState, action) {

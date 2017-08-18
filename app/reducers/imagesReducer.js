@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 import actionTypes from '../constants/actionTypes';
 
 /**
@@ -20,6 +21,34 @@ const initialState = {
 
   concernImages: [],
   concernImagesPending: false,
+};
+
+
+/**
+ * Export propTypes of a store's objects
+ * @type {{imagePredictionStatus: *}}
+ */
+export const imagesPropTypes = {
+  image: PropTypes.shape({
+    key: PropTypes.number,
+    uri: PropTypes.string,
+  }),
+
+  predication: PropTypes.shape({
+    score: PropTypes.number,
+    description: PropTypes.string,
+    mid: PropTypes.number,
+  }),
+
+  imagePredictionStatus: PropTypes.shape({
+    pending: PropTypes.bool,
+    success: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
+
+  newConcernImages: PropTypes.arrayOf(this.image),
+  concernImages: PropTypes.arrayOf(this.image),
+  newConcernImagePredictions: PropTypes.arrayOf(this.predication),
 };
 
 export default function (state = initialState, action) {

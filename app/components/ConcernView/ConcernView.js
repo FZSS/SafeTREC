@@ -17,7 +17,10 @@ import { ASPECT_RATIO } from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
 import { deleteConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
+import { concernsPropTypes } from '../../reducers/concernsReducer';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
+
+const imagePlaceholder = require('../../images/image-placeholder.png');
 
 const LATITUDE_DELTA = 0.001;
 
@@ -37,6 +40,7 @@ const mapDispatchToProps = {
 class ConcernView extends Component {
   /* eslint react/prop-types: 1 */
   static propTypes = {
+    concern: concernsPropTypes.concern.isRequired,
   };
 
   static navigatorStyle = navigatorStyle;
@@ -92,10 +96,13 @@ class ConcernView extends Component {
   }
 
   loadImages() {
+    console.log(this.props.images);
     return this.props.images.map(image => (<Image
       key={image.key}
       style={styles.imageSlide}
       source={{ uri: image.uri }}
+      defaultSource={imagePlaceholder}
+      resizeMode={'cover'}
     />));
   }
 
@@ -112,7 +119,7 @@ class ConcernView extends Component {
     }
     return (
       <Swiper
-        height={280}
+        height={980}
         activeDotColor="orange"
         loop={false}
       >
@@ -127,7 +134,9 @@ class ConcernView extends Component {
 
         <SpinnerOverlay visible={this.props.deleteStatus.pending} />
 
-        {this.loadSwiper()}
+        <View style={styles.imagesContainer}>
+          {this.loadSwiper()}
+        </View>
 
         <View style={styles.detailsContainer}>
           <Text style={styles.titleText}>

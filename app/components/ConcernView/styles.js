@@ -99,8 +99,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 
+  imagesContainer: {
+    flex: 4,
+  },
+
   imageSlide: {
     flex: 1,
+    height: 300,
   },
 
 });

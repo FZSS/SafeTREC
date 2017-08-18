@@ -15,6 +15,9 @@ import StarRating from 'react-native-star-rating';
 import styles from './styles';
 import { uploadConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
+import { concernsPropTypes } from '../../reducers/concernsReducer';
+import { imagesPropTypes } from '../../reducers/imagesReducer';
+import { mapPropTypes } from '../../reducers/mapReducer';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
 const severity = ['Tip', 'Alert', 'Warning', 'Dangerous', 'Critical'];
@@ -33,11 +36,20 @@ const mapDispatchToProps = {
   getConcernsInRegion,
 };
 
-
 class CommentCard extends Component {
-  /* eslint react/prop-types: 1 */
   static propTypes = {
-    navigator: PropTypes.object.isRequired,
+    // actions
+    uploadConcern: PropTypes.func.isRequired,
+    getConcernsInRegion: PropTypes.func.isRequired,
+    // store states
+    submissionStatus: concernsPropTypes.newConcernSubmissionStatus.isRequired,
+    newConcern: concernsPropTypes.concern.isRequired,
+    newImages: imagesPropTypes.newConcernImages.isRequired,
+    mapRegion: mapPropTypes.mapRegion.isRequired,
+    predictions: imagesPropTypes.newConcernImagePredictions.isRequired,
+    predictionStatus: imagesPropTypes.imagePredictionStatus.isRequired,
+    // own props
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     concernType: PropTypes.string.isRequired,
   };
 

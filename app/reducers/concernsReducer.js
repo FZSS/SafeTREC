@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 import actionTypes from '../constants/actionTypes';
 
 /* concern schema */
@@ -27,6 +28,41 @@ const initialState = {
   },
   concernTypes: ['', '', ''],
 };
+
+/**
+ * Export propTypes of a store's important objects; Define store schema
+ * @type {{imagePredictionStatus: *}}
+ */
+export const concernsPropTypes = {
+  concern: PropTypes.shape({
+    id: PropTypes.string,
+    address: PropTypes.string,
+    numberOfImages: PropTypes.number,
+    description: PropTypes.string,
+    coordinate: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+    }),
+    concernType: PropTypes.string,
+    modeOfTransportation: PropTypes.string,
+    title: PropTypes.string,
+  }),
+
+  concernDeleteStatus: PropTypes.shape({
+    pending: PropTypes.bool,
+    success: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
+
+  newConcernSubmissionStatus: PropTypes.shape({
+    pending: PropTypes.bool,
+    success: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
+
+  concernTypes: PropTypes.arrayOf(PropTypes.string),
+};
+
 
 export default function (state = initialState, action) {
   /* eslint prefer-template: 0 */
@@ -93,7 +129,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         newConcern: {
-          ...state.newConcern,
+          ...state.concern,
           address: action.payload,
         },
       };
@@ -105,7 +141,7 @@ export default function (state = initialState, action) {
         return {
           ...state,
           newConcern: {
-            ...state.newConcern,
+            ...state.concern,
             address: 'No Address Found',
           },
         };
@@ -114,7 +150,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         newConcern: {
-          ...state.newConcern,
+          ...state.concern,
           address,
         },
       };
@@ -124,7 +160,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         newConcern: {
-          ...state.newConcern,
+          ...state.concern,
           coordinate: {
             latitude: action.payload.latitude,
             longitude: action.payload.longitude,
