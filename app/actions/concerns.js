@@ -4,6 +4,7 @@ import firebase from '../config/firebase';
 import { uploadNewConcernImages } from './images';
 import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps';
 import geofire from '../config/geofire';
+import types from '../constants/concernTypes';
 
 export const uploadConcern = (details, images) => {
   // check connection TODO:DELETE
@@ -96,9 +97,6 @@ export const updateNewConcernCoordinates = (latitude, longitude) => ({
   },
 });
 
-
-const types = ['Speeding', 'Visibility', 'Right of way', 'Violation'];
-
 /**
  * Return the types of traffic safety concerns based on parameters
  * @param mode - Mode of Transportation
@@ -107,6 +105,9 @@ const types = ['Speeding', 'Visibility', 'Right of way', 'Violation'];
  */
 /* eslint no-unused-vars: 1 */
 export const updateConcernTypes = (mode, time, coordinate) => ({
+  /* TODO: This not doing anything with parameters as of now but returning fixed
+     types from constants/concernTypes. Should be updated to a server call that uses
+     all the parameters to determine which types */
   type: actionTypes.UpdateConcernTypes,
-  types, // not doing anything with parameters now, just returning fixed types
+  types,
 });

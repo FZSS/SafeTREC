@@ -91,28 +91,22 @@ class PicturesView extends Component {
     ));
   }
 
-  openPictureActionSheet() {
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: [
-        'Take A New Picture',
-        'Choose From Library',
-        'Cancel',
-      ],
-      cancelButtonIndex: 2,
-      title: 'A picture is worth a thousand words',
-      tintColor: 'darkorange',
-    },
+  getPictureLocation() {
+    const firstImage = this.props.newImages[0];
+    return (firstImage) ? firstImage.location : null;
+  }
 
-    (buttonIndex) => {
-      /* eslint default-case: 0 */
-      switch (buttonIndex) {
-        case 0:
-          this.takeNewPicture();
-          break;
-        case 1:
-          this.choosePictureFromLibrary();
-          break;
-      }
+  goToLocationCard() {
+    this.props.navigator.push({
+      screen: 'app.LocationCard',
+      title: 'Confirm Location',
+      animated: true,
+      backButtonTitle: 'Pictures',
+      passProps: {
+        // pass the location of the first image if there is one
+        pictureLocation: this.getPictureLocation(),
+        reportCategory: this.props.reportCategory,
+      },
     });
   }
 
@@ -136,23 +130,29 @@ class PicturesView extends Component {
     });
   }
 
-  goToLocationCard() {
-    this.props.navigator.push({
-      screen: 'app.LocationCard',
-      title: 'Confirm Location',
-      animated: true,
-      backButtonTitle: 'Pictures',
-      passProps: {
-        // pass the location of the first image if there is one
-        pictureLocation: this.getPictureLocation(),
-        reportCategory: this.props.reportCategory,
-      },
-    });
-  }
+  openPictureActionSheet() {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: [
+        'Take A New Picture',
+        'Choose From Library',
+        'Cancel',
+      ],
+      cancelButtonIndex: 2,
+      title: 'A picture is worth a thousand words',
+      tintColor: 'darkorange',
+    },
 
-  getPictureLocation() {
-    const firstImage = this.props.newImages[0];
-    return (firstImage) ? firstImage.location : null;
+    (buttonIndex) => {
+      /* eslint default-case: 0 */
+      switch (buttonIndex) {
+        case 0:
+          this.takeNewPicture();
+          break;
+        case 1:
+          this.choosePictureFromLibrary();
+          break;
+      }
+    });
   }
 
   alertNoPicture() {

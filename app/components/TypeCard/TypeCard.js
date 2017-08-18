@@ -3,11 +3,14 @@ import {
   View,
   Text,
   TouchableOpacity,
+  ImageBackground,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import styles from './styles';
+import concernTypes, { concernTypeImages } from '../../constants/concernTypes';
 import { updateConcernTypes } from '../../actions/concerns';
 
 const modes = ['Pedestrian', 'Bicycle', 'Automobile'];
@@ -46,11 +49,18 @@ class TypeCard extends Component {
     }],
   };
 
+  // find the image that represents the type, if none found, use other.jpg
+  static getImage(type) {
+    if (concernTypes.includes(type)) {
+      return concernTypeImages[type];
+    }
+    return concernTypeImages.Other;
+  }
+
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-
 
   componentWillMount() {
     this.props.updateConcernTypes(this.props.mode, this.props.time, this.props.coordinate);
@@ -86,9 +96,15 @@ class TypeCard extends Component {
         style={styles.typeCard}
         onPress={() => this.openCommentCard(type)}
       >
-        <Text>
-          {type}
-        </Text>
+        <Image
+          resizeMode={'cover'}
+          source={TypeCard.getImage(type)}
+          style={styles.typeBackground}
+        >
+          <Text style={styles.typeTitle}>
+            {type}
+          </Text>
+        </Image>
       </TouchableOpacity>
     ));
   }
