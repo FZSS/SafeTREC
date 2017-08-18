@@ -19,6 +19,7 @@ const initialState = {
     failed: false,
   },
 
+  imagePredictionEnabled: true,
   concernImages: [],
   concernImagesPending: false,
 };
@@ -32,9 +33,13 @@ export const imagesPropTypes = {
   image: PropTypes.shape({
     key: PropTypes.number,
     uri: PropTypes.string,
+    location: PropTypes.shape({
+      latitude: PropTypes.string,
+      longitude: PropTypes.string,
+    }),
   }),
 
-  predication: PropTypes.shape({
+  prediction: PropTypes.shape({
     score: PropTypes.number,
     description: PropTypes.string,
     mid: PropTypes.number,
@@ -45,10 +50,6 @@ export const imagesPropTypes = {
     success: PropTypes.bool,
     failed: PropTypes.bool,
   }),
-
-  newConcernImages: PropTypes.arrayOf(this.image),
-  concernImages: PropTypes.arrayOf(this.image),
-  newConcernImagePredictions: PropTypes.arrayOf(this.predication),
 };
 
 export default function (state = initialState, action) {
@@ -113,7 +114,7 @@ export default function (state = initialState, action) {
     case actionTypes.GetImagePredictions + '_FULFILLED': {
       let predictions = action.payload.data.responses[0].labelAnnotations;
 
-      // reject predictions that have low prediction score
+      /* reject predictions that have low prediction score */
       predictions = _.reject(predictions, prediction => prediction.score < 0.8);
 
       return {
@@ -134,6 +135,12 @@ export default function (state = initialState, action) {
           pending: false,
           failed: true,
         },
+      };
+
+    case actionTypes.EnableImagePrediction:
+      return {
+        ...state,
+        imagePredictionEnabled: action.payload,
       };
 
     default:

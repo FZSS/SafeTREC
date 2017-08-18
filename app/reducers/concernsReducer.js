@@ -129,7 +129,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         newConcern: {
-          ...state.concern,
+          ...state.newConcern,
           address: action.payload,
         },
       };
@@ -141,7 +141,7 @@ export default function (state = initialState, action) {
         return {
           ...state,
           newConcern: {
-            ...state.concern,
+            ...state.newConcern,
             address: 'No Address Found',
           },
         };
@@ -150,7 +150,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         newConcern: {
-          ...state.concern,
+          ...state.newConcern,
           address,
         },
       };
@@ -160,7 +160,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         newConcern: {
-          ...state.concern,
+          ...state.newConcern,
           coordinate: {
             latitude: action.payload.latitude,
             longitude: action.payload.longitude,

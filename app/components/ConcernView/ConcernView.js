@@ -12,12 +12,15 @@ import { connect } from 'react-redux';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import PropTypes from 'prop-types';
+import { imagesPropTypes } from '../../reducers/imagesReducer';
+import { mapPropTypes } from '../../reducers/mapReducer';
+import { concernsPropTypes } from '../../reducers/concernsReducer';
 import { navigatorStyle, styles } from './styles';
 import { ASPECT_RATIO } from '../../constants/screen';
 import { getConcernImages } from '../../actions/images';
 import { deleteConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
-import { concernsPropTypes } from '../../reducers/concernsReducer';
 import SpinnerOverlay from '../SpinnerOverlay/SpinnerOverlay';
 
 const imagePlaceholder = require('../../images/image-placeholder.png');
@@ -38,8 +41,18 @@ const mapDispatchToProps = {
 };
 
 class ConcernView extends Component {
-  /* eslint react/prop-types: 1 */
   static propTypes = {
+    /* store states */
+    images: PropTypes.arrayOf(imagesPropTypes.image).isRequired,
+    imagesPending: PropTypes.bool.isRequired,
+    deleteStatus: concernsPropTypes.concernDeleteStatus.isRequired,
+    mapRegion: mapPropTypes.mapRegion.isRequired,
+    /* actions */
+    getConcernImages: PropTypes.func.isRequired,
+    deleteConcern: PropTypes.func.isRequired,
+    getConcernsInRegion: PropTypes.func.isRequired,
+    /* own props */
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     concern: concernsPropTypes.concern.isRequired,
   };
 

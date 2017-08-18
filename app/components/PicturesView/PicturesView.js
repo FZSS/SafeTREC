@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { styles, PHOTO_HEIGHT } from './styles';
+import { imagesPropTypes } from '../../reducers/imagesReducer';
 import {
   addANewConcernImage,
   resetNewConcernImages,
@@ -34,8 +36,17 @@ const mapDispatchToProps = {
 };
 
 class PicturesView extends Component {
-  /* eslint react/prop-types: 1 */
   static propTypes = {
+    /* store state */
+    newImages: PropTypes.arrayOf(imagesPropTypes.image).isRequired,
+    /* actions */
+    deleteANewConcernImage: PropTypes.func.isRequired,
+    addANewConcernImage: PropTypes.func.isRequired,
+    resetNewConcernImages: PropTypes.func.isRequired,
+    getImagePredictions: PropTypes.func.isRequired,
+    /* own props */
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    modeOfTransportation: PropTypes.string.isRequired,
   };
 
   static navigatorStyle = {
@@ -105,7 +116,7 @@ class PicturesView extends Component {
       passProps: {
         // pass the location of the first image if there is one
         pictureLocation: this.getPictureLocation(),
-        reportCategory: this.props.reportCategory,
+        modeOfTransportation: this.props.modeOfTransportation,
       },
     });
   }

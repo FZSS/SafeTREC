@@ -10,6 +10,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import PropTypes from 'prop-types';
+import { mapPropTypes } from '../../reducers/mapReducer';
 import { navigatorStyle, styles } from './styles';
 import ConcernCallOut from './ConcernCallOut';
 import {
@@ -24,7 +25,6 @@ const modes = ['Pedestrian', 'Bicycle', 'Automobile'];
 const mapStateToProps = state => ({
   concerns: state.map.concernsInMapRegion,
   mapRegion: state.map.mapRegion,
-  userPosition: state.map.userPosition,
 });
 
 const mapDispatchToProps = {
@@ -35,12 +35,17 @@ const mapDispatchToProps = {
 };
 
 class Map extends Component {
-  /* eslint react/prop-types: 1 */
   static propTypes = {
+    /* store states */
+    concerns: mapPropTypes.concernsInMapRegion.isRequired,
+    mapRegion: mapPropTypes.mapRegion.isRequired,
+    /* actions */
     updateMapRegionWithFix: PropTypes.func.isRequired,
     getConcernsInRegion: PropTypes.func.isRequired,
     updateMapRegion: PropTypes.func.isRequired,
     updateUserLocation: PropTypes.func.isRequired,
+    /* own props */
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
   componentWillMount() {
@@ -81,7 +86,7 @@ class Map extends Component {
       screen: 'app.PicturesView',
       title: 'Add Pictures',
       passProps: {
-        reportCategory: mode,
+        modeOfTransportation: mode,
       },
     });
   }

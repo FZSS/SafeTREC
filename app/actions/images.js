@@ -125,3 +125,13 @@ export const getConcernImages = (concernId, numberOfImages) => {
     payload: Promise.all(promises),
   };
 };
+
+/**
+ * Enable/Disabled image prediction based on bool
+ * @param bool
+ * @return {{type: *, payload: *}}
+ */
+export const enableImagePrediction = bool => ({
+  type: actionTypes.EnableImagePrediction,
+  payload: bool,
+});

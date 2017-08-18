@@ -1,4 +1,5 @@
 const actionTypes = {
+  EnableImagePrediction: 'ENABLE_IMAGE_PREDICTION',
   SubmitConcern: 'SUBMIT_CONCERN',
   DeleteConcern: 'DELETE_CONCERN',
   GetConcernsInArea: 'GET_CONCERNS_IN_AREA',

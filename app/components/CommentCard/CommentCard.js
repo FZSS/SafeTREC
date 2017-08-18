@@ -38,19 +38,24 @@ const mapDispatchToProps = {
 
 class CommentCard extends Component {
   static propTypes = {
-    // actions
-    uploadConcern: PropTypes.func.isRequired,
-    getConcernsInRegion: PropTypes.func.isRequired,
-    // store states
+    /* store states */
     submissionStatus: concernsPropTypes.newConcernSubmissionStatus.isRequired,
     newConcern: concernsPropTypes.concern.isRequired,
-    newImages: imagesPropTypes.newConcernImages.isRequired,
+    newImages: PropTypes.arrayOf(imagesPropTypes.image).isRequired,
     mapRegion: mapPropTypes.mapRegion.isRequired,
-    predictions: imagesPropTypes.newConcernImagePredictions.isRequired,
+    predictions: PropTypes.arrayOf(imagesPropTypes.prediction).isRequired,
     predictionStatus: imagesPropTypes.imagePredictionStatus.isRequired,
-    // own props
+    /* actions */
+    uploadConcern: PropTypes.func.isRequired,
+    getConcernsInRegion: PropTypes.func.isRequired,
+    /* own props */
     navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     concernType: PropTypes.string.isRequired,
+    modeOfTransportation: PropTypes.string, // TODO: store this in store
+  };
+
+  static defaultProps = {
+    modeOfTransportation: 'Pedestrian',
   };
 
   static navigatorButtons = {
@@ -67,10 +72,9 @@ class CommentCard extends Component {
   }
 
   state = {
-    reportCategory: this.props.reportCategory,
     concernDescription: '',
     rating: 1,
-    ratingText: 'Alert',
+    ratingText: severity[0],
   };
 
   componentWillMount() {
@@ -117,7 +121,7 @@ class CommentCard extends Component {
         const details = {
           address: this.props.newConcern.address,
           coordinate: this.props.newConcern.coordinate,
-          title: `${this.props.reportCategory} concern`,
+          title: `${this.props.modeOfTransportation} concern`,
           description: this.state.concernDescription,
         };
 

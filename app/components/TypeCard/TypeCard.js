@@ -13,11 +13,11 @@ import styles from './styles';
 import concernTypes, { concernTypeImages } from '../../constants/concernTypes';
 import { updateConcernTypes } from '../../actions/concerns';
 
-const modes = ['Pedestrian', 'Bicycle', 'Automobile'];
+import modes from '../../constants/modesOfTransportation';
 
 const mapStateToProps = state => ({
   types: state.concerns.concernTypes,
-  coordinate: state.concerns.concern.coordinate,
+  concernCoordinate: state.concerns.newConcern.coordinate,
 });
 
 const mapDispatchToProps = {
@@ -26,15 +26,19 @@ const mapDispatchToProps = {
 
 class TypeCard extends Component {
   static propTypes = {
-    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-    time: PropTypes.instanceOf(Date),
-    mode: PropTypes.oneOf(modes),
+    /* store states */
     types: PropTypes.arrayOf(PropTypes.string).isRequired,
-    coordinate: PropTypes.shape({
+    concernCoordinate: PropTypes.shape({
       longitude: PropTypes.number,
       latitude: PropTypes.number,
     }).isRequired,
+    /* actions */
     updateConcernTypes: PropTypes.func.isRequired,
+    /* own props */
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    time: PropTypes.instanceOf(Date),
+    mode: PropTypes.oneOf(modes),
+
   };
 
   static defaultProps = {
@@ -63,7 +67,7 @@ class TypeCard extends Component {
   }
 
   componentWillMount() {
-    this.props.updateConcernTypes(this.props.mode, this.props.time, this.props.coordinate);
+    this.props.updateConcernTypes(this.props.mode, this.props.time, this.props.concernCoordinate);
   }
 
   onNavigatorEvent(event) {

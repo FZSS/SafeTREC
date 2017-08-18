@@ -9,11 +9,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import RNGooglePlaces from 'react-native-google-places';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 import {
   updateNewConcernAddressFromGeocode,
   updateNewConcernAddress,
   updateNewConcernCoordinates,
 } from '../../actions/concerns';
+import { concernsPropTypes } from '../../reducers/concernsReducer';
+import { mapPropTypes } from '../../reducers/mapReducer';
 import {
   updateMapRegion,
   updateMapRegionWithFix,
@@ -36,6 +39,18 @@ const mapDispatchToProps = {
 
 class LocationCard extends Component {
   static propTypes = {
+    /* store state */
+    newConcern: concernsPropTypes.concern.isRequired,
+    mapRegion: mapPropTypes.mapRegion.isRequired,
+    /* actions */
+    updateNewConcernAddressFromGeocode: PropTypes.func.isRequired,
+    updateNewConcernAddress: PropTypes.func.isRequired,
+    updateNewConcernCoordinates: PropTypes.func.isRequired,
+    updateMapRegion: PropTypes.func.isRequired,
+    updateMapRegionWithFix: PropTypes.func.isRequired,
+    /* own props */
+    navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    pictureLocation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
   static navigatorButtons = {
@@ -89,9 +104,6 @@ class LocationCard extends Component {
           screen: 'app.TypeCard',
           title: 'Type of Concern',
           backButtonTitle: 'Location',
-          passProps: {
-            reportCategory: this.props.reportCategory,
-          },
         });
       }
     }
@@ -106,7 +118,6 @@ class LocationCard extends Component {
       longitude: long,
     };
 
-    // alert(`dragged to lat: ${lat}, long: ${long}`);
     this.props.updateMapRegion(newMapRegion);
     this.props.updateNewConcernCoordinates(lat, long);
     this.props.updateNewConcernAddressFromGeocode(lat, long);
