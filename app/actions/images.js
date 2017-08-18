@@ -3,7 +3,6 @@ import axios from 'axios';
 import _ from 'underscore';
 import actionTypes from '../constants/actionTypes';
 import firebase from '../config/firebase';
-import clarifai from '../config/clarifai';
 import { uriBase, subscriptionKey } from '../config/microsoft-vision';
 import { visionURL } from '../config/google-vision';
 
@@ -14,12 +13,6 @@ window.Blob = Blob;
 export const getImagePredictions = (image) => {
   /* eslint no-unused-vars: 0 */
   const uploadUri = image.uri.replace('file://', '');
-
-  // Clarifai fails with process.nextTick undefined
-  const getFileAndGetPredictionsWithClarifai = () => RNFetchBlob.fs.readFile(uploadUri, 'base64')
-    .then(data =>
-      clarifai.models.predict(clarifai.GENERAL_MODEL, { base64: data }), // Polyfill issue
-    );
 
   // https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1ff
   // fails with weird response
