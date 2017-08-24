@@ -1,9 +1,15 @@
 import * as actions from '../concerns';
-import nock from 'nock';
+
+jest.mock('../images', () => ({
+  uploadNewConcernImages: () => {},
+}));
+
+jest.mock('../../constants/concernTypes', () => (
+  ['Speeding', 'Visibility', 'Right of way', 'Violation']
+));
 
 describe('submit concern', () => {
   afterEach(() => {
-    nock.cleanAll();
   });
 
   it('creates SUBMIT_CONCERN_FULFILLED when successful', () => {
