@@ -10,6 +10,13 @@ const Blob = RNFetchBlob.polyfill.Blob;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
+
+/**
+ * Return an action GET_IMAGE_PREDICTIONS with a promise to get predictions
+ * of the given image using Google computer vision api
+ * @param image
+ * @return {{type: string, payload}}
+ */
 export const getImagePredictions = (image) => {
   /* eslint no-unused-vars: 0 */
   const uploadUri = image.uri.replace('file://', '');
@@ -56,22 +63,33 @@ export const getImagePredictions = (image) => {
   };
 };
 
+/**
+ * Return an action to reset new concern images in redux store.
+ */
 export const resetNewConcernImages = () => ({
   type: actionTypes.ResetNewConcernImages,
 });
 
+/**
+ * Return an action to add a new concern image to redux store.
+ * @param pictureData
+ */
 export const addANewConcernImage = pictureData => ({
   type: actionTypes.AddANewConcernImage,
   payload: pictureData,
 });
 
+/**
+ * Return an action to delete a new concern images from redux store.
+ * @param imageKey
+ */
 export const deleteANewConcernImage = imageKey => ({
   type: actionTypes.DeleteANewConcernImage,
   key: imageKey,
 });
 
 /**
- * Return a promise to upload one image to firebase
+ * Return a promise to upload one image to firebase.
  * @param image
  * @param concernRef
  * @param key
@@ -95,7 +113,7 @@ const uploadOneImage = (image, concernRef, key, mime = 'application/octet-stream
 };
 
 /**
- * Return a list of promises to upload all images in the concern
+ * Return a list of promises to upload all images in the concern.
  * @param concernId
  * @param images
  * @returns {Array}
@@ -105,7 +123,12 @@ export const uploadNewConcernImages = (concernId, images) => {
   return _.map(images, (image, key) => uploadOneImage(image, concernRef, key, 'image/png;'));
 };
 
-
+/**
+ * Return an action GET_CONCERN_IMAGES with promises to get all concern images.
+ * @param concernId
+ * @param numberOfImages
+ * @return {{type: string, payload: Promise.<*[]>}}
+ */
 export const getConcernImages = (concernId, numberOfImages) => {
   const promises = [];
   const concernRef = firebase.storage().ref(`images/${concernId}`);

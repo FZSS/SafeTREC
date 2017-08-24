@@ -6,7 +6,14 @@ import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps';
 import geofire from '../config/geofire';
 import types from '../constants/concernTypes';
 
-export const uploadConcern = (details, images) => {
+/**
+ * Submit a concern: Return an action SUBMIT_CONCERN with promises to upload
+ * to firebase all concern images, concern data and geofire.
+ * @param details
+ * @param images
+ * @return {{type: string, payload: Promise.<*[]>}}
+ */
+export const submitConcern = (details, images) => {
   // check connection TODO:DELETE
   const connectedRef = firebase.database().ref('.info/connected');
   connectedRef.on('value', (snap) => {
@@ -46,6 +53,13 @@ export const uploadConcern = (details, images) => {
   };
 };
 
+/**
+ * Return an action DELETE_CONCERN with promises to delete the concern entry,
+ * concern images and geofire entry in firebase.
+ * @param concernId
+ * @param numOfImages
+ * @return {{type: string, payload: Promise.<*[]>}}
+ */
 export const deleteConcern = (concernId, numOfImages = 0) => {
   console.log(`Deleting concern: ${concernId}`);
   const promises = [];
@@ -69,6 +83,13 @@ export const deleteConcern = (concernId, numOfImages = 0) => {
   };
 };
 
+/**
+ * Return an action UPDATE_ADDRESS_FROM_GEOCODE with a promise to look up
+ * address information of the given coordinates using Google Geocode API.
+ * @param latitude
+ * @param longitude
+ * @return {{type: string, payload: AxiosPromise}}
+ */
 export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {
   const latlngString = `${latitude.toString()},${longitude.toString()}`;
   const params = {
@@ -84,10 +105,22 @@ export const updateNewConcernAddressFromGeocode = (latitude, longitude) => {
   };
 };
 
+/**
+ * Return an action UPDATE_NEW_CONCERN_ADDRESS to update
+ * the new concern address.
+ * @param address
+ */
 export const updateNewConcernAddress = address => ({
   type: actionTypes.UpdateNewConcernAddress,
   payload: address,
 });
+
+/**
+ * Return an action UPDATE_NEW_CONCERN_COORDINATES to update
+ * the new concern coordinates.
+ * @param latitude
+ * @param longitude
+ */
 
 export const updateNewConcernCoordinates = (latitude, longitude) => ({
   type: actionTypes.UpdateNewConcernCoordinates,

@@ -14,7 +14,7 @@ import {
 import _ from 'underscore';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import { uploadConcern } from '../../actions/concerns';
+import { submitConcern } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
 import { concernsPropTypes } from '../../reducers/concernsReducer';
 import { imagesPropTypes } from '../../reducers/imagesReducer';
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  uploadConcern,
+  submitConcern,
   getConcernsInRegion,
 };
 
@@ -52,7 +52,7 @@ class CommentCard extends Component {
     imagePredictionEnabled: PropTypes.bool.isRequired,
     concernTypes: concernsPropTypes.concernTypes.isRequired,
     /* actions */
-    uploadConcern: PropTypes.func.isRequired,
+    submitConcern: PropTypes.func.isRequired,
     getConcernsInRegion: PropTypes.func.isRequired,
     /* own props */
     navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
@@ -130,7 +130,7 @@ class CommentCard extends Component {
           description: this.state.concernDescription,
         };
 
-        this.props.uploadConcern(details, this.props.newImages);
+        this.props.submitConcern(details, this.props.newImages);
       }
     }
   }
@@ -180,11 +180,6 @@ class CommentCard extends Component {
     );
   }
 
-  updateRating(value) {
-    const rating = Math.round(value);
-    this.setState({ rating });
-  }
-
   appendConcernDescription(text) {
     const concernDescription = _.clone(this.state.concernDescription).concat(text);
     this.setState({ concernDescription });
@@ -194,6 +189,11 @@ class CommentCard extends Component {
     const types = _.clone(this.props.concernTypes);
     types.push('Other');
     return types;
+  }
+
+  updateRating(value) {
+    const rating = Math.round(value);
+    this.setState({ rating });
   }
 
   render() {
