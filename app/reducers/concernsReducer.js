@@ -1,9 +1,8 @@
-import _ from 'underscore';
 import PropTypes from 'prop-types';
 import actionTypes from '../constants/actionTypes';
 
 /* concern schema */
-const initialState = {
+export const initialState = {
   newConcern: {
     id: 'XDFJKSJK129JK',
     address: 'Address...',

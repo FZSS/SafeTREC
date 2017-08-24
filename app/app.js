@@ -9,7 +9,6 @@ registerScreens(store, Provider);
 
 Navigation.startSingleScreenApp({
   screen: {
-    // screen: 'app.CommentCard',
     screen: 'app.Map',
     title: 'Map',
     navigatorStyle: {

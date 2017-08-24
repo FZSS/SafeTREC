@@ -4,14 +4,16 @@ module.exports = {
     'react',
     'react-native',
     'jsx-a11y',
+    'jest',
   ],
   'env': {
-    'browser': true
+    'browser': true,
+    'jest/globals': true,
   },
   'extends': [
     'airbnb',
   ],
   'rules': {
     'react/jsx-filename-extension': 0,
-  }
+  },
 };

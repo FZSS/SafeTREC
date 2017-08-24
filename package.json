@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -36,6 +37,7 @@
     "eslint": "^4.4.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.2.1",
     "eslint-plugin-react-native": "^3.0.1",
@@ -43,6 +45,13 @@
     "react-test-renderer": "16.0.0-alpha.6"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "collectCoverageFrom": [
+      "app/components/**/*.js",
+      "app/actions/*.js",
+      "app/reducers/*.js",
+      "!app/**/styles.js"
+    ],
+    "coverageDirectory": "coverage"
   }
 }
