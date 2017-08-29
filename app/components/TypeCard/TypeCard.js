@@ -3,15 +3,11 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ImageBackground,
-  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import Icon from 'react-native-vector-icons';
 import styles from './styles';
-import concernTypes, { concernTypeImages } from '../../constants/concernTypes';
 import { updateConcernTypes } from '../../actions/concerns';
 
 import modes from '../../constants/modesOfTransportation';
