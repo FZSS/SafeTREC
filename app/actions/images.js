@@ -2,7 +2,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import axios from 'axios';
 import _ from 'underscore';
 import actionTypes from '../constants/actionTypes';
-import firebase from '../config/firebase';
+import firebase from '../config/firebase-config';
 import { uriBase, subscriptionKey } from '../config/microsoft-vision';
 import { visionURL } from '../config/google-vision';
 

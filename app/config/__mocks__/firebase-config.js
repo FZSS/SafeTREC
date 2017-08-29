@@ -1,4 +1,4 @@
-const firebase = jest.genMockFromModule('firebase');
+const firebase = jest.genMockFromModule('firebase-config');
 
 const database = () => ({
   ref: () => ({

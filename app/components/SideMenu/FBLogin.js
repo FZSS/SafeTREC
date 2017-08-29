@@ -7,7 +7,7 @@ import {
   AccessToken,
 } from 'react-native-fbsdk';
 import styles from './styles';
-import firebase from '../../config/firebase';
+import firebase from '../../config/firebase-config';
 
 class FBLogin extends Component {
   static connectWithFirebase(error, result) {

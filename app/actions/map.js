@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import actionTypes from '../constants/actionTypes';
-import firebase from '../config/firebase';
-import geofire from '../config/geofire';
+import firebase from '../config/firebase-config';
+import geofire from '../config/geofire-config';
 
 const DEGREE_TO_KILO = 112;
 const concernsRef = firebase.database().ref('concerns');

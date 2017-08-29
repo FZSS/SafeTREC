@@ -1,1 +1,0 @@
-jest.genMockFromModule('geofire');

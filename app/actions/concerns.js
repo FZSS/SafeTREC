@@ -1,9 +1,9 @@
 import axios from 'axios';
 import actionTypes from '../constants/actionTypes';
-import firebase from '../config/firebase';
+import firebase from '../config/firebase-config';
 import { uploadNewConcernImages } from './images';
 import { GOOGLE_MAPS_JAVASCRIPT_API_KEY } from '../config/google-maps';
-import geofire from '../config/geofire';
+import geofire from '../config/geofire-config';
 import types from '../constants/concernTypes';
 
 /**
