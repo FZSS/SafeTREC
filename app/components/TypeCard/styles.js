@@ -9,17 +9,14 @@ export default StyleSheet.create({
   },
 
   typeTitle: {
-    color: 'white',
-    fontSize: 20,
+    color: 'darkorange',
+    fontSize: 25,
     textAlign: 'center',
-    backgroundColor: 'transparent',
   },
 
   typeBackground: {
     flex: 1,
-    opacity: 0.8,
-    backgroundColor: 'black',
-    overflow: 'hidden',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },

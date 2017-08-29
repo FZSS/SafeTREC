@@ -9,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import Icon from 'react-native-vector-icons';
 import styles from './styles';
 import concernTypes, { concernTypeImages } from '../../constants/concernTypes';
 import { updateConcernTypes } from '../../actions/concerns';
@@ -53,14 +54,6 @@ class TypeCard extends Component {
     }],
   };
 
-  // find the image that represents the type, if none found, use other.jpg
-  static getImage(type) {
-    if (concernTypes.includes(type)) {
-      return concernTypeImages[type];
-    }
-    return concernTypeImages.Other;
-  }
-
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -100,15 +93,11 @@ class TypeCard extends Component {
         style={styles.typeCard}
         onPress={() => this.openCommentCard(type)}
       >
-        <ImageBackground
-          resizeMode={'cover'}
-          source={TypeCard.getImage(type)}
-          style={styles.typeBackground}
-        >
-          <Text style={styles.typeTitle}>
+        <View style={styles.typeBackground}>
+          <Text style={styles.typeTitle} bold>
             {type}
           </Text>
-        </ImageBackground>
+        </View>
       </TouchableOpacity>
     ));
   }
