@@ -24,7 +24,7 @@ export const submitConcern = (details, images) => {
     }
   });
 
-  const concernsRef = firebase.database().ref().child('concerns');
+  const concernsRef = firebase.database().ref('concerns');
   const newConcernId = concernsRef.push().key;
 
   const concern = {

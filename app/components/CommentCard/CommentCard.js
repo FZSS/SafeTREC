@@ -180,15 +180,15 @@ class CommentCard extends Component {
     );
   }
 
-  appendConcernDescription(text) {
-    const concernDescription = _.clone(this.state.concernDescription).concat(text);
-    this.setState({ concernDescription });
-  }
-
   getConcernTypes() {
     const types = _.clone(this.props.concernTypes);
     types.push('Other');
     return types;
+  }
+
+  appendConcernDescription(text) {
+    const concernDescription = _.clone(this.state.concernDescription).concat(text);
+    this.setState({ concernDescription });
   }
 
   updateRating(value) {
