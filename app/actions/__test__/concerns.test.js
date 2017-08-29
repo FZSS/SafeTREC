@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
-import * as actions from '../concerns';
+import * as concerns from '../concerns';
+
+jest.mock('firebase');
 
 jest.mock('../images', () => ({
   uploadNewConcernImages: () => {},
@@ -9,20 +11,23 @@ jest.mock('../../constants/concernTypes', () => (
   ['Speeding', 'Visibility', 'Right of way', 'Violation']
 ));
 
-jest.mock('firebase', () => ({
-  database: () => ({
-    ref: () => ({
-      push: () => ({
-        key: 'ZXCCVBNMSDFJK',
-      }),
-    }),
-  }),
-}));
+// probably should put mocks somewhere else to be reusable
+// jest.mock('../../config/firebase', () => ({
+//   database: () => ({
+//     ref: () => ({
+//       push: () => ({
+//         key: 'ZXCCVBNMSDFJK',
+//       }),
+//     }),
+//   }),
+// }));
 
 const details = {
   address: '2715 Dwight way',
-  latitude: 37.78821,
-  longitude: -122.4224,
+  coordinate: {
+    latitude: 37.78821,
+    longitude: -122.4224,
+  },
   title: 'Speeding Concern',
   id: 'XDFJKSJK129JK',
   description: 'test concern',
@@ -45,6 +50,6 @@ describe('submit concern', () => {
   });
 
   it('creates SUBMIT_CONCERN_FULFILLED when successful', () => {
-    submitConcern(details, images);
+    concerns.submitConcern(details, images);
   });
 });

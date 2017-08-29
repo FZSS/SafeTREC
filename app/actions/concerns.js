@@ -14,15 +14,6 @@ import types from '../constants/concernTypes';
  * @return {{type: string, payload: Promise.<*[]>}}
  */
 export const submitConcern = (details, images) => {
-  // check connection TODO:DELETE
-  const connectedRef = firebase.database().ref('.info/connected');
-  connectedRef.on('value', (snap) => {
-    if (snap.val() === true) {
-      console.log('connected');
-    } else {
-      console.log('not connected');
-    }
-  });
 
   const concernsRef = firebase.database().ref('concerns');
   const newConcernId = concernsRef.push().key;

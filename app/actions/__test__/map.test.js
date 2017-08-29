@@ -1,8 +1,8 @@
 import thunk from 'redux-thunk';
-import * as actions from '../map';
-import geofire from '../../config/geofire';
+// import * as actions from '../map';
 
-jest.mock('../../config/geofire');
+jest.mock('geofire');
+jest.mock('firebase');
 
 describe('Get concerns in region', () => {
   beforeEach(() => {
