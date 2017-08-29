@@ -14,7 +14,6 @@ import types from '../constants/concernTypes';
  * @return {{type: string, payload: Promise.<*[]>}}
  */
 export const submitConcern = (details, images) => {
-
   const concernsRef = firebase.database().ref('concerns');
   const newConcernId = concernsRef.push().key;
 

@@ -8,6 +8,15 @@ const database = () => ({
   }),
 });
 
+const storage = () => ({
+  ref: () => ({
+    push: () => ({
+      key: 'ZXCCVBNMSDFJK',
+    }),
+  }),
+});
+
 firebase.database = database;
+firebase.storage = storage;
 
 export default firebase;
