@@ -8,6 +8,16 @@ const database = () => ({
   }),
 });
 
+// function storage() {
+//   return {
+//     ref: () => ({
+//       push: () => ({
+//         key: 'ZXCCVBNMSDFJK',
+//       }),
+//     }),
+//   };
+// }
+
 const storage = () => ({
   ref: () => ({
     push: () => ({

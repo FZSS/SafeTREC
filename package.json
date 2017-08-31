@@ -44,7 +44,7 @@
     "eslint-plugin-react-native": "^3.0.1",
     "jest": "19.0.2",
     "nock": "^9.0.14",
-    "react-test-renderer": "16.0.0-alpha.6"
+    "react-test-renderer": "^15.6.1"
   },
   "jest": {
     "preset": "react-native",
@@ -54,6 +54,12 @@
       "app/reducers/*.js",
       "!app/**/styles.js"
     ],
+    "globals": {
+      "window": {
+        "XMLHttpRequest": {},
+        "Blob": {}
+      }
+    },
     "coverageDirectory": "coverage"
   }
 }

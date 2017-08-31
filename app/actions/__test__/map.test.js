@@ -1,4 +1,3 @@
-import thunk from 'redux-thunk';
 // import * as actions from '../map';
 
 jest.mock('geofire');
