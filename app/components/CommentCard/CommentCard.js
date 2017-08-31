@@ -14,7 +14,7 @@ import {
 import _ from 'underscore';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import { submitConcern } from '../../actions/concerns';
+import { submitConcern, updateNewConcernMode } from '../../actions/concerns';
 import { getConcernsInRegion } from '../../actions/map';
 import { concernsPropTypes } from '../../reducers/concernsReducer';
 import { imagesPropTypes } from '../../reducers/imagesReducer';
@@ -33,11 +33,13 @@ const mapStateToProps = state => ({
   predictionStatus: state.images.imagePredictionStatus,
   imagePredictionEnabled: state.images.imagePredictionEnabled,
   concernTypes: state.concerns.concernTypes,
+  modeOfTransportation: state.concerns.newConcern.modeOfTransportation,
 });
 
 const mapDispatchToProps = {
   submitConcern,
   getConcernsInRegion,
+  updateNewConcernMode,
 };
 
 class CommentCard extends Component {
@@ -54,10 +56,11 @@ class CommentCard extends Component {
     /* actions */
     submitConcern: PropTypes.func.isRequired,
     getConcernsInRegion: PropTypes.func.isRequired,
+    updateNewConcernMode: PropTypes.func.isRequired,
     /* own props */
     navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     concernType: PropTypes.string.isRequired,
-    modeOfTransportation: PropTypes.string, // TODO: store this in store
+    modeOfTransportation: PropTypes.string, //
   };
 
   static defaultProps = {
@@ -122,18 +125,11 @@ class CommentCard extends Component {
         this.props.navigator.setStyle({
           navBarHidden: true,
         });
-
-        const details = {
-          address: this.props.newConcern.address,
-          coordinate: this.props.newConcern.coordinate,
-          title: `${this.props.concernType} concern`,
-          description: this.state.concernDescription,
-        };
-
-        this.props.submitConcern(details, this.props.newImages);
+        this.processAndSubmitConcern();
       }
     }
   }
+
 
   getPredictions() {
     if (this.props.newImages.length === 0) {
@@ -186,6 +182,24 @@ class CommentCard extends Component {
     return types;
   }
 
+  processAndSubmitConcern() {
+    const details = {
+      address: this.props.newConcern.address,
+      coordinate: this.props.newConcern.coordinate,
+      latitude: this.props.newConcern.coordinate.latitude,
+      longitude: this.props.newConcern.coordinate.longitude,
+      title: `${this.props.concernType} concern`,
+      description: this.state.concernDescription,
+      rating: this.state.rating,
+      type: this.props.concernType,
+      modeOfTransportation: this.props.modeOfTransportation,
+      predictions: this.props.predictions,
+      numberOfImages: this.props.newImages.length,
+    };
+
+    this.props.submitConcern(details, this.props.newImages);
+  }
+
   appendConcernDescription(text) {
     const concernDescription = _.clone(this.state.concernDescription).concat(text);
     this.setState({ concernDescription });
@@ -209,21 +223,8 @@ class CommentCard extends Component {
             tintColor="darkorange"
             values={modes}
             selectedIndex={modes.indexOf(this.props.modeOfTransportation)}
-            // onValueChange={(value) => {
-            //   this.setState({ reportCategory: value });
-            // }}
+            onValueChange={v => this.props.updateNewConcernMode(v)}
           />
-
-          {/* <SegmentedControlIOS */}
-          {/* style={styles.segmentedControl} */}
-          {/* tintColor="darkorange" */}
-          {/* values={this.getConcernTypes()} */}
-          {/* enabled={false} */}
-          {/* selectedIndex={this.getConcernTypes().indexOf(this.props.concernType)} */}
-          {/* // onValueChange={(value) => { */}
-          {/* //   this.setState({ reportCategory: value }); */}
-          {/* // }} */}
-          {/* /> */}
 
           <View style={styles.ratingBox}>
             <Text style={styles.ratingTextLong}> Concern Rating </Text>

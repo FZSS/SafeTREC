@@ -17,21 +17,16 @@ export const submitConcern = (details, images) => {
   const concernsRef = firebase.database().ref('concerns');
   const newConcernId = concernsRef.push().key;
 
-  const concern = {
-    address: details.address,
-    latitude: details.coordinate.latitude,
-    longitude: details.coordinate.longitude,
-    title: details.title,
+  const detailsWithId = {
     id: newConcernId,
-    description: details.description,
-    numberOfImages: images.length,
+    ...details,
   };
 
   // add a list of promises to upload new concern images
   const promises = uploadNewConcernImages(newConcernId, images);
 
   // add the promise to set concern to the new ref
-  promises.push(concernsRef.child(newConcernId).set(concern));
+  promises.push(concernsRef.child(newConcernId).set(detailsWithId));
 
   // add the promise to set geohash in geofire
   const [lat, long] = [details.coordinate.latitude, details.coordinate.longitude];
@@ -121,16 +116,26 @@ export const updateNewConcernCoordinates = (latitude, longitude) => ({
 });
 
 /**
+ * Return an action to update the new concern's mode of transportation
+ * @param mode
+ */
+export const updateNewConcernMode = mode => ({
+  type: actionTypes.UpdateNewConcernModeOfTransportation,
+  payload: mode,
+});
+
+/**
  * Return the types of traffic safety concerns based on parameters
  * @param mode - Mode of Transportation
  * @param time - The Date object when the concern is created
  * @param coordinate - The coordinate of the concern
  */
-/* eslint no-unused-vars: 1 */
+/* TODO: This not doing anything with parameters as of now but returning fixed
+   types from constants/concernTypes. Should be updated to a server call that uses
+   all the parameters to determine which types */
 export const updateConcernTypes = (mode, time, coordinate) => ({
-  /* TODO: This not doing anything with parameters as of now but returning fixed
-     types from constants/concernTypes. Should be updated to a server call that uses
-     all the parameters to determine which types */
+  /* eslint no-unused-vars: 1 */
   type: actionTypes.UpdateConcernTypes,
   types,
 });
+

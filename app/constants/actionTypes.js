@@ -9,6 +9,7 @@ const actionTypes = {
   UpdateNewConcernAddressFromGeocode: 'UPDATE_ADDRESS_FROM_GEOCODE',
   UpdateNewConcernAddress: 'UPDATE_NEW_CONCERN_ADDRESS',
   UpdateNewConcernCoordinates: 'UPDATE_NEW_CONCERN_COORDINATES',
+  UpdateNewConcernModeOfTransportation: 'UPDATE_NEW_CONCERN_MODE',
   ResetNewConcernImages: 'RESET_NEW_CONCERN_IMAGES',
   AddANewConcernImage: 'ADD_A_NEW_CONCERN_IMAGE',
   GetConcernImages: 'GET_CONCERN_IMAGES',

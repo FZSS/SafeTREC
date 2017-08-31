@@ -19,6 +19,7 @@ import {
   updateMapRegionWithFix,
   updateUserLocation,
 } from '../../actions/map';
+import { updateNewConcernMode } from '../../actions/concerns';
 
 const modes = ['Pedestrian', 'Bicycle', 'Automobile'];
 
@@ -32,6 +33,7 @@ const mapDispatchToProps = {
   getConcernsInRegion,
   updateMapRegion,
   updateUserLocation,
+  updateNewConcernMode,
 };
 
 class Map extends Component {
@@ -44,6 +46,7 @@ class Map extends Component {
     getConcernsInRegion: PropTypes.func.isRequired,
     updateMapRegion: PropTypes.func.isRequired,
     updateUserLocation: PropTypes.func.isRequired,
+    updateNewConcernMode: PropTypes.func.isRequired,
     /* own props */
     navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
@@ -82,12 +85,10 @@ class Map extends Component {
   }
 
   goToPictures(mode) {
+    this.props.updateNewConcernMode(mode);
     this.props.navigator.push({
       screen: 'app.PicturesView',
       title: 'Start with a Picture',
-      passProps: {
-        modeOfTransportation: mode,
-      },
     });
   }
 

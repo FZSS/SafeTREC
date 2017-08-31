@@ -167,11 +167,21 @@ export default function (state = initialState, action) {
         },
       };
 
+    case actionTypes.UpdateNewConcernModeOfTransportation:
+      return {
+        ...state,
+        newConcern: {
+          ...state.newConcern,
+          modeOfTransportation: action.payload,
+        },
+      };
+
     case actionTypes.UpdateConcernTypes:
       return {
         ...state,
         concernTypes: action.types,
       };
+
 
     default:
       return state;

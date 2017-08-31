@@ -48,7 +48,6 @@ class PicturesView extends Component {
     getImagePredictions: PropTypes.func.isRequired,
     /* own props */
     navigator: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-    modeOfTransportation: PropTypes.string.isRequired,
   };
 
   static navigatorStyle = {
@@ -120,7 +119,6 @@ class PicturesView extends Component {
       passProps: {
         // pass the location of the first image if there is one
         pictureLocation: this.getPictureLocation(),
-        modeOfTransportation: this.props.modeOfTransportation,
       },
     });
   }
