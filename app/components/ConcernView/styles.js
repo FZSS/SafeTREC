@@ -108,6 +108,13 @@ const styles = StyleSheet.create({
     height: 300,
   },
 
+  noImageText: {
+    marginTop: 100,
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 20,
+  },
+
 });
 
 export { navigatorStyle, styles };

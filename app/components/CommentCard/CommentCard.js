@@ -98,7 +98,7 @@ class CommentCard extends Component {
       if (this.props.submissionStatus.failed) {
         Alert.alert(
           'Failed Submission',
-          'Sorry about that', // TODO: should show error msg
+          'Sorry about that',
           [
             { text: 'OK', onPress: () => popToRoot() },
           ],

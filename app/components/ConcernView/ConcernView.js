@@ -109,7 +109,11 @@ class ConcernView extends Component {
   }
 
   loadImages() {
-    console.log(this.props.images);
+    if (this.props.images.length === 0) {
+      return (
+        <Text style={styles.noImageText}>No Image Available</Text>
+      );
+    }
     return this.props.images.map(image => (<Image
       key={image.key}
       style={styles.imageSlide}

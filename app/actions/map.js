@@ -26,7 +26,7 @@ export const getConcernsInRegion = mapRegion => (dispatch) => {
     radius,
   });
 
-  let getConcerns = [];
+  let getConcerns = []; // a list of requests to get concerns
   const concernIdsInRegion = [];
 
   /* if a key/concernId is in the region, add to concernIdsInRegion */
